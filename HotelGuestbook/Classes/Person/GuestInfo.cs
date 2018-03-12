@@ -1,5 +1,5 @@
 ﻿using System;
-using HotelGuestbook.ExtensionMethods.Person;
+using System.Collections.Generic;
 
 namespace HotelGuestbook.Classes.Person
 {
@@ -14,5 +14,10 @@ namespace HotelGuestbook.Classes.Person
         /// <param name="email">Guest's email.</param>
         public GuestInfo(string firstName, string lastName, DateTime dateOfBirth, string email)
             : base(firstName, lastName, dateOfBirth, email) { }
+
+        /// <summary>
+        /// Collection of Guests.
+        /// </summary>
+        public virtual ICollection<GuestInfo> Guests { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using HotelGuestbook.ExtensionMethods.Person;
+using System.Collections.Generic;
 
 namespace HotelGuestbook.Classes.Person
 {
@@ -23,5 +23,10 @@ namespace HotelGuestbook.Classes.Person
         /// Is person enabled to allow editing data.
         /// </summary>
         public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// Collection of employees.
+        /// </summary>
+        public virtual ICollection<EmployeeInfo> Employees { get; set; }
     }
 }

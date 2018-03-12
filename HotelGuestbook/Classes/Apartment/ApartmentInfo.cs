@@ -1,4 +1,6 @@
-﻿namespace HotelGuestbook.ExtensionMethods.Apartment
+﻿using System.Collections.Generic;
+
+namespace HotelGuestbook.Classes.Apartment
 {
     public class ApartmentInfo
     {
@@ -27,5 +29,10 @@
         /// Number of double beds in capacity.
         /// </summary>
         public int DoubleBeds { get; set; }
+
+        /// <summary>
+        /// Collection of apartments.
+        /// </summary>
+        public virtual ICollection<ApartmentInfo> Apartments { get; set; }
     }
 }

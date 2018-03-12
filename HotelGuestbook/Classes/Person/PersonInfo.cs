@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HotelGuestbook.ExtensionMethods.Person
+namespace HotelGuestbook.Classes.Person
 {
     public class PersonInfo
     {

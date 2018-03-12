@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HotelGuestbook.ExtensionMethods.Apartment
+namespace HotelGuestbook.Classes.Apartment
 {
     public static class ApartmentProvider
     {

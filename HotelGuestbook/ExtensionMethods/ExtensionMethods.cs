@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using HotelGuestbook.ExtensionMethods.Apartment;
-using HotelGuestbook.ExtensionMethods.Person;
-using HotelGuestbook.ExtensionMethods.Reservation;
+using HotelGuestbook.Classes.Apartment;
+using HotelGuestbook.Classes.Person;
+using HotelGuestbook.Classes.Reservation;
 
 namespace HotelGuestbook.ExtensionMethods
 {
