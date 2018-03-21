@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,6 +21,8 @@ namespace HotelGuestbook.Classes.Reservation
             From = from;
             To = to;
         }
+
+        protected ReservationInfo() { }
 
         /// <summary>
         /// ID of a reservation.
@@ -48,10 +49,5 @@ namespace HotelGuestbook.Classes.Reservation
         /// Date indicating the day till which is the reservation.
         /// </summary>
         public DateTime To { get; set; }
-
-        /// <summary>
-        /// Collection of reservations.
-        /// </summary>
-        public ICollection<ReservationInfo> Reservations { get; set; }
     }
 }

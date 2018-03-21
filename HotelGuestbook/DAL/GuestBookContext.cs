@@ -11,7 +11,7 @@ namespace HotelGuestbook.DAL
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GuestBookContext() : base("GuestBookContext") { }
+        public GuestBookContext(string context) : base(context) { }
 
         /// <summary>
         /// DB set of apartments.
@@ -26,12 +26,8 @@ namespace HotelGuestbook.DAL
         /// <summary>
         /// DB set of employees.
         /// </summary>
-        public DbSet<EmployeeInfo> Employees { get; set; }
+        public DbSet<PersonInfo> Persons { get; set; }
 
-        /// <summary>
-        /// DB set of guests.
-        /// </summary>
-        public DbSet<GuestInfo> Guests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

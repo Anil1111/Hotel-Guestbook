@@ -14,6 +14,7 @@ namespace HotelGuestbook.Classes.Apartment
             throw new NotImplementedException();
         }
 
+    
         /// <summary>
         /// Returns all apartments with capacity greater than <paramref name="capaciy"/>.
         /// </summary>

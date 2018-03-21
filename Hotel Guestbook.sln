@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelGuestbookWinForms", "Hotel Guestbook\HotelGuestbookWinForms.csproj", "{F2B86975-3D28-46F2-A86F-DE55854C99B7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelGuestbook.Tests", "HotelGuestbook.Tests\HotelGuestbook.Tests.csproj", "{B504C738-8CCD-4282-AB3D-6FC2C634D0FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelGuestbook", "HotelGuestbook\HotelGuestbook.csproj", "{E74EB631-D0F6-4518-9FFC-3214C66843C3}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F2B86975-3D28-46F2-A86F-DE55854C99B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2B86975-3D28-46F2-A86F-DE55854C99B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2B86975-3D28-46F2-A86F-DE55854C99B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2B86975-3D28-46F2-A86F-DE55854C99B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B504C738-8CCD-4282-AB3D-6FC2C634D0FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B504C738-8CCD-4282-AB3D-6FC2C634D0FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B504C738-8CCD-4282-AB3D-6FC2C634D0FA}.Release|Any CPU.ActiveCfg = Release|Any CPU

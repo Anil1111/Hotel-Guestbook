@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelGuestbook.Classes.Apartment
@@ -18,6 +17,8 @@ namespace HotelGuestbook.Classes.Apartment
             DoubleBeds = doubleBeds;
         }
 
+        protected ApartmentInfo() { }
+
         /// <summary>
         /// ID of the apartment.
         /// </summary>
@@ -33,10 +34,5 @@ namespace HotelGuestbook.Classes.Apartment
         /// Number of double beds in capacity.
         /// </summary>
         public int DoubleBeds { get; set; }
-
-        /// <summary>
-        /// Collection of apartments.
-        /// </summary>
-        public virtual ICollection<ApartmentInfo> Apartments { get; set; }
     }
 }

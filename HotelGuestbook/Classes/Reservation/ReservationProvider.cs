@@ -14,6 +14,7 @@ namespace HotelGuestbook.Classes.Reservation
             throw new NotImplementedException();
         }
 
+
         /// <summary>
         /// Returns all reservations from a certain date.
         /// </summary>
@@ -22,6 +23,7 @@ namespace HotelGuestbook.Classes.Reservation
         {
             throw new NotImplementedException();
         }
+
 
         /// <summary>
         /// Returns all reservations till a certain date.

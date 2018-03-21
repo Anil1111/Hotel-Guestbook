@@ -69,9 +69,6 @@
   <ItemGroup>
     <Compile Include="Classes\Apartment\ApartmentInfo.cs" />
     <Compile Include="Classes\Apartment\ApartmentProvider.cs" />
-    <Compile Include="Classes\Person\EmployeeInfo.cs" />
-    <Compile Include="Classes\Person\GuestInfo.cs" />
-    <Compile Include="DAL\DataInitializer.cs" />
     <Compile Include="DAL\GuestBookContext.cs" />
     <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
     <Compile Include="Classes\Reservation\ReservationInfo.cs" />
@@ -79,15 +76,6 @@
     <Compile Include="Classes\Person\PersonProvider.cs" />
     <Compile Include="Classes\Reservation\ReservationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Database\HotelGuestbookDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\HotelGuestbookDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>HotelGuestbookDatabase.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -104,7 +92,6 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Web.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

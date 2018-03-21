@@ -36,6 +36,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -50,14 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntegrationTests\IntegrationTests.cs" />
+    <Compile Include="IntegrationTests\ApartmentTests.cs" />
+    <Compile Include="IntegrationTests\PersonTests.cs" />
+    <Compile Include="IntegrationTests\ReservationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestsBase\DatabaseExtensions.cs" />
+    <Compile Include="TestsBase\DataInitializer.cs" />
+    <Compile Include="TestsBase\IntegrationTestsBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hotel Guestbook\HotelGuestbookWinForms.csproj">
-      <Project>{f2b86975-3d28-46f2-a86f-de55854c99b7}</Project>
-      <Name>HotelGuestbookWinForms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HotelGuestbook\HotelGuestbook.csproj">
       <Project>{e74eb631-d0f6-4518-9ffc-3214c66843c3}</Project>
       <Name>HotelGuestbook</Name>
@@ -66,9 +68,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="SampleData\SampleApartments.csv" />
+    <None Include="SampleData\SamplePersons.csv" />
+    <None Include="SampleData\SampleReservations.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TestsSetUp\" />
     <Folder Include="UnitTests\" />
   </ItemGroup>
   <ItemGroup>
