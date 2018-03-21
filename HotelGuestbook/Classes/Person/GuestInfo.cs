@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelGuestbook.Classes.Person
 {
+    [Table("Guests")]
     public class GuestInfo : PersonInfo
     {
         /// <summary>
@@ -14,6 +17,14 @@ namespace HotelGuestbook.Classes.Person
         /// <param name="email">Guest's email.</param>
         public GuestInfo(string firstName, string lastName, DateTime dateOfBirth, string email)
             : base(firstName, lastName, dateOfBirth, email) { }
+
+        private GuestInfo() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key]
+        public int GuestId { get; set; }
 
         /// <summary>
         /// Collection of Guests.

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelGuestbook.Classes.Person
 {
+    [Table("Employees")]
     public class EmployeeInfo : PersonInfo
     {
         /// <summary>
@@ -18,6 +21,12 @@ namespace HotelGuestbook.Classes.Person
         {
             IsEnabled = isEnabled;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Key]
+        public int EmployeeId { get; set; }
 
         /// <summary>
         /// Is person enabled to allow editing data.

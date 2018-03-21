@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelGuestbook.Classes.Reservation
 {
+    [Table("Reservations")]
     public class ReservationInfo
     {
         /// <summary>
@@ -23,6 +26,7 @@ namespace HotelGuestbook.Classes.Reservation
         /// <summary>
         /// ID of a reservation.
         /// </summary>
+        [Key]
         public int ReservationId { get; set; }
 
         /// <summary>

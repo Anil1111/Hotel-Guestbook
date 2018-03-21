@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelGuestbook.Classes.Apartment
 {
+    [Table("Apartments")]
     public class ApartmentInfo
     {
         /// <summary>
@@ -18,6 +21,7 @@ namespace HotelGuestbook.Classes.Apartment
         /// <summary>
         /// ID of the apartment.
         /// </summary>
+        [Key]
         public int ApartmentId { get; set; }
 
         /// <summary>

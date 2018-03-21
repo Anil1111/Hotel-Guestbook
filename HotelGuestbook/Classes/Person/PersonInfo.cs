@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelGuestbook.Classes.Person
 {
@@ -21,9 +22,12 @@ namespace HotelGuestbook.Classes.Person
             Email = email ?? throw new ArgumentNullException(nameof(email));
         }
 
+        protected PersonInfo() { }
+
         /// <summary>
         /// Person ID.
         /// </summary>
+        [Key]
         int PersonId { get; set; }
 
         /// <summary>
