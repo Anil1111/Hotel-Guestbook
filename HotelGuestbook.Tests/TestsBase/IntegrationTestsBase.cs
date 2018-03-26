@@ -5,7 +5,7 @@ namespace HotelGuestbook.Tests.TestsBase
 {
     public class IntegrationTestsBase : DataInitializer
     {
-        protected GuestBookContext GuestBookContext
+        protected GuestBook GuestBookContext
         {
             get;
             private set;
@@ -15,13 +15,14 @@ namespace HotelGuestbook.Tests.TestsBase
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            GuestBookContext = new GuestBookContext("GuestBookTests");
+            GuestBookContext = new GuestBook("GuestBookTests");
         }
+
 
         [SetUp]
         public void SetUp()
         {
-            base.Seed(GuestBookContext);
+            GenerateTestData(GuestBookContext, true);
         }
 
 

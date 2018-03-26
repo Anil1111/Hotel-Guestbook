@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.SqlClient;
 
-namespace HotelGuestbook.Tests.TestsBase
+namespace HotelGuestbook.Tests
 {
     public static class DatabaseExtensions
     {

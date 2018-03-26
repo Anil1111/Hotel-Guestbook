@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HotelGuestbook.DAL;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HotelGuestbook.Classes.Apartment
 {
@@ -11,7 +13,7 @@ namespace HotelGuestbook.Classes.Apartment
         /// <param name="id">ID of the apartment.</param>
         public static ApartmentInfo GetApartmentById(int id)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Apartments.FirstOrDefault(apartment => apartment.ApartmentId == id);
         }
 
     
@@ -19,9 +21,20 @@ namespace HotelGuestbook.Classes.Apartment
         /// Returns all apartments with capacity greater than <paramref name="capaciy"/>.
         /// </summary>
         /// <param name="capaciy">The least desired capacity.</param>
-        public static IEnumerable<ApartmentInfo> GetApartmentsWithCapacityGraterThan(int capaciy)
+        public static IEnumerable<ApartmentInfo> GetApartmentsWithCapacityAtLeast(int capaciy)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Apartments.Where(apartment => apartment.Capacity >= capaciy);
+        }
+
+
+        /// <summary>
+        /// Saves the <paramref name="apartment"/> to the database.
+        /// </summary>
+        /// <param name="apartment">Apartment to be saved.</param>
+        public static void SetApartment(ApartmentInfo apartment)
+        {
+            GuestBook.Context.Apartments.Add(apartment);
+            GuestBook.Context.SaveChanges();
         }
     }
 }

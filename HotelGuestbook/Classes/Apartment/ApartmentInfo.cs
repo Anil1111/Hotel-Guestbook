@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HotelGuestbook.Classes.Reservation;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelGuestbook.Classes.Apartment
@@ -7,17 +9,22 @@ namespace HotelGuestbook.Classes.Apartment
     public class ApartmentInfo
     {
         /// <summary>
-        /// Constructor.
+        /// Creates a new instance of ApartmentInfo.
         /// </summary>
         /// <param name="capacity">Capacity of the apartment.</param>
-        /// <param name="doubleBeds">Numbe rof double beds in an apartment.</param>
+        /// <param name="doubleBeds">Number of double beds in an apartment.</param>
         public ApartmentInfo(int capacity, int doubleBeds)
         {
             Capacity = capacity;
             DoubleBeds = doubleBeds;
         }
 
-        protected ApartmentInfo() { }
+
+        /// <summary>
+        /// Creates a new instance of ApartmentInfo.
+        /// </summary>
+        public ApartmentInfo() { }
+
 
         /// <summary>
         /// ID of the apartment.
@@ -25,14 +32,22 @@ namespace HotelGuestbook.Classes.Apartment
         [Key]
         public int ApartmentId { get; set; }
 
+
         /// <summary>
         /// Apartment's capacity.
         /// </summary>
         public int Capacity { get; set; }
 
+
         /// <summary>
         /// Number of double beds in capacity.
         /// </summary>
         public int DoubleBeds { get; set; }
+
+
+        /// <summary>
+        /// Holds a list of reservations to this apartment.
+        /// </summary>
+        public virtual ICollection<ReservationInfo> Reservations { get; set; }
     }
 }

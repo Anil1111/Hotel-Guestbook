@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HotelGuestbook.Classes.Apartment;
 using HotelGuestbook.Classes.Person;
 using HotelGuestbook.Classes.Reservation;
+using HotelGuestbook.DAL;
 
 namespace HotelGuestbook.ExtensionMethods
 {
@@ -14,7 +16,7 @@ namespace HotelGuestbook.ExtensionMethods
         /// <param name="person">Person the reservations of whom to retrieve.</param>
         public static IEnumerable<ReservationInfo> GetAllReservations(this PersonInfo person)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Reservations.Where(reservation => reservation.Person == person);
         }
     }
 
@@ -27,7 +29,7 @@ namespace HotelGuestbook.ExtensionMethods
         /// <param name="apartment">Apartment the reservations of which to retrieve.</param>
         public static IEnumerable<ReservationInfo> GetAllReservations(this ApartmentInfo apartment)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Reservations.Where(reservation => reservation.Apartment == apartment);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HotelGuestbook.Classes.Reservation;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +10,7 @@ namespace HotelGuestbook.Classes.Person
     public class PersonInfo
     {
         /// <summary>
-        /// Constructor.
+        /// Creates a new instance of PersonInfo.
         /// </summary>
         /// <param name="firstName">Person's first name.</param>
         /// <param name="lastName">Person's last name.</param>
@@ -22,7 +24,12 @@ namespace HotelGuestbook.Classes.Person
             DateOfBirth = dateOfBirth;
         }
 
-        protected PersonInfo() { }
+
+        /// <summary>
+        /// Creates a new instance of PersonInfo.
+        /// </summary>
+        public PersonInfo() { }
+
 
         /// <summary>
         /// Person ID.
@@ -30,24 +37,34 @@ namespace HotelGuestbook.Classes.Person
         [Key]
         public int PersonId { get; set; }
 
+
         /// <summary>
         /// First name.
         /// </summary>
         public string FirstName { get; set; }
+
 
         /// <summary>
         /// Last name.
         /// </summary>
         public string LastName { get; set; }
 
+
         /// <summary>
         /// E-mail.
         /// </summary>
         public string Email { get; set; }
 
+
         /// <summary>
         /// Date of birth.
         /// </summary>
         public DateTime DateOfBirth { get; set; }
+
+
+        /// <summary>
+        /// Holds a list of reservations of this person.
+        /// </summary>
+        public virtual ICollection<ReservationInfo> Reservations { get; set; }
     }
 }

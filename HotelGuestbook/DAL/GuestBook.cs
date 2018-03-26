@@ -6,22 +6,37 @@ using HotelGuestbook.Classes.Reservation;
 
 namespace HotelGuestbook.DAL
 {
-    public class GuestBookContext : DbContext
+    public class GuestBook : DbContext
     {
+        /// <summary>
+        /// Context of the Guest book. 
+        /// </summary>
+        public static GuestBook Context {
+            get;
+            private set;
+        }
+        
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GuestBookContext(string context) : base(context) { }
+        public GuestBook(string context) : base(context)
+        {
+            Context = this;
+        }
+
 
         /// <summary>
         /// DB set of apartments.
         /// </summary>
         public DbSet<ApartmentInfo> Apartments { get; set; }
 
+
         /// <summary>
         /// DB set of reservations.
         /// </summary>
         public DbSet<ReservationInfo> Reservations { get; set; }
+
 
         /// <summary>
         /// DB set of employees.

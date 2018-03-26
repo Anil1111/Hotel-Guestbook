@@ -69,12 +69,14 @@
   <ItemGroup>
     <Compile Include="Classes\Apartment\ApartmentInfo.cs" />
     <Compile Include="Classes\Apartment\ApartmentProvider.cs" />
-    <Compile Include="DAL\GuestBookContext.cs" />
+    <Compile Include="DAL\GuestBook.cs" />
     <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
     <Compile Include="Classes\Reservation\ReservationInfo.cs" />
     <Compile Include="Classes\Person\PersonInfo.cs" />
     <Compile Include="Classes\Person\PersonProvider.cs" />
     <Compile Include="Classes\Reservation\ReservationProvider.cs" />
+    <Compile Include="Helpers\ConversionHelper.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

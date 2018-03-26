@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HotelGuestbook.DAL;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HotelGuestbook.Classes.Reservation
 {
@@ -8,10 +10,10 @@ namespace HotelGuestbook.Classes.Reservation
         /// <summary>
         /// Returns a reservation by its ID.
         /// </summary>
-        /// <param name="id">ID of the resetvation.</param>
+        /// <param name="id">ID of the reservation.</param>
         public static ReservationInfo GetReservationById(int id)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Reservations.FirstOrDefault(reservation => reservation.ReservationId == id);
         }
 
 
@@ -21,7 +23,7 @@ namespace HotelGuestbook.Classes.Reservation
         /// <param name="from">Starting date.</param>
         public static IEnumerable<ReservationInfo> GetAllReservationsFrom(DateTime from)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Reservations.Where(reservation => reservation.From >= from);
         }
 
 
@@ -31,7 +33,18 @@ namespace HotelGuestbook.Classes.Reservation
         /// <param name="till">Ending day.</param>
         public static IEnumerable<ReservationInfo> GetAllReservationsTill(DateTime till)
         {
-            throw new NotImplementedException();
+            return GuestBook.Context.Reservations.Where(reservation => reservation.To <= till);
+        }
+
+
+        /// <summary>
+        /// Saves the <paramref name="reservation"/> to the database.
+        /// </summary>
+        /// <param name="reservation">Reservation to be saved.</param>
+        public static void SetReservation(ReservationInfo reservation)
+        {
+            GuestBook.Context.Reservations.Add(reservation);
+            GuestBook.Context.SaveChanges();
         }
     }
 }
