@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace HotelGuestbook.Tests
 {
-    public class DataInitializer : DropCreateDatabaseAlways<GuestBook>
+    public class DataInitializer : DropCreateDatabaseIfModelChanges<GuestBook>
     {
         private const string SAMPLE_APARTMENTS_RELATIVE_PATH = @"../../../SampleData/SampleApartments.csv";
         private const string SAMPLE_PERSONS_RELATIVE_PATH = @"../../../SampleData/SamplePersons.csv";

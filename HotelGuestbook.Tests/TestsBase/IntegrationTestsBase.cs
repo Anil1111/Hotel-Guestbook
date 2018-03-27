@@ -16,22 +16,8 @@ namespace HotelGuestbook.Tests.TestsBase
         public void OneTimeSetUp()
         {
             GuestBookContext = new GuestBook("GuestBookTests");
-        }
 
-
-        [SetUp]
-        public void SetUp()
-        {
             GenerateTestData(GuestBookContext, true);
-        }
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            GuestBookContext.Database.ExecuteSqlCommand("DELETE FROM Persons");
-            GuestBookContext.Database.ExecuteSqlCommand("DELETE FROM Apartments");
-            GuestBookContext.Database.ExecuteSqlCommand("DELETE FROM Reservations");
         }
 
 

@@ -14,9 +14,9 @@ namespace HotelGuestbook.ExtensionMethods
         /// Returns all reservations for a specified person.
         /// </summary>
         /// <param name="person">Person the reservations of whom to retrieve.</param>
-        public static IEnumerable<ReservationInfo> GetAllReservations(this PersonInfo person)
+        public static IEnumerable<ReservationInfo> GetAllReservationsForPerson(this PersonInfo person)
         {
-            return GuestBook.Context.Reservations.Where(reservation => reservation.Person == person);
+            return GuestBook.Context.Reservations.Where(reservation => reservation.PersonId == person.PersonId);
         }
     }
 
@@ -27,9 +27,9 @@ namespace HotelGuestbook.ExtensionMethods
         /// Returns all reservations for a specified apartment.
         /// </summary>
         /// <param name="apartment">Apartment the reservations of which to retrieve.</param>
-        public static IEnumerable<ReservationInfo> GetAllReservations(this ApartmentInfo apartment)
+        public static IEnumerable<ReservationInfo> GetAllReservationsForPerson(this ApartmentInfo apartment)
         {
-            return GuestBook.Context.Reservations.Where(reservation => reservation.Apartment == apartment);
+            return GuestBook.Context.Reservations.Where(reservation => reservation.ApartmentId == apartment.ApartmentId);
         }
     }
 }
