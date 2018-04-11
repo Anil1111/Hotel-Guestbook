@@ -9,6 +9,7 @@ namespace HotelGuestbook.Tests.IntegrationTests
     public class PersonTests : IntegrationTestsBase
     {
         [Test]
+        [Ignore("Depends on current DB state")]
         public void DataInitializer_GeneratesCorrectAmountOfPersons()
         {
             Assert.That(GuestBookContext.Persons.ToList().Count, Is.EqualTo(10));
@@ -66,7 +67,7 @@ namespace HotelGuestbook.Tests.IntegrationTests
         [Test]
         public void DeletePerson_PersonIsDeletedFromDb()
         {
-            var person = PersonProvider.GetPersonsByFirstName("Marcel").First();
+            var person = PersonProvider.GetAllPersons().First();
             var count = GuestBookContext.Persons.ToList().Count;
 
             PersonProvider.DeletePerson(person);

@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace HotelGuestbook.Tests
 {
-    public class DataInitializer : DropCreateDatabaseIfModelChanges<GuestBook>
+    public class DataInitializer : DropCreateDatabaseAlways<GuestBook>
     {
         private const string SAMPLE_APARTMENTS_RELATIVE_PATH = @"../../../SampleData/SampleApartments.csv";
         private const string SAMPLE_PERSONS_RELATIVE_PATH = @"../../../SampleData/SamplePersons.csv";
@@ -47,17 +47,13 @@ namespace HotelGuestbook.Tests
         private void GenerateData<T>(string sample)
             where T : class, new()
         {
-            using (TextFieldParser parser = new TextFieldParser(sample))
+            using (var reader = new StreamReader(sample))
             {
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(";");
-                parser.TrimWhiteSpace = true;
+                var header = reader.ReadLine();
 
-                var header = parser.ReadFields();
-
-                while (!parser.EndOfData)
+                while (!reader.EndOfStream)
                 {
-                    var currentLine = parser.ReadFields();
+                    var currentLine = reader.ReadLine();
 
                     switch (typeof(T).Name)
                     {
@@ -100,9 +96,16 @@ namespace HotelGuestbook.Tests
         /// Saves apartments to DB from <see cref="SAMPLE_APARTMENTS_RELATIVE_PATH"/>.
         /// </summary>
         /// <param name="context">DB context.</param>
-        private void GenerateApartment(string[] currentLine)
+        private void GenerateApartment(string currentLine)
         {
-            var apartment = new ApartmentInfo(Int32.Parse(currentLine[0]), Int32.Parse(currentLine[1]));
+            var segments = currentLine.Split(';');
+
+            if (segments.Length != 2)
+            {
+                throw new InvalidDataException(nameof(segments));
+            }
+
+            var apartment = new ApartmentInfo(Int32.Parse(segments[0]), Int32.Parse(segments[1]));
 
             Apartments.Add(apartment);
         }
@@ -112,10 +115,17 @@ namespace HotelGuestbook.Tests
         /// Saves apartments to DB from <see cref="SAMPLE_PERSONS_RELATIVE_PATH"/>.
         /// </summary>
         /// <param name="context">DB context.</param>
-        private void GeneratePerson(string[] currentLine)
+        private void GeneratePerson(string currentLine)
         {
-            var dateOfBirth = ConversionHelper.ConvertStringToDateTime(currentLine[3]);
-            var person = new PersonInfo(currentLine[0], currentLine[1], currentLine[2], dateOfBirth);
+            var segments = currentLine.Split(';');
+
+            if (segments.Length != 4)
+            {
+                throw new InvalidDataException(nameof(segments));
+            }
+
+            var dateOfBirth = ConversionHelper.ConvertStringToDateTime(segments[3]);
+            var person = new PersonInfo(segments[0], segments[1], segments[2], dateOfBirth);
 
             Persons.Add(person);
         }
@@ -125,13 +135,19 @@ namespace HotelGuestbook.Tests
         /// Saves apartments to DB from <see cref="SAMPLE_RESERVATIONS_RELATIVE_PATH"/>.
         /// </summary>
         /// <param name="context">DB context.</param>
-        private void GenerateReservation(string[] currentLine)
+        private void GenerateReservation(string currentLine)
         {
+            var segments = currentLine.Split(';');
 
-            var personId = Convert.ToInt32(currentLine[0]);
-            var apartmentId = Convert.ToInt32(currentLine[1]);
-            var from = ConversionHelper.ConvertStringToDateTime(currentLine[2]);
-            var to = ConversionHelper.ConvertStringToDateTime(currentLine[3]);
+            if (segments.Length != 4)
+            {
+                throw new InvalidDataException(nameof(segments));
+            }
+
+            var personId = Convert.ToInt32(segments[0]);
+            var apartmentId = Convert.ToInt32(segments[1]);
+            var from = ConversionHelper.ConvertStringToDateTime(segments[2]);
+            var to = ConversionHelper.ConvertStringToDateTime(segments[3]);
 
             var reservation = new ReservationInfo(personId, apartmentId, from, to);
 

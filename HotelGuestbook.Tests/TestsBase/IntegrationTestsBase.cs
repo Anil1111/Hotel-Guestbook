@@ -17,7 +17,10 @@ namespace HotelGuestbook.Tests.TestsBase
         {
             GuestBookContext = new GuestBook("GuestBookTests");
 
-            GenerateTestData(GuestBookContext, true);
+            if (!GuestBookContext.Database.Exists())
+            {
+                GenerateTestData(GuestBookContext, true);
+            }
         }
 
 
@@ -25,7 +28,7 @@ namespace HotelGuestbook.Tests.TestsBase
         public void OneTimeTearDown()
         {
             GuestBookContext.Database.Connection.Close();
-            GuestBookContext.Database.ForceDropDatabase();
+            //GuestBookContext.Database.ForceDropDatabase();
 
             GuestBookContext.Dispose();
         }
