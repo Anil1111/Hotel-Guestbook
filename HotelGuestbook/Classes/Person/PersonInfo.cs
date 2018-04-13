@@ -66,5 +66,11 @@ namespace HotelGuestbook.Classes.Person
         /// Holds a list of reservations of this person.
         /// </summary>
         public virtual ICollection<ReservationInfo> Reservations { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"{FirstName};{LastName};{Email};{DateOfBirth.ToString("dd.MM.yyyy")}";
+        }
     }
 }

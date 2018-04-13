@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelGuestbook.Tests", "Hot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelGuestbook", "HotelGuestbook\HotelGuestbook.csproj", "{E74EB631-D0F6-4518-9FFC-3214C66843C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelGuestbookGUI", "HotelGuestbookGUI\HotelGuestbookGUI.csproj", "{04E0013D-A795-491C-8745-48CE363E1B10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E74EB631-D0F6-4518-9FFC-3214C66843C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E74EB631-D0F6-4518-9FFC-3214C66843C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E74EB631-D0F6-4518-9FFC-3214C66843C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E0013D-A795-491C-8745-48CE363E1B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E0013D-A795-491C-8745-48CE363E1B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E0013D-A795-491C-8745-48CE363E1B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E0013D-A795-491C-8745-48CE363E1B10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

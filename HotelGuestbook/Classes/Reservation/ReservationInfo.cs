@@ -74,5 +74,11 @@ namespace HotelGuestbook.Classes.Reservation
         /// Date indicating the day till which is the reservation.
         /// </summary>
         public DateTime To { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"{Person.ToString()};{Apartment.ToString()};{From.ToString("dd.MM.yyyy")};{To.ToString("dd.MM.yyyy")}";
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace HotelGuestbook.DAL
         /// </summary>
         public DbSet<PersonInfo> Persons { get; set; }
 
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
