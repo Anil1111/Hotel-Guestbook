@@ -44,14 +44,17 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservationsLabel = new System.Windows.Forms.Label();
             this.countLabel = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.exitButton = new System.Windows.Forms.Button();
-            this.searchLabel = new System.Windows.Forms.Label();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.fromLabel = new System.Windows.Forms.Label();
-            this.toLabel = new System.Windows.Forms.Label();
+            this.reservationsListView = new System.Windows.Forms.ListView();
+            this.pastReservationsLabel = new System.Windows.Forms.Label();
+            this.searchComboBox = new System.Windows.Forms.ComboBox();
+            this.searchCheckBox = new System.Windows.Forms.CheckBox();
+            this.fromCheckBox = new System.Windows.Forms.CheckBox();
+            this.toCheckBox = new System.Windows.Forms.CheckBox();
+            this.pastReservationsCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,19 +83,19 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(104, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -165,7 +168,7 @@
             // reservationsLabel
             // 
             this.reservationsLabel.AutoSize = true;
-            this.reservationsLabel.Location = new System.Drawing.Point(13, 420);
+            this.reservationsLabel.Location = new System.Drawing.Point(12, 530);
             this.reservationsLabel.Name = "reservationsLabel";
             this.reservationsLabel.Size = new System.Drawing.Size(119, 13);
             this.reservationsLabel.TabIndex = 1;
@@ -174,23 +177,15 @@
             // countLabel
             // 
             this.countLabel.AutoSize = true;
-            this.countLabel.Location = new System.Drawing.Point(138, 420);
+            this.countLabel.Location = new System.Drawing.Point(137, 530);
             this.countLabel.Name = "countLabel";
             this.countLabel.Size = new System.Drawing.Size(13, 13);
             this.countLabel.TabIndex = 2;
             this.countLabel.Text = "0";
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 67);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(775, 342);
-            this.listBox1.TabIndex = 3;
-            // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(713, 415);
+            this.exitButton.Location = new System.Drawing.Point(713, 520);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(75, 23);
             this.exitButton.TabIndex = 4;
@@ -198,67 +193,118 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // searchLabel
-            // 
-            this.searchLabel.AutoSize = true;
-            this.searchLabel.Location = new System.Drawing.Point(10, 31);
-            this.searchLabel.Name = "searchLabel";
-            this.searchLabel.Size = new System.Drawing.Size(41, 13);
-            this.searchLabel.TabIndex = 5;
-            this.searchLabel.Text = "Search";
-            // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(58, 28);
+            this.searchTextBox.Location = new System.Drawing.Point(205, 28);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(249, 20);
+            this.searchTextBox.Size = new System.Drawing.Size(370, 20);
             this.searchTextBox.TabIndex = 6;
             // 
             // fromDateTimePicker
             // 
-            this.fromDateTimePicker.Location = new System.Drawing.Point(353, 28);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(78, 57);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.fromDateTimePicker.TabIndex = 7;
             // 
             // toDateTimePicker
             // 
-            this.toDateTimePicker.Location = new System.Drawing.Point(588, 28);
+            this.toDateTimePicker.Location = new System.Drawing.Point(78, 87);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.toDateTimePicker.TabIndex = 8;
             // 
-            // fromLabel
+            // reservationsListView
             // 
-            this.fromLabel.AutoSize = true;
-            this.fromLabel.Location = new System.Drawing.Point(314, 31);
-            this.fromLabel.Name = "fromLabel";
-            this.fromLabel.Size = new System.Drawing.Size(33, 13);
-            this.fromLabel.TabIndex = 9;
-            this.fromLabel.Text = "From:";
+            this.reservationsListView.Location = new System.Drawing.Point(15, 150);
+            this.reservationsListView.Name = "reservationsListView";
+            this.reservationsListView.Size = new System.Drawing.Size(775, 364);
+            this.reservationsListView.TabIndex = 11;
+            this.reservationsListView.UseCompatibleStateImageBehavior = false;
             // 
-            // toLabel
+            // pastReservationsLabel
             // 
-            this.toLabel.AutoSize = true;
-            this.toLabel.Location = new System.Drawing.Point(560, 31);
-            this.toLabel.Name = "toLabel";
-            this.toLabel.Size = new System.Drawing.Size(23, 13);
-            this.toLabel.TabIndex = 10;
-            this.toLabel.Text = "To:";
+            this.pastReservationsLabel.AutoSize = true;
+            this.pastReservationsLabel.Location = new System.Drawing.Point(12, 130);
+            this.pastReservationsLabel.Name = "pastReservationsLabel";
+            this.pastReservationsLabel.Size = new System.Drawing.Size(158, 13);
+            this.pastReservationsLabel.TabIndex = 12;
+            this.pastReservationsLabel.Text = "Show reservations from the past";
+            // 
+            // searchComboBox
+            // 
+            this.searchComboBox.FormattingEnabled = true;
+            this.searchComboBox.Items.AddRange(new object[] {
+            "",
+            "First name",
+            "Last name",
+            "Email",
+            "Room number"});
+            this.searchComboBox.Location = new System.Drawing.Point(78, 28);
+            this.searchComboBox.Name = "searchComboBox";
+            this.searchComboBox.Size = new System.Drawing.Size(121, 21);
+            this.searchComboBox.TabIndex = 14;
+            this.searchComboBox.SelectedIndexChanged += new System.EventHandler(this.searchComboBox_SelectedIndexChanged);
+            // 
+            // searchCheckBox
+            // 
+            this.searchCheckBox.AutoSize = true;
+            this.searchCheckBox.Location = new System.Drawing.Point(12, 30);
+            this.searchCheckBox.Name = "searchCheckBox";
+            this.searchCheckBox.Size = new System.Drawing.Size(60, 17);
+            this.searchCheckBox.TabIndex = 15;
+            this.searchCheckBox.Text = "Search";
+            this.searchCheckBox.UseVisualStyleBackColor = true;
+            this.searchCheckBox.CheckedChanged += new System.EventHandler(this.searchCheckBox_CheckedChanged);
+            // 
+            // fromCheckBox
+            // 
+            this.fromCheckBox.AutoSize = true;
+            this.fromCheckBox.Location = new System.Drawing.Point(12, 60);
+            this.fromCheckBox.Name = "fromCheckBox";
+            this.fromCheckBox.Size = new System.Drawing.Size(49, 17);
+            this.fromCheckBox.TabIndex = 16;
+            this.fromCheckBox.Text = "From";
+            this.fromCheckBox.UseVisualStyleBackColor = true;
+            this.fromCheckBox.CheckedChanged += new System.EventHandler(this.fromCheckBox_CheckedChanged);
+            // 
+            // toCheckBox
+            // 
+            this.toCheckBox.AutoSize = true;
+            this.toCheckBox.Location = new System.Drawing.Point(12, 92);
+            this.toCheckBox.Name = "toCheckBox";
+            this.toCheckBox.Size = new System.Drawing.Size(39, 17);
+            this.toCheckBox.TabIndex = 17;
+            this.toCheckBox.Text = "To";
+            this.toCheckBox.UseVisualStyleBackColor = true;
+            this.toCheckBox.CheckedChanged += new System.EventHandler(this.toCheckBox_CheckedChanged);
+            // 
+            // pastReservationsCheckBox
+            // 
+            this.pastReservationsCheckBox.AutoSize = true;
+            this.pastReservationsCheckBox.Location = new System.Drawing.Point(176, 130);
+            this.pastReservationsCheckBox.Name = "pastReservationsCheckBox";
+            this.pastReservationsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.pastReservationsCheckBox.TabIndex = 13;
+            this.pastReservationsCheckBox.UseVisualStyleBackColor = true;
+            this.pastReservationsCheckBox.CheckedChanged += new System.EventHandler(this.pastReservationsCheckBox_CheckedChanged);
             // 
             // ReservationsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 445);
-            this.Controls.Add(this.toLabel);
-            this.Controls.Add(this.fromLabel);
+            this.ClientSize = new System.Drawing.Size(800, 552);
+            this.Controls.Add(this.toCheckBox);
+            this.Controls.Add(this.fromCheckBox);
+            this.Controls.Add(this.searchCheckBox);
+            this.Controls.Add(this.searchComboBox);
+            this.Controls.Add(this.pastReservationsCheckBox);
+            this.Controls.Add(this.pastReservationsLabel);
+            this.Controls.Add(this.reservationsListView);
             this.Controls.Add(this.toDateTimePicker);
             this.Controls.Add(this.fromDateTimePicker);
             this.Controls.Add(this.searchTextBox);
-            this.Controls.Add(this.searchLabel);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.countLabel);
             this.Controls.Add(this.reservationsLabel);
             this.Controls.Add(this.menuStrip1);
@@ -290,14 +336,17 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Label reservationsLabel;
         private System.Windows.Forms.Label countLabel;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.DateTimePicker fromDateTimePicker;
         private System.Windows.Forms.DateTimePicker toDateTimePicker;
-        private System.Windows.Forms.Label fromLabel;
-        private System.Windows.Forms.Label toLabel;
+        private System.Windows.Forms.ListView reservationsListView;
+        private System.Windows.Forms.Label pastReservationsLabel;
+        private System.Windows.Forms.ComboBox searchComboBox;
+        private System.Windows.Forms.CheckBox searchCheckBox;
+        private System.Windows.Forms.CheckBox fromCheckBox;
+        private System.Windows.Forms.CheckBox toCheckBox;
+        private System.Windows.Forms.CheckBox pastReservationsCheckBox;
     }
 }
 

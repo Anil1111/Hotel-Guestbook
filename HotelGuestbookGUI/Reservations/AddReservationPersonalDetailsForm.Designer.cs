@@ -1,6 +1,6 @@
 ﻿namespace HotelGuestbookGUI.Reservations
 {
-    partial class addReservationPersonalDataForm
+    partial class AddReservationPersonalDataForm
     {
         /// <summary>
         /// Required designer variable.

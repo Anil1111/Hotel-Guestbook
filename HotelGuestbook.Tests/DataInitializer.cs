@@ -32,7 +32,7 @@ namespace HotelGuestbook.Tests
         /// </summary>
         /// <param name="context">Context of test database.</param>
         /// <param name="saveToDB">If true, the generated data is saved to the database based on <paramref name="context"/>.</param>
-        protected void GenerateTestData(GuestBook context = null, bool saveToDB = false)
+        public void GenerateTestData(GuestBook context = null, bool saveToDB = false)
         {
             GenerateData<ApartmentInfo>(sampleApartmentsLocation);
             GenerateData<PersonInfo>(samplePersonsLocation);

@@ -40,6 +40,12 @@ namespace HotelGuestbook.Classes.Apartment
 
 
         /// <summary>
+        /// Price of the apartment for one night.
+        /// </summary>
+        public int Price { get; set; }
+
+
+        /// <summary>
         /// Apartment's capacity.
         /// </summary>
         public int Capacity { get; set; }
@@ -55,6 +61,17 @@ namespace HotelGuestbook.Classes.Apartment
         /// Holds a list of reservations to this apartment.
         /// </summary>
         public virtual ICollection<ReservationInfo> Reservations { get; set; }
+
+
+        public string ToString(bool isReservation = false)
+        {
+            if (!isReservation)
+            {
+                return ToString();
+            }
+
+            return $"{Number.ToString()}";
+        }
 
 
         public override string ToString()

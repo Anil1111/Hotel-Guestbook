@@ -22,6 +22,8 @@ namespace HotelGuestbook.DAL
         /// </summary>
         public GuestBook(string context) : base(context)
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<GuestBook>());
+
             Context = this;
         }
 

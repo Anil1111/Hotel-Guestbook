@@ -27,7 +27,7 @@ namespace HotelGuestbook.ExtensionMethods
         /// Returns all reservations for a specified apartment.
         /// </summary>
         /// <param name="apartment">Apartment the reservations of which to retrieve.</param>
-        public static IEnumerable<ReservationInfo> GetAllReservationsForPerson(this ApartmentInfo apartment)
+        public static IEnumerable<ReservationInfo> GetAllReservationsForApartment(this ApartmentInfo apartment)
         {
             return GuestBook.Context.Reservations.Where(reservation => reservation.ApartmentId == apartment.ApartmentId);
         }
