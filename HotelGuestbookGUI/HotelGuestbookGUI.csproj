@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataInitializer.cs" />
     <Compile Include="GDPR\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +133,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SampleData\SampleApartments.csv" />
+    <None Include="SampleData\SamplePersons.csv" />
+    <None Include="SampleData\SampleReservations.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -145,7 +149,6 @@
   <ItemGroup>
     <Folder Include="Administration\Apartment\" />
     <Folder Include="File\" />
-    <Folder Include="Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

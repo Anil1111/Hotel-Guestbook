@@ -12,6 +12,13 @@ namespace HotelGuestbookGUI.Reservations
         public ApartmentInfo Apartment;
         public ReservationInfo Reservation;
 
+
+        /// <summary>
+        /// Creates new instance of AddReservationReviewForm.
+        /// </summary>
+        /// <param name="person">Person's data to display.</param>
+        /// <param name="apartment">Apartment data to display.</param>
+        /// <param name="reservation">Reservation details to display.</param>
         public AddReservationReviewForm(PersonInfo person, ApartmentInfo apartment, ReservationInfo reservation)
         {
             InitializeComponent();

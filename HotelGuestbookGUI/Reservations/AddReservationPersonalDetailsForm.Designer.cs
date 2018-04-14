@@ -113,7 +113,7 @@
             this.proceedButton.TabIndex = 8;
             this.proceedButton.Text = "Proceed > >";
             this.proceedButton.UseVisualStyleBackColor = true;
-            this.proceedButton.Click += new System.EventHandler(this.proceedButton_Click);
+            this.proceedButton.Click += new System.EventHandler(this.ProceedButton_Click);
             // 
             // backButton
             // 
@@ -123,7 +123,7 @@
             this.backButton.TabIndex = 9;
             this.backButton.Text = "< < Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // stepLabel
             // 

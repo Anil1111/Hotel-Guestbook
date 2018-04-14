@@ -137,9 +137,9 @@ namespace HotelGuestbookGUI.Reservations
 
 
         /// <summary>
-        /// 
+        /// Adds reservations to the list view.
         /// </summary>
-        /// <param name="showPastReservations"></param>
+        /// <param name="showPastReservations">If true, past reservations are shown in GUI.</param>
         private void AddReservationsToListView(bool showPastReservations)
         {
             foreach (var reservation in HotelGuestbook.Reservations)
@@ -158,9 +158,9 @@ namespace HotelGuestbookGUI.Reservations
 
 
         /// <summary>
-        /// 
+        /// Updates the count label.
         /// </summary>
-        /// <param name="showPastReservations"></param>
+        /// <param name="showPastReservations">If true, the number of past events is counted.</param>
         private void UpdateCountLabel(bool showPastReservations)
         {
             if (showPastReservations)
@@ -209,7 +209,7 @@ namespace HotelGuestbookGUI.Reservations
 
 
         /// <summary>
-        /// Changes the search text box to either enabled or disabled based on selected value in <code>searchComboBox</code>
+        /// Changes the search text box to either enabled or disabled based on selected value in searchComboBox.
         /// </summary>
         private void ChangeSearchTextBoxAccessibility()
         {

@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelGuestbookGUI.GDPR
 {
     public partial class PersonalDataForm : Form
     {
+        /// <summary>
+        /// Creates a new instance of PersonalDataForm.
+        /// </summary>
+        /// <param name="showDeleteButton">If true, the delete button is shown.</param>
         public PersonalDataForm(bool showDeleteButton = false)
         {
             InitializeComponent();
@@ -19,9 +16,16 @@ namespace HotelGuestbookGUI.GDPR
             deleteButton.Visible = showDeleteButton;
         }
 
-        private void closeButton_Click(object sender, EventArgs e)
+
+        #region Events
+
+
+        private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
         }
+
+
+        #endregion
     }
 }

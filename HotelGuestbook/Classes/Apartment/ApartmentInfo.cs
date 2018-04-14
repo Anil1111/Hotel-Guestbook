@@ -1,5 +1,4 @@
 ﻿using HotelGuestbook.Classes.Reservation;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -64,15 +63,18 @@ namespace HotelGuestbook.Classes.Apartment
         public virtual ICollection<ReservationInfo> Reservations { get; set; }
 
 
-        public override string ToString()
-        {
-            return $"{Number.ToString()}";//{Capacity.ToString()};{DoubleBeds.ToString()};{Price.ToString()} EUR";
-        }
-
-
+        /// <summary>
+        /// ToString() method for dropdown apartment selection.
+        /// </summary>
         public object ToDropDownString()
         {
             return $"Number: {Number.ToString()}, Capacity: {Capacity.ToString()}, Double beds: {DoubleBeds.ToString()}, Price: {Price.ToString()} EUR";
+        }
+
+
+        public override string ToString()
+        {
+            return $"{Number.ToString()}";
         }
     }
 }

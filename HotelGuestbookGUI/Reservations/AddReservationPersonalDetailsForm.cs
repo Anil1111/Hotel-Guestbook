@@ -9,6 +9,11 @@ namespace HotelGuestbookGUI.Reservations
     {
         private PersonInfo Person;
 
+
+        /// <summary>
+        /// Creates a new instance of AddReservationPersonalDataForm.
+        /// </summary>
+        /// <param name="person">Person's data to display.</param>
         public AddReservationPersonalDataForm(PersonInfo person = null)
         {
             InitializeComponent();
@@ -25,13 +30,16 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void backButton_Click(object sender, EventArgs e)
+        #region Events
+
+
+        private void BackButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
 
-        private void proceedButton_Click(object sender, EventArgs e)
+        private void ProceedButton_Click(object sender, EventArgs e)
         {
             if (!ValidateData())
             {
@@ -47,19 +55,22 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
+        #endregion
+
+
         /// <summary>
-        /// 
+        /// Returns true if supplied the personal data is valid.
         /// </summary>
         private bool ValidateData()
         {
-            if (!ValidationHelper.IsValidFirstName(firstNameTextBox.Text))
+            if (!ValidationHelper.IsValidName(firstNameTextBox.Text))
             {
                 MessageBox.Show("The first name must not be empty.");
 
                 return false;
             }
 
-            if (!ValidationHelper.IsValidLastName(lastNameTextBox.Text))
+            if (!ValidationHelper.IsValidName(lastNameTextBox.Text))
             {
                 MessageBox.Show("The last name must not be empty.");
 
@@ -85,7 +96,7 @@ namespace HotelGuestbookGUI.Reservations
 
 
         /// <summary>
-        /// 
+        /// Creates a new person from the supplied data.
         /// </summary>
         private PersonInfo CreatePersonFromData()
         {

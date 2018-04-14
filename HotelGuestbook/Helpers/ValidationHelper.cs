@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelGuestbook.Helpers
 {
@@ -12,6 +8,10 @@ namespace HotelGuestbook.Helpers
     /// </summary>
     public static class ValidationHelper
     {
+        /// <summary>
+        /// Returns true if the person making the reservation is at least 18 years old.
+        /// </summary>
+        /// <param name="dateOfBirth">Date of birth of the person.</param>
         public static bool IsPersonAtLeastEighteen(DateTime dateOfBirth)
         {
             var age = GetAge(dateOfBirth);
@@ -19,6 +19,11 @@ namespace HotelGuestbook.Helpers
             return !(age < 18);
         }
 
+
+        /// <summary>
+        /// Returns true if the email is in valid format.
+        /// </summary>
+        /// <param name="email">Email to check.</param>
         public static bool IsValidEmail(string email)
         {
             try
@@ -38,22 +43,27 @@ namespace HotelGuestbook.Helpers
             return true;
         }
 
-        public static bool IsValidLastName(string lastName)
+
+        /// <summary>
+        /// Returns true if the name is valid.
+        /// </summary>
+        /// <param name="name">Name to check.</param>
+        public static bool IsValidName(string name)
         {
-            return !(String.IsNullOrEmpty(lastName));
+            return !(String.IsNullOrEmpty(name));
         }
 
-        public static bool IsValidFirstName(string firstName)
-        {
-            return !(String.IsNullOrEmpty(firstName)) ;
-        }
 
-        private static int GetAge(DateTime bornDate)
+        /// <summary>
+        /// Returns the age of the person from a specified birth date.
+        /// </summary>
+        /// <param name="birthDate">Persons date of birth.</param>
+        private static int GetAge(DateTime birthDate)
         {
             DateTime today = DateTime.Today;
-            int age = today.Year - bornDate.Year;
+            int age = today.Year - birthDate.Year;
 
-            if (bornDate > today.AddYears(-age))
+            if (birthDate > today.AddYears(-age))
             {
                 age--;
             }
