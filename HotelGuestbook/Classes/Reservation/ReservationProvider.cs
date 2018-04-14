@@ -62,6 +62,66 @@ namespace HotelGuestbook.Classes.Reservation
 
 
         /// <summary>
+        /// Gets all reservations for persons whose first name contains the <paramref name="firstName"/>.
+        /// </summary>
+        /// <param name="firstName">Whole or partial first name.</param>
+        public static IEnumerable<ReservationInfo> GetReservationsByFirstName(string firstName)
+        {
+            if (firstName == null)
+            {
+                throw new ArgumentNullException(nameof(firstName));
+            }
+
+            return GuestBook.Context.Reservations.Where(reservation => reservation.Person.FirstName.Contains(firstName));
+        }
+
+
+        /// <summary>
+        /// Gets all reservations for persons whose last name contains the <paramref name="lastName"/>.
+        /// </summary>
+        /// <param name="lastName">Whole or partial last name.</param>
+        public static IEnumerable<ReservationInfo> GetReservationsByLastName(string lastName)
+        {
+            if (lastName == null)
+            {
+                throw new ArgumentNullException(nameof(lastName));
+            }
+
+            return GuestBook.Context.Reservations.Where(reservation => reservation.Person.LastName.Contains(lastName));
+        }
+
+
+        /// <summary>
+        /// Gets all reservations for persons whose email contains the <paramref name="email"/>.
+        /// </summary>
+        /// <param name="email">Whole or partial email.</param>
+        public static IEnumerable<ReservationInfo> GetReservationsByEmail(string email)
+        {
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            return GuestBook.Context.Reservations.Where(reservation => reservation.Person.Email.Contains(email));
+        }
+
+
+        /// <summary>
+        /// Gets all reservations for <paramref name="roomNumber"/>.
+        /// </summary>
+        /// <param name="roomNumber">Number of the room to get reservations for.</param>
+        public static IEnumerable<ReservationInfo> GetReservationsByRoomNumber(int roomNumber)
+        {
+            if (roomNumber <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(roomNumber));
+            }
+
+            return GuestBook.Context.Reservations.Where(reservation => reservation.Apartment.Number == roomNumber);
+        }
+
+
+        /// <summary>
         /// Saves the <paramref name="reservation"/> to the database.
         /// </summary>
         /// <param name="reservation">Reservation to be saved.</param>

@@ -209,6 +209,7 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(370, 20);
             this.searchTextBox.TabIndex = 6;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.SearchTextBox_TextChanged);
             // 
             // fromDateTimePicker
             // 
@@ -216,6 +217,7 @@
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.fromDateTimePicker.TabIndex = 7;
+            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.FromDateTimePicker_ValueChanged);
             // 
             // toDateTimePicker
             // 
@@ -223,6 +225,7 @@
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.toDateTimePicker.TabIndex = 8;
+            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.ToDateTimePicker_ValueChanged);
             // 
             // reservationsListView
             // 
@@ -245,7 +248,6 @@
             // 
             this.searchComboBox.FormattingEnabled = true;
             this.searchComboBox.Items.AddRange(new object[] {
-            "",
             "First name",
             "Last name",
             "Email",
@@ -254,7 +256,7 @@
             this.searchComboBox.Name = "searchComboBox";
             this.searchComboBox.Size = new System.Drawing.Size(121, 21);
             this.searchComboBox.TabIndex = 14;
-            this.searchComboBox.SelectedIndexChanged += new System.EventHandler(this.SearchComboBox_SelectedIndexChanged);
+            this.searchComboBox.SelectedValueChanged += new System.EventHandler(this.SearchComboBox_SelectedValueChanged);
             // 
             // searchCheckBox
             // 
@@ -309,7 +311,7 @@
             this.newReservationButton.TabIndex = 20;
             this.newReservationButton.Text = "Add new reservation";
             this.newReservationButton.UseVisualStyleBackColor = true;
-            this.newReservationButton.Click += new System.EventHandler(this.newReservationButton_Click);
+            this.newReservationButton.Click += new System.EventHandler(this.NewReservationButton_Click);
             // 
             // refreshButton
             // 
@@ -319,7 +321,7 @@
             this.refreshButton.TabIndex = 21;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // ReservationsListForm
             // 
