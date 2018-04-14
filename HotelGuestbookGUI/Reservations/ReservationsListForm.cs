@@ -25,22 +25,22 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        #region Click events
+        #region Events
 
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExitApplication();
         }
 
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
         {
             ExitApplication();
         }
 
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var gdprHelpForm = new HelpForm();
 
@@ -48,7 +48,7 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void rightToAccessToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RightToAccessToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var personalDataForm = new PersonalDataForm();
 
@@ -56,7 +56,7 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void rightToBeForgottenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RightToBeForgottenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var personalDataForm = new PersonalDataForm(true);
 
@@ -64,15 +64,7 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var addReservationPersonalDataForm = new AddReservationPersonalDataForm();
-
-            addReservationPersonalDataForm.Show();
-        }
-
-
-        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var saveFileDialog = new SaveFileDialog();
 
@@ -80,43 +72,50 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void pastReservationsCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void PastReservationsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             RefreshGUI(pastReservationsCheckBox.Checked);
         }
 
 
-        private void searchComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void SearchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ChangeSearchTextBoxAccessibility();
         }
 
 
-        private void searchCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void SearchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
   
             ChangeSearchAvailability(searchCheckBox.Checked);
 
-            fromCheckBox_CheckedChanged(sender, e);
-            toCheckBox_CheckedChanged(sender, e);
+            FromCheckBox_CheckedChanged(sender, e);
+            fromCheckBox.Enabled = searchCheckBox.Checked;
+
+            ToCheckBox_CheckedChanged(sender, e);
+            toCheckBox.Enabled = searchCheckBox.Checked;
 
             RefreshGUI();
         }
 
 
-        private void fromCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void FromCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             fromDateTimePicker.Enabled = searchCheckBox.Checked && fromCheckBox.Checked;
-
-            ChangePastReservationsAvailability(fromCheckBox.Checked || toCheckBox.Checked);
         }
 
 
-        private void toCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void ToCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             toDateTimePicker.Enabled = searchCheckBox.Checked && toCheckBox.Checked;
+        }
 
-            ChangePastReservationsAvailability(fromCheckBox.Checked || toCheckBox.Checked);
+
+        private void newReservationButton_Click(object sender, EventArgs e)
+        {
+            var addReservationPersonalDataForm = new AddReservationPersonalDataForm();
+
+            addReservationPersonalDataForm.Show();
         }
 
 
@@ -131,6 +130,18 @@ namespace HotelGuestbookGUI.Reservations
         {
             reservationsListView.Items.Clear();
 
+            AddReservationsToListView(showPastReservations);
+
+            UpdateCountLabel(showPastReservations);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="showPastReservations"></param>
+        private void AddReservationsToListView(bool showPastReservations)
+        {
             foreach (var reservation in HotelGuestbook.Reservations)
             {
                 if (!showPastReservations && reservation.From < DateTime.Today)
@@ -140,9 +151,18 @@ namespace HotelGuestbookGUI.Reservations
 
                 var row = reservation.ToString().Split(';');
                 var listViewItem = new ListViewItem(row);
+
                 reservationsListView.Items.Add(listViewItem);
             }
+        }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="showPastReservations"></param>
+        private void UpdateCountLabel(bool showPastReservations)
+        {
             if (showPastReservations)
             {
                 countLabel.Text = HotelGuestbook.Reservations.Count().ToString();
@@ -167,6 +187,8 @@ namespace HotelGuestbookGUI.Reservations
             reservationsListView.Columns.Add(CreateColumnHeader("From", 80));
             reservationsListView.Columns.Add(CreateColumnHeader("To", 80));
 
+            reservationsListView.FullRowSelect = true;
+            //reservationsListView.Sorting = SortOrder.Ascending;
             reservationsListView.View = View.Details;
         }
 
@@ -211,32 +233,8 @@ namespace HotelGuestbookGUI.Reservations
             searchComboBox.Enabled = availability;
             ChangeSearchTextBoxAccessibility();
 
-            fromCheckBox.Enabled = availability;
-            fromDateTimePicker.Enabled = availability;
-
-            toCheckBox.Enabled = availability;
-            toDateTimePicker.Enabled = availability;
-        }
-
-
-        /// <summary>
-        /// Changes the past events availability based on <paramref name="enabled"/>.
-        /// </summary>
-        /// <param name="enabled">Indicated if past events should be visible.</param>
-        private void ChangePastReservationsAvailability(bool enabled)
-        {
-            if (enabled)
-            {
-                pastReservationsCheckBox.Checked = true;
-                pastReservationsCheckBox.Enabled = false;
-            }
-            else
-            {
-                pastReservationsCheckBox.Checked = false;
-                pastReservationsCheckBox.Enabled = true;
-            }
-
-            RefreshGUI(enabled);
+            fromDateTimePicker.Enabled = fromCheckBox.Enabled;
+            toDateTimePicker.Enabled = toCheckBox.Enabled;
         }
 
 

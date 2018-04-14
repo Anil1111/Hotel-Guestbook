@@ -1,4 +1,6 @@
-﻿namespace HotelGuestbookGUI.Reservations
+﻿using System;
+
+namespace HotelGuestbookGUI.Reservations
 {
     partial class AddReservationReviewForm
     {
@@ -221,7 +223,7 @@
             this.backButton.TabIndex = 18;
             this.backButton.Text = "< < Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // reserveButton
             // 
@@ -231,6 +233,7 @@
             this.reserveButton.TabIndex = 19;
             this.reserveButton.Text = "Reserve";
             this.reserveButton.UseVisualStyleBackColor = true;
+            this.reserveButton.Click += new System.EventHandler(this.ReserveButton_Click);
             // 
             // stepLabel
             // 

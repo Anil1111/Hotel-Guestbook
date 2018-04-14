@@ -89,8 +89,11 @@ namespace HotelGuestbook.Classes.Person
                 return;
             }
 
-            GuestBook.Context.Persons.Add(person);
-            GuestBook.Context.SaveChanges();
+            if (GetPersonByEmail(person.Email) == null)
+            {
+                GuestBook.Context.Persons.Add(person);
+                GuestBook.Context.SaveChanges();
+            }
         }
 
 

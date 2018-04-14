@@ -1,6 +1,9 @@
-﻿using HotelGuestbook.Classes.Person;
-using HotelGuestbook.Helpers;
+﻿using HotelGuestbook.Classes.Apartment;
+using HotelGuestbook.Classes.Person;
+using HotelGuestbook.Classes.Reservation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace HotelGuestbookGUI.Reservations
@@ -8,27 +11,51 @@ namespace HotelGuestbookGUI.Reservations
     public partial class AddReservationRoomDetailsForm : Form
     {
         private PersonInfo Person;
+        private ApartmentInfo SelectedApartment;
+        private ReservationInfo Reservation;
+        public IEnumerable<ApartmentInfo> AvailableApartments;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="person"></param>
-        public AddReservationRoomDetailsForm(PersonInfo person = null)
+        public AddReservationRoomDetailsForm(PersonInfo person = null, ApartmentInfo apartment = null, ReservationInfo reservation = null)
         {
             InitializeComponent();
 
-            Person = person;
+            if (person != null)
+            {
+                Person = person;
 
-            nameLabel.Text = person.FirstName + " " + person.LastName;
-            emailLabel.Text = person.Email;
-            dateOfBirthLabel.Text = person.DateOfBirth.ToShortDateString();
+                nameLabel.Text = person.FirstName + " " + person.LastName;
+                emailLabel.Text = person.Email;
+                dateOfBirthLabel.Text = person.DateOfBirth.ToShortDateString();
+            }
+
+            if (apartment != null)
+            {
+                minimalCapacityNumericUpDown.Value = apartment.Capacity;
+                doubleBedsNumericUpDown.Value = apartment.DoubleBeds;
+            }
+
+            if (reservation != null)
+            {
+                fromDateTimePicker.Value = reservation.From;
+                toDateTimePicker.Value = reservation.To;
+            }
+
+            FromDateTimePicker_ValueChanged(null, null);
+
+            UpdateNumberOfAvailableApartments();
+
+            proceedButton.Enabled = false;
         }
 
 
         /// <summary>
         /// 
         /// </summary>
-        private void backButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
             var addReservationPersonalDetailsForm = new AddReservationPersonalDataForm(Person);
 
@@ -40,33 +67,85 @@ namespace HotelGuestbookGUI.Reservations
         /// <summary>
         /// 
         /// </summary>
-        private void proceedButton_Click(object sender, EventArgs e)
+        private void ProceedButton_Click(object sender, EventArgs e)
         {
-            var addReservationReviewForm = new AddReservationReviewForm();
+            var addReservationReviewForm = new AddReservationReviewForm(Person, SelectedApartment, Reservation);
 
             addReservationReviewForm.Show();
             Close();
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
+        private void FromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            if (fromDateTimePicker.Value < DateTime.Today.AddDays(1))
-            {
-                MessageBox.Show("The reservation must not begin sooner than tomorrow.");
+            toDateTimePicker.Value = fromDateTimePicker.Value.AddDays(1);
 
-                return;
+            UpdateNumberOfAvailableApartments();
+        }
+
+        private void MinimalCapacityNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateNumberOfAvailableApartments();
+        }
+
+        private void DoubleBedsNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateNumberOfAvailableApartments();
+        }
+
+        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateNumberOfAvailableApartments();
+        }
+
+        private void UpdateNumberOfAvailableApartments()
+        {
+            var minimalCapacity = Int32.Parse(minimalCapacityNumericUpDown.Value.ToString());
+            var doubleBeds = Int32.Parse(doubleBedsNumericUpDown.Value.ToString());
+            var from = fromDateTimePicker.Value;
+            var to = toDateTimePicker.Value;
+
+            AvailableApartments = ApartmentProvider.GetAvailableApartments(minimalCapacity, doubleBeds, from, to);
+
+            var availableApartmentsCount = AvailableApartments.Count();
+
+            availableApartmentsLabel.Text = availableApartmentsCount.ToString();
+
+            if (availableApartmentsCount == 0)
+            {
+                availableApartmentsComboBox.Enabled = false;
+            }
+            else
+            {
+                availableApartmentsComboBox.Enabled = true;
             }
 
-            if (toDateTimePicker.Value <= fromDateTimePicker.Value)
+            availableApartmentsComboBox.Items.Clear();
+            foreach (var apartment in AvailableApartments)
             {
-                MessageBox.Show("The end of the reservation must be later that the beginning.");
-
-                return;
+                availableApartmentsComboBox.Items.Add(apartment.ToDropDownString());
             }
+        }
 
-            var searchApartmentForm = new SearchApartmentForm(minimalCapacityNumericUpDown.Value, doubleBedsNumericUpDown.Value, fromDateTimePicker.Value, toDateTimePicker.Value);
+        private void AvailableApartmentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectedApartment = AvailableApartments.ElementAt(availableApartmentsComboBox.SelectedIndex);
 
-            searchApartmentForm.Show();
+            actualRoomNumberLabel.Text = SelectedApartment.Number.ToString();
+            totalPriceLabel.Text = (SelectedApartment.Price * (toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays).ToString() + " EUR";
+
+            proceedButton.Enabled = true;
+
+            var reservation = new ReservationInfo()
+            {
+                From = fromDateTimePicker.Value,
+                To = toDateTimePicker.Value,
+                Person = Person,
+                PersonId = Person.PersonId,
+                Apartment = SelectedApartment,
+                ApartmentId = SelectedApartment.ApartmentId
+            };
+
+            Reservation = reservation;
         }
     }
 }

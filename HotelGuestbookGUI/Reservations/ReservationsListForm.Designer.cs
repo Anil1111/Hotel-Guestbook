@@ -33,10 +33,6 @@
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reservationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gDPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightToAccessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightToBeForgottenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,9 +48,15 @@
             this.pastReservationsLabel = new System.Windows.Forms.Label();
             this.searchComboBox = new System.Windows.Forms.ComboBox();
             this.searchCheckBox = new System.Windows.Forms.CheckBox();
+            this.pastReservationsCheckBox = new System.Windows.Forms.CheckBox();
             this.fromCheckBox = new System.Windows.Forms.CheckBox();
             this.toCheckBox = new System.Windows.Forms.CheckBox();
-            this.pastReservationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.newReservationButton = new System.Windows.Forms.Button();
+            this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.apartmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,8 +64,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.reservationsToolStripMenuItem,
-            this.gDPRToolStripMenuItem});
+            this.gDPRToolStripMenuItem,
+            this.administrationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -85,7 +87,7 @@
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -97,36 +99,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // reservationsToolStripMenuItem
-            // 
-            this.reservationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem});
-            this.reservationsToolStripMenuItem.Name = "reservationsToolStripMenuItem";
-            this.reservationsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.reservationsToolStripMenuItem.Text = "Reservations";
-            // 
-            // addToolStripMenuItem
-            // 
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.addToolStripMenuItem.Text = "Add";
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // gDPRToolStripMenuItem
             // 
@@ -144,14 +117,14 @@
             this.rightToAccessToolStripMenuItem.Name = "rightToAccessToolStripMenuItem";
             this.rightToAccessToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.rightToAccessToolStripMenuItem.Text = "Right to access";
-            this.rightToAccessToolStripMenuItem.Click += new System.EventHandler(this.rightToAccessToolStripMenuItem_Click);
+            this.rightToAccessToolStripMenuItem.Click += new System.EventHandler(this.RightToAccessToolStripMenuItem_Click);
             // 
             // rightToBeForgottenToolStripMenuItem
             // 
             this.rightToBeForgottenToolStripMenuItem.Name = "rightToBeForgottenToolStripMenuItem";
             this.rightToBeForgottenToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.rightToBeForgottenToolStripMenuItem.Text = "Right to be forgotten";
-            this.rightToBeForgottenToolStripMenuItem.Click += new System.EventHandler(this.rightToBeForgottenToolStripMenuItem_Click);
+            this.rightToBeForgottenToolStripMenuItem.Click += new System.EventHandler(this.RightToBeForgottenToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -163,7 +136,7 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.helpToolStripMenuItem.Text = "Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
             // reservationsLabel
             // 
@@ -191,7 +164,7 @@
             this.exitButton.TabIndex = 4;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // searchTextBox
             // 
@@ -244,7 +217,7 @@
             this.searchComboBox.Name = "searchComboBox";
             this.searchComboBox.Size = new System.Drawing.Size(121, 21);
             this.searchComboBox.TabIndex = 14;
-            this.searchComboBox.SelectedIndexChanged += new System.EventHandler(this.searchComboBox_SelectedIndexChanged);
+            this.searchComboBox.SelectedIndexChanged += new System.EventHandler(this.SearchComboBox_SelectedIndexChanged);
             // 
             // searchCheckBox
             // 
@@ -255,29 +228,7 @@
             this.searchCheckBox.TabIndex = 15;
             this.searchCheckBox.Text = "Search";
             this.searchCheckBox.UseVisualStyleBackColor = true;
-            this.searchCheckBox.CheckedChanged += new System.EventHandler(this.searchCheckBox_CheckedChanged);
-            // 
-            // fromCheckBox
-            // 
-            this.fromCheckBox.AutoSize = true;
-            this.fromCheckBox.Location = new System.Drawing.Point(12, 60);
-            this.fromCheckBox.Name = "fromCheckBox";
-            this.fromCheckBox.Size = new System.Drawing.Size(49, 17);
-            this.fromCheckBox.TabIndex = 16;
-            this.fromCheckBox.Text = "From";
-            this.fromCheckBox.UseVisualStyleBackColor = true;
-            this.fromCheckBox.CheckedChanged += new System.EventHandler(this.fromCheckBox_CheckedChanged);
-            // 
-            // toCheckBox
-            // 
-            this.toCheckBox.AutoSize = true;
-            this.toCheckBox.Location = new System.Drawing.Point(12, 92);
-            this.toCheckBox.Name = "toCheckBox";
-            this.toCheckBox.Size = new System.Drawing.Size(39, 17);
-            this.toCheckBox.TabIndex = 17;
-            this.toCheckBox.Text = "To";
-            this.toCheckBox.UseVisualStyleBackColor = true;
-            this.toCheckBox.CheckedChanged += new System.EventHandler(this.toCheckBox_CheckedChanged);
+            this.searchCheckBox.CheckedChanged += new System.EventHandler(this.SearchCheckBox_CheckedChanged);
             // 
             // pastReservationsCheckBox
             // 
@@ -287,13 +238,84 @@
             this.pastReservationsCheckBox.Size = new System.Drawing.Size(15, 14);
             this.pastReservationsCheckBox.TabIndex = 13;
             this.pastReservationsCheckBox.UseVisualStyleBackColor = true;
-            this.pastReservationsCheckBox.CheckedChanged += new System.EventHandler(this.pastReservationsCheckBox_CheckedChanged);
+            this.pastReservationsCheckBox.CheckedChanged += new System.EventHandler(this.PastReservationsCheckBox_CheckedChanged);
+            // 
+            // fromCheckBox
+            // 
+            this.fromCheckBox.AutoSize = true;
+            this.fromCheckBox.Enabled = false;
+            this.fromCheckBox.Location = new System.Drawing.Point(12, 62);
+            this.fromCheckBox.Name = "fromCheckBox";
+            this.fromCheckBox.Size = new System.Drawing.Size(52, 17);
+            this.fromCheckBox.TabIndex = 18;
+            this.fromCheckBox.Text = "From:";
+            this.fromCheckBox.UseVisualStyleBackColor = true;
+            this.fromCheckBox.CheckedChanged += new System.EventHandler(this.FromCheckBox_CheckedChanged);
+            // 
+            // toCheckBox
+            // 
+            this.toCheckBox.AutoSize = true;
+            this.toCheckBox.Enabled = false;
+            this.toCheckBox.Location = new System.Drawing.Point(12, 92);
+            this.toCheckBox.Name = "toCheckBox";
+            this.toCheckBox.Size = new System.Drawing.Size(42, 17);
+            this.toCheckBox.TabIndex = 19;
+            this.toCheckBox.Text = "To:";
+            this.toCheckBox.UseVisualStyleBackColor = true;
+            this.toCheckBox.CheckedChanged += new System.EventHandler(this.ToCheckBox_CheckedChanged);
+            // 
+            // newReservationButton
+            // 
+            this.newReservationButton.Location = new System.Drawing.Point(653, 120);
+            this.newReservationButton.Name = "newReservationButton";
+            this.newReservationButton.Size = new System.Drawing.Size(137, 23);
+            this.newReservationButton.TabIndex = 20;
+            this.newReservationButton.Text = "Add new reservation";
+            this.newReservationButton.UseVisualStyleBackColor = true;
+            this.newReservationButton.Click += new System.EventHandler(this.newReservationButton_Click);
+            // 
+            // administrationToolStripMenuItem
+            // 
+            this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.apartmentToolStripMenuItem});
+            this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.administrationToolStripMenuItem.Text = "Administration";
+            // 
+            // apartmentToolStripMenuItem
+            // 
+            this.apartmentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.apartmentToolStripMenuItem.Name = "apartmentToolStripMenuItem";
+            this.apartmentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.apartmentToolStripMenuItem.Text = "Apartment";
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // ReservationsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 552);
+            this.Controls.Add(this.newReservationButton);
             this.Controls.Add(this.toCheckBox);
             this.Controls.Add(this.fromCheckBox);
             this.Controls.Add(this.searchCheckBox);
@@ -325,10 +347,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reservationsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gDPRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rightToAccessToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rightToBeForgottenToolStripMenuItem;
@@ -344,9 +362,15 @@
         private System.Windows.Forms.Label pastReservationsLabel;
         private System.Windows.Forms.ComboBox searchComboBox;
         private System.Windows.Forms.CheckBox searchCheckBox;
+        private System.Windows.Forms.CheckBox pastReservationsCheckBox;
         private System.Windows.Forms.CheckBox fromCheckBox;
         private System.Windows.Forms.CheckBox toCheckBox;
-        private System.Windows.Forms.CheckBox pastReservationsCheckBox;
+        private System.Windows.Forms.Button newReservationButton;
+        private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem apartmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
 

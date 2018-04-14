@@ -1,4 +1,5 @@
-﻿using HotelGuestbook.DAL;
+﻿using HotelGuestbook.Classes.Reservation;
+using HotelGuestbook.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,33 @@ namespace HotelGuestbook.Classes.Apartment
             }
 
             return GuestBook.Context.Apartments.FirstOrDefault(apartment => apartment.ApartmentId == id);
+        }
+
+
+        /// <summary>
+        /// Get all available apartments with the desired capacity and a given time frame.
+        /// </summary>
+        /// <param name="minimalCapacity">Minimum capacity of the apartments.</param>
+        /// <param name="doubleBeds">Minimal number of double beds.</param>
+        /// <param name="from">Beginning date.</param>
+        /// <param name="to">Ending date.</param>
+        public static IEnumerable<ApartmentInfo> GetAvailableApartments(int minimalCapacity, int doubleBeds, DateTime from, DateTime to)
+        {
+            var apartments = GetApartmentsWithCapacityAtLeast(minimalCapacity)
+                                .Where(apartment => apartment.DoubleBeds >= doubleBeds)
+                                .ToList();
+            var reservations = ReservationProvider.GetAllReservationsFrom(from).Where(reservation => reservation.To <= to);
+            var occupiedApartments = new List<ApartmentInfo>();
+
+            foreach (var reservation in reservations)
+            {
+                if (!occupiedApartments.Contains(reservation.Apartment))
+                {
+                    occupiedApartments.Add(reservation.Apartment);
+                }
+            }
+
+            return apartments.Except(occupiedApartments);
         }
 
 

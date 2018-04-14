@@ -78,7 +78,7 @@ namespace HotelGuestbook.Classes.Reservation
 
         public override string ToString()
         {
-            return $"{Person.ToString()};{Apartment.ToString(true)};{From.ToString("dd.MM.yyyy")};{To.ToString("dd.MM.yyyy")}";
+            return $"{Person.ToString()};{Apartment.ToString()};{From.ToString("dd.MM.yyyy")};{To.ToString("dd.MM.yyyy")}";
         }
     }
 }

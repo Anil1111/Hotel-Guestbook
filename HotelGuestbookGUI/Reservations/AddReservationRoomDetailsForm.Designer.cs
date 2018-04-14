@@ -38,7 +38,6 @@
             this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.roomNumberLabel = new System.Windows.Forms.Label();
             this.actualRoomNumberLabel = new System.Windows.Forms.Label();
-            this.searchButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.stepLabel = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
@@ -50,6 +49,9 @@
             this.totalPrice = new System.Windows.Forms.Label();
             this.totalPriceLabel = new System.Windows.Forms.Label();
             this.proceedButton = new System.Windows.Forms.Button();
+            this.availableApartmentsComboBox = new System.Windows.Forms.ComboBox();
+            this.availableLabel = new System.Windows.Forms.Label();
+            this.availableApartmentsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minimalCapacityNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleBedsNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -84,6 +86,7 @@
             0,
             0,
             0});
+            this.minimalCapacityNumericUpDown.ValueChanged += new System.EventHandler(this.MinimalCapacityNumericUpDown_ValueChanged);
             // 
             // doubleBddsLabel
             // 
@@ -105,6 +108,7 @@
             this.doubleBedsNumericUpDown.Name = "doubleBedsNumericUpDown";
             this.doubleBedsNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.doubleBedsNumericUpDown.TabIndex = 3;
+            this.doubleBedsNumericUpDown.ValueChanged += new System.EventHandler(this.DoubleBedsNumericUpDown_ValueChanged);
             // 
             // fromLabel
             // 
@@ -130,6 +134,7 @@
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.fromDateTimePicker.TabIndex = 7;
+            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.FromDateTimePicker_ValueChanged);
             // 
             // toDateTimePicker
             // 
@@ -137,11 +142,12 @@
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.toDateTimePicker.TabIndex = 8;
+            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.ToDateTimePicker_ValueChanged);
             // 
             // roomNumberLabel
             // 
             this.roomNumberLabel.AutoSize = true;
-            this.roomNumberLabel.Location = new System.Drawing.Point(12, 259);
+            this.roomNumberLabel.Location = new System.Drawing.Point(12, 313);
             this.roomNumberLabel.Name = "roomNumberLabel";
             this.roomNumberLabel.Size = new System.Drawing.Size(76, 13);
             this.roomNumberLabel.TabIndex = 9;
@@ -150,36 +156,25 @@
             // actualRoomNumberLabel
             // 
             this.actualRoomNumberLabel.AutoSize = true;
-            this.actualRoomNumberLabel.Location = new System.Drawing.Point(104, 259);
+            this.actualRoomNumberLabel.Location = new System.Drawing.Point(104, 313);
             this.actualRoomNumberLabel.Name = "actualRoomNumberLabel";
-            this.actualRoomNumberLabel.Size = new System.Drawing.Size(16, 13);
+            this.actualRoomNumberLabel.Size = new System.Drawing.Size(0, 13);
             this.actualRoomNumberLabel.TabIndex = 10;
-            this.actualRoomNumberLabel.Text = "-1";
-            // 
-            // searchButton
-            // 
-            this.searchButton.Location = new System.Drawing.Point(232, 254);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(75, 23);
-            this.searchButton.TabIndex = 11;
-            this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(15, 315);
+            this.backButton.Location = new System.Drawing.Point(15, 383);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(75, 23);
             this.backButton.TabIndex = 12;
             this.backButton.Text = "< < Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // stepLabel
             // 
             this.stepLabel.AutoSize = true;
-            this.stepLabel.Location = new System.Drawing.Point(140, 320);
+            this.stepLabel.Location = new System.Drawing.Point(144, 383);
             this.stepLabel.Name = "stepLabel";
             this.stepLabel.Size = new System.Drawing.Size(49, 13);
             this.stepLabel.TabIndex = 14;
@@ -243,7 +238,7 @@
             // totalPrice
             // 
             this.totalPrice.AutoSize = true;
-            this.totalPrice.Location = new System.Drawing.Point(12, 283);
+            this.totalPrice.Location = new System.Drawing.Point(12, 348);
             this.totalPrice.Name = "totalPrice";
             this.totalPrice.Size = new System.Drawing.Size(60, 13);
             this.totalPrice.TabIndex = 21;
@@ -252,27 +247,56 @@
             // totalPriceLabel
             // 
             this.totalPriceLabel.AutoSize = true;
-            this.totalPriceLabel.Location = new System.Drawing.Point(104, 283);
+            this.totalPriceLabel.Location = new System.Drawing.Point(104, 348);
             this.totalPriceLabel.Name = "totalPriceLabel";
-            this.totalPriceLabel.Size = new System.Drawing.Size(42, 13);
+            this.totalPriceLabel.Size = new System.Drawing.Size(0, 13);
             this.totalPriceLabel.TabIndex = 22;
-            this.totalPriceLabel.Text = "-1 EUR";
             // 
             // proceedButton
             // 
-            this.proceedButton.Location = new System.Drawing.Point(232, 315);
+            this.proceedButton.Location = new System.Drawing.Point(238, 383);
             this.proceedButton.Name = "proceedButton";
             this.proceedButton.Size = new System.Drawing.Size(75, 23);
             this.proceedButton.TabIndex = 23;
             this.proceedButton.Text = "Proceed > >";
             this.proceedButton.UseVisualStyleBackColor = true;
-            this.proceedButton.Click += new System.EventHandler(this.proceedButton_Click);
+            this.proceedButton.Click += new System.EventHandler(this.ProceedButton_Click);
+            // 
+            // availableApartmentsComboBox
+            // 
+            this.availableApartmentsComboBox.FormattingEnabled = true;
+            this.availableApartmentsComboBox.Location = new System.Drawing.Point(12, 274);
+            this.availableApartmentsComboBox.Name = "availableApartmentsComboBox";
+            this.availableApartmentsComboBox.Size = new System.Drawing.Size(292, 21);
+            this.availableApartmentsComboBox.TabIndex = 24;
+            this.availableApartmentsComboBox.SelectedIndexChanged += new System.EventHandler(this.AvailableApartmentsComboBox_SelectedIndexChanged);
+            // 
+            // availableLabel
+            // 
+            this.availableLabel.AutoSize = true;
+            this.availableLabel.Location = new System.Drawing.Point(12, 249);
+            this.availableLabel.Name = "availableLabel";
+            this.availableLabel.Size = new System.Drawing.Size(108, 13);
+            this.availableLabel.TabIndex = 25;
+            this.availableLabel.Text = "Available apartments:";
+            // 
+            // availableApartmentsLabel
+            // 
+            this.availableApartmentsLabel.AutoSize = true;
+            this.availableApartmentsLabel.Location = new System.Drawing.Point(126, 249);
+            this.availableApartmentsLabel.Name = "availableApartmentsLabel";
+            this.availableApartmentsLabel.Size = new System.Drawing.Size(13, 13);
+            this.availableApartmentsLabel.TabIndex = 26;
+            this.availableApartmentsLabel.Text = "0";
             // 
             // AddReservationRoomDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 349);
+            this.ClientSize = new System.Drawing.Size(325, 418);
+            this.Controls.Add(this.availableApartmentsLabel);
+            this.Controls.Add(this.availableLabel);
+            this.Controls.Add(this.availableApartmentsComboBox);
             this.Controls.Add(this.proceedButton);
             this.Controls.Add(this.totalPriceLabel);
             this.Controls.Add(this.totalPrice);
@@ -284,7 +308,6 @@
             this.Controls.Add(this.name);
             this.Controls.Add(this.stepLabel);
             this.Controls.Add(this.backButton);
-            this.Controls.Add(this.searchButton);
             this.Controls.Add(this.actualRoomNumberLabel);
             this.Controls.Add(this.roomNumberLabel);
             this.Controls.Add(this.toDateTimePicker);
@@ -316,7 +339,6 @@
         private System.Windows.Forms.DateTimePicker toDateTimePicker;
         private System.Windows.Forms.Label roomNumberLabel;
         private System.Windows.Forms.Label actualRoomNumberLabel;
-        private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label stepLabel;
         private System.Windows.Forms.Label name;
@@ -328,5 +350,8 @@
         private System.Windows.Forms.Label totalPrice;
         private System.Windows.Forms.Label totalPriceLabel;
         private System.Windows.Forms.Button proceedButton;
+        private System.Windows.Forms.ComboBox availableApartmentsComboBox;
+        private System.Windows.Forms.Label availableLabel;
+        private System.Windows.Forms.Label availableApartmentsLabel;
     }
 }
