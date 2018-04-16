@@ -13,8 +13,10 @@ namespace HotelGuestbook.Classes.Apartment
         /// </summary>
         /// <param name="capacity">Capacity of the apartment.</param>
         /// <param name="doubleBeds">Number of double beds in an apartment.</param>
-        public ApartmentInfo(int capacity, int doubleBeds)
+        public ApartmentInfo(int number, int price, int capacity, int doubleBeds)
         {
+            Number = number;
+            Price = price;
             Capacity = capacity;
             DoubleBeds = doubleBeds;
         }

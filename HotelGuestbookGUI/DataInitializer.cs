@@ -47,10 +47,10 @@ namespace HotelGuestbookGUI
         /// <summary>
         /// Generates sample data.
         /// </summary>
-        /// <typeparam name="T">Type of genrated data.</typeparam>
+        /// <typeparam name="T">Type of generated data.</typeparam>
         /// <param name="sample">Sample file name.</param>
         private void GenerateData<T>(string sample)
-            where T : class, new()
+            where T : class
         {
             using (var reader = new StreamReader(sample))
             {
@@ -105,12 +105,12 @@ namespace HotelGuestbookGUI
         {
             var segments = currentLine.Split(';');
 
-            if (segments.Length != 2)
+            if (segments.Length != 4)
             {
                 throw new InvalidDataException(nameof(segments));
             }
 
-            var apartment = new ApartmentInfo(Int32.Parse(segments[0]), Int32.Parse(segments[1]));
+            var apartment = new ApartmentInfo(Int32.Parse(segments[0]), Int32.Parse(segments[1]), Int32.Parse(segments[2]), Int32.Parse(segments[3]));
 
             Apartments.Add(apartment);
         }

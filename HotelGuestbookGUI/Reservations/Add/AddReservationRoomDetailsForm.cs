@@ -159,7 +159,7 @@ namespace HotelGuestbookGUI.Reservations
 
 
         /// <summary>
-        /// Checks if there are apartments available and if no, dislables the combo box.
+        /// Checks if there are apartments available and if no, disables the combo box.
         /// </summary>
         /// <param name="availableApartmentsCount">Number of available apartments.</param>
         private void CheckApartmentsComboBoxAvailability(int availableApartmentsCount)

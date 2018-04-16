@@ -1,9 +1,13 @@
 ﻿using HotelGuestbook.Classes.Reservation;
 using HotelGuestbook.DAL;
 using HotelGuestbookGUI.GDPR;
+using HotelGuestbookGUI.Reservations.Delete;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace HotelGuestbookGUI.Reservations
@@ -13,12 +17,20 @@ namespace HotelGuestbookGUI.Reservations
         public GuestBook HotelGuestbook { get; set; }
         private IEnumerable<ReservationInfo> FilteredReservations;
 
+        private bool editMode = false;
+        private bool deleteMode = false;
+
 
         public ReservationsListForm()
         {
             InitializeComponent();
 
             HotelGuestbook = new GuestBook("HotelGuestbook");
+
+            reservationsListView.MultiSelect = false;
+            endEditOrDeleteModeButton.Visible = false;
+
+            InitializeImageList();
 
             ChangeSearchAvailability(false);
 
@@ -144,7 +156,12 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void NewReservationButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            ExitApplication();
+        }
+
+        private void AddToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var addReservationPersonalDataForm = new AddReservationPersonalDataForm();
 
@@ -152,9 +169,49 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void ExitButton_Click(object sender, EventArgs e)
+        private void EditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            ExitApplication();
+            editMode = true;
+
+            modeLabel.Text = "The application is in edit mode";
+
+            endEditOrDeleteModeButton.Text = "End edit mode";
+            endEditOrDeleteModeButton.Visible = true;
+
+            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+        }
+
+
+        private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            deleteMode = true;
+
+            modeLabel.Text = "The application is in delete mode";
+
+            endEditOrDeleteModeButton.Text = "End delete mode";
+            endEditOrDeleteModeButton.Visible = true;
+
+            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+        }
+
+
+        private void EndEditOrDeleteModeButton_Click(object sender, EventArgs e)
+        {
+            if (editMode)
+            {
+                editMode = false;
+                endEditOrDeleteModeButton.Visible = false;
+            }
+
+            if (deleteMode)
+            {
+                deleteMode = false;
+                endEditOrDeleteModeButton.Visible = false;
+            }
+
+            modeLabel.Text = String.Empty;
+
+            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
@@ -171,7 +228,46 @@ namespace HotelGuestbookGUI.Reservations
 
             AddReservationsToListView(reservations, showPastReservations);
 
+            AddIcons();
+
             UpdateCountLabel();
+        }
+
+
+        /// <summary>
+        /// Adds edit or delete icons based on which mode is the application currently operating in.
+        /// </summary>
+        private void AddIcons()
+        {
+            if (editMode)
+            {
+                foreach (ListViewItem item in reservationsListView.Items)
+                {
+                    item.ImageIndex = 0;
+                }
+            }
+
+            if (deleteMode)
+            {
+                foreach (ListViewItem item in reservationsListView.Items)
+                {
+                    item.ImageIndex = 1;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Initializes the image list for the list view.
+        /// </summary>
+        private void InitializeImageList()
+        {
+            var imageList = new ImageList();
+
+            imageList.Images.Add(Image.FromFile(Path.Combine(Assembly.GetExecutingAssembly().Location, @"../../../Icons/edit.ico")));
+            imageList.Images.Add(Image.FromFile(Path.Combine(Assembly.GetExecutingAssembly().Location, @"../../../Icons/delete.ico")));
+
+            reservationsListView.SmallImageList = imageList;
         }
 
 
@@ -261,16 +357,12 @@ namespace HotelGuestbookGUI.Reservations
         {
             FilteredReservations = ReservationProvider.GetAllReservations();
 
-            if (String.IsNullOrEmpty(searchTextBox.Text))
+            if (searchCheckBox.Checked)
             {
-                RefreshGUI();
+                FilterBySearchParameters();
 
-                return;
+                FilterByDate();
             }
-
-            FilterBySearchParameters();
-
-            FilterByDate();
 
             RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
         }
@@ -325,6 +417,8 @@ namespace HotelGuestbookGUI.Reservations
             {
                 FilteredReservations = FilteredReservations.Where(reservation => (reservation.To.Date - toDateTimePicker.Value.Date).TotalDays <= 0);
             }
+
+            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
@@ -337,6 +431,16 @@ namespace HotelGuestbookGUI.Reservations
             GuestBook.Context.Dispose();
 
             Application.Exit();
+        }
+
+        private void reservationsListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (deleteMode)
+            {
+                var deleteReservationForm = new DeleteReservationForm(reservationsListView.SelectedItems[0]);
+
+                deleteReservationForm.Show();
+            }
         }
     }
 }

@@ -33,6 +33,10 @@
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reservationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gDPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightToAccessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightToBeForgottenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,8 +60,9 @@
             this.pastReservationsCheckBox = new System.Windows.Forms.CheckBox();
             this.fromCheckBox = new System.Windows.Forms.CheckBox();
             this.toCheckBox = new System.Windows.Forms.CheckBox();
-            this.newReservationButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.endEditOrDeleteModeButton = new System.Windows.Forms.Button();
+            this.modeLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +70,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.reservationToolStripMenuItem,
             this.gDPRToolStripMenuItem,
             this.administrationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -101,6 +107,37 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // reservationToolStripMenuItem
+            // 
+            this.reservationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToolStripMenuItem1,
+            this.editToolStripMenuItem1,
+            this.deleteToolStripMenuItem1});
+            this.reservationToolStripMenuItem.Name = "reservationToolStripMenuItem";
+            this.reservationToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.reservationToolStripMenuItem.Text = "Reservation";
+            // 
+            // addToolStripMenuItem1
+            // 
+            this.addToolStripMenuItem1.Name = "addToolStripMenuItem1";
+            this.addToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.addToolStripMenuItem1.Text = "Add";
+            this.addToolStripMenuItem1.Click += new System.EventHandler(this.AddToolStripMenuItem1_Click);
+            // 
+            // editToolStripMenuItem1
+            // 
+            this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+            this.editToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem1.Text = "Edit";
+            this.editToolStripMenuItem1.Click += new System.EventHandler(this.EditToolStripMenuItem1_Click);
+            // 
+            // deleteToolStripMenuItem1
+            // 
+            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem1.Text = "Delete";
+            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.DeleteToolStripMenuItem1_Click);
             // 
             // gDPRToolStripMenuItem
             // 
@@ -234,6 +271,7 @@
             this.reservationsListView.Size = new System.Drawing.Size(775, 364);
             this.reservationsListView.TabIndex = 11;
             this.reservationsListView.UseCompatibleStateImageBehavior = false;
+            this.reservationsListView.SelectedIndexChanged += new System.EventHandler(this.reservationsListView_SelectedIndexChanged);
             // 
             // pastReservationsLabel
             // 
@@ -303,16 +341,6 @@
             this.toCheckBox.UseVisualStyleBackColor = true;
             this.toCheckBox.CheckedChanged += new System.EventHandler(this.ToCheckBox_CheckedChanged);
             // 
-            // newReservationButton
-            // 
-            this.newReservationButton.Location = new System.Drawing.Point(653, 120);
-            this.newReservationButton.Name = "newReservationButton";
-            this.newReservationButton.Size = new System.Drawing.Size(137, 23);
-            this.newReservationButton.TabIndex = 20;
-            this.newReservationButton.Text = "Add new reservation";
-            this.newReservationButton.UseVisualStyleBackColor = true;
-            this.newReservationButton.Click += new System.EventHandler(this.NewReservationButton_Click);
-            // 
             // refreshButton
             // 
             this.refreshButton.Location = new System.Drawing.Point(713, 30);
@@ -323,13 +351,32 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
+            // endEditOrDeleteModeButton
+            // 
+            this.endEditOrDeleteModeButton.Location = new System.Drawing.Point(646, 120);
+            this.endEditOrDeleteModeButton.Name = "endEditOrDeleteModeButton";
+            this.endEditOrDeleteModeButton.Size = new System.Drawing.Size(142, 23);
+            this.endEditOrDeleteModeButton.TabIndex = 22;
+            this.endEditOrDeleteModeButton.Text = "End edit or delete mode";
+            this.endEditOrDeleteModeButton.UseVisualStyleBackColor = true;
+            this.endEditOrDeleteModeButton.Click += new System.EventHandler(this.EndEditOrDeleteModeButton_Click);
+            // 
+            // modeLabel
+            // 
+            this.modeLabel.AutoSize = true;
+            this.modeLabel.Location = new System.Drawing.Point(465, 125);
+            this.modeLabel.Name = "modeLabel";
+            this.modeLabel.Size = new System.Drawing.Size(0, 13);
+            this.modeLabel.TabIndex = 23;
+            // 
             // ReservationsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 552);
+            this.Controls.Add(this.modeLabel);
+            this.Controls.Add(this.endEditOrDeleteModeButton);
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.newReservationButton);
             this.Controls.Add(this.toCheckBox);
             this.Controls.Add(this.fromCheckBox);
             this.Controls.Add(this.searchCheckBox);
@@ -379,13 +426,18 @@
         private System.Windows.Forms.CheckBox pastReservationsCheckBox;
         private System.Windows.Forms.CheckBox fromCheckBox;
         private System.Windows.Forms.CheckBox toCheckBox;
-        private System.Windows.Forms.Button newReservationButton;
         private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apartmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.Button endEditOrDeleteModeButton;
+        private System.Windows.Forms.ToolStripMenuItem reservationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
+        private System.Windows.Forms.Label modeLabel;
     }
 }
 
