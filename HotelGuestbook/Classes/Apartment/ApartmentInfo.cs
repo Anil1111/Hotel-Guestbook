@@ -68,7 +68,7 @@ namespace HotelGuestbook.Classes.Apartment
         /// <summary>
         /// ToString() method for dropdown apartment selection.
         /// </summary>
-        public object ToDropDownString()
+        public string ToDropDownString()
         {
             return $"Number: {Number.ToString()}, Capacity: {Capacity.ToString()}, Double beds: {DoubleBeds.ToString()}, Price: {Price.ToString()} EUR";
         }

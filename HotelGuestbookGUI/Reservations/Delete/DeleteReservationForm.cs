@@ -22,25 +22,7 @@ namespace HotelGuestbookGUI.Reservations.Delete
         }
 
 
-        private void SetUpLabels()
-        {
-            nameTextLabel.Text = person.FirstName + " " + person.LastName;
-            emailTextLabel.Text = person.Email;
-        }
-
-
-        private void ListViewItemToReservation(ListViewItem listViewItem)
-        {
-            var email = listViewItem.SubItems[2].Text;
-            var roomNumber = Convert.ToInt32(listViewItem.SubItems[4].Text);
-            var from = Convert.ToDateTime(listViewItem.SubItems[5].Text);
-            var to = Convert.ToDateTime(listViewItem.SubItems[5].Text);
-            var reservation = ReservationProvider.GetReservationsByRoomNumber(roomNumber)
-                                                 .Where(r => r.From.Date.Equals(from.Date))
-                                                 .Where(s => s.To.Date.Equals(to.Date));
-
-            person = PersonProvider.GetPersonByEmail(email);
-        }
+        #region Events
 
 
         private void DeleteCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -58,6 +40,41 @@ namespace HotelGuestbookGUI.Reservations.Delete
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             ReservationProvider.DeleteReservation(reservation);
+
+            MessageBox.Show("The reservation was successfully deleted");
+
+            Close();
+        }
+
+
+        #endregion
+
+
+        /// <summary>
+        /// Sets up labels text.
+        /// </summary>
+        private void SetUpLabels()
+        {
+            nameTextLabel.Text = person.FirstName + " " + person.LastName;
+            emailTextLabel.Text = person.Email;
+
+            roomNumberLabel.Text = reservation.Apartment.Number.ToString();
+            fromTextLabel.Text = reservation.From.Date.ToString("dd.MM.yyyy");
+            toTextLabel.Text = reservation.To.Date.ToString("dd.MM.yyyy");
+        }
+
+
+        /// <summary>
+        /// Transforms the <paramref name="listViewItem"/> to a reservation.
+        /// </summary>
+        /// <param name="listViewItem">Selected item to transform.</param>
+        private void ListViewItemToReservation(ListViewItem listViewItem)
+        {
+            var email = listViewItem.SubItems[3].Text;
+            var reservationId = Convert.ToInt32(listViewItem.SubItems[0].Text);
+
+            person = PersonProvider.GetPersonByEmail(email);
+            reservation = ReservationProvider.GetReservationById(reservationId);         
         }
     }
 }

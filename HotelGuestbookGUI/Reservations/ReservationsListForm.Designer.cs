@@ -271,7 +271,7 @@
             this.reservationsListView.Size = new System.Drawing.Size(775, 364);
             this.reservationsListView.TabIndex = 11;
             this.reservationsListView.UseCompatibleStateImageBehavior = false;
-            this.reservationsListView.SelectedIndexChanged += new System.EventHandler(this.reservationsListView_SelectedIndexChanged);
+            this.reservationsListView.SelectedIndexChanged += new System.EventHandler(this.ReservationsListView_SelectedIndexChanged);
             // 
             // pastReservationsLabel
             // 

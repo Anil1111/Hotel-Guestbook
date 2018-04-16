@@ -31,6 +31,21 @@ namespace HotelGuestbook.Classes.Apartment
 
 
         /// <summary>
+        /// Returns an apartment by number.
+        /// </summary>
+        /// <param name="number">Number of the apartment.</param>
+        public static ApartmentInfo GetApartmentByRoomNumber(int number)
+        {
+            if (number <= 0)
+            {
+                throw new ArgumentException(nameof(number));
+            }
+
+            return GuestBook.Context.Apartments.FirstOrDefault(apartment => apartment.Number == number);
+        }
+
+
+        /// <summary>
         /// Get all available apartments with the desired capacity and a given time frame.
         /// </summary>
         /// <param name="minimalCapacity">Minimum capacity of the apartments.</param>

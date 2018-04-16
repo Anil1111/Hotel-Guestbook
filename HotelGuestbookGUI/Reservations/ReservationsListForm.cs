@@ -2,6 +2,7 @@
 using HotelGuestbook.DAL;
 using HotelGuestbookGUI.GDPR;
 using HotelGuestbookGUI.Reservations.Delete;
+using HotelGuestbookGUI.Reservations.Edit;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,7 +15,6 @@ namespace HotelGuestbookGUI.Reservations
 {
     public partial class ReservationsListForm : Form
     {
-        public GuestBook HotelGuestbook { get; set; }
         private IEnumerable<ReservationInfo> FilteredReservations;
 
         private bool editMode = false;
@@ -25,7 +25,7 @@ namespace HotelGuestbookGUI.Reservations
         {
             InitializeComponent();
 
-            HotelGuestbook = new GuestBook("HotelGuestbook");
+            
 
             reservationsListView.MultiSelect = false;
             endEditOrDeleteModeButton.Visible = false;
@@ -172,10 +172,11 @@ namespace HotelGuestbookGUI.Reservations
         private void EditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             editMode = true;
+            deleteMode = false;
 
             modeLabel.Text = "The application is in edit mode";
 
-            endEditOrDeleteModeButton.Text = "End edit mode";
+            endEditOrDeleteModeButton.Text = "Exit edit mode";
             endEditOrDeleteModeButton.Visible = true;
 
             RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
@@ -185,10 +186,11 @@ namespace HotelGuestbookGUI.Reservations
         private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             deleteMode = true;
+            editMode = false;
 
             modeLabel.Text = "The application is in delete mode";
 
-            endEditOrDeleteModeButton.Text = "End delete mode";
+            endEditOrDeleteModeButton.Text = "Exit delete mode";
             endEditOrDeleteModeButton.Visible = true;
 
             RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
@@ -212,6 +214,24 @@ namespace HotelGuestbookGUI.Reservations
             modeLabel.Text = String.Empty;
 
             RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+        }
+
+
+        private void ReservationsListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (editMode && reservationsListView.SelectedItems.Count != 0)
+            {
+                var editReservationForm = new EditReservationForm(reservationsListView.SelectedItems[0]);
+
+                editReservationForm.Show();
+            }
+
+            if (deleteMode && reservationsListView.SelectedItems.Count != 0)
+            {
+                var deleteReservationForm = new DeleteReservationForm(reservationsListView.SelectedItems[0]);
+
+                deleteReservationForm.Show();
+            }
         }
 
 
@@ -277,7 +297,7 @@ namespace HotelGuestbookGUI.Reservations
         /// <param name="showPastReservations">If true, past reservations are shown in GUI.</param>
         private void AddReservationsToListView(IEnumerable<ReservationInfo> reservations = null, bool showPastReservations = false)
         {
-            var listOfReservations = reservations ?? HotelGuestbook.Reservations;
+            var listOfReservations = reservations ?? Program.HotelGuestbook.Reservations;
 
             foreach (var reservation in listOfReservations)
             {
@@ -308,6 +328,7 @@ namespace HotelGuestbookGUI.Reservations
         /// </summary>
         private void SetUpHeaders()
         {
+            reservationsListView.Columns.Add(CreateColumnHeader("ID", 30));
             reservationsListView.Columns.Add(CreateColumnHeader("First name", 100));
             reservationsListView.Columns.Add(CreateColumnHeader("Last name", 100));
             reservationsListView.Columns.Add(CreateColumnHeader("Email", 170));
@@ -431,16 +452,6 @@ namespace HotelGuestbookGUI.Reservations
             GuestBook.Context.Dispose();
 
             Application.Exit();
-        }
-
-        private void reservationsListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (deleteMode)
-            {
-                var deleteReservationForm = new DeleteReservationForm(reservationsListView.SelectedItems[0]);
-
-                deleteReservationForm.Show();
-            }
         }
     }
 }

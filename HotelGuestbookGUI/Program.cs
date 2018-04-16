@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HotelGuestbook.DAL;
+using System;
 using System.Windows.Forms;
 
 namespace HotelGuestbookGUI
 {
-    static class Program
+    public static class Program
     {
+        public static GuestBook HotelGuestbook { get; set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +16,23 @@ namespace HotelGuestbookGUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            HotelGuestbook = new GuestBook("HotelGuestbook");
+
+            //InitializeSampleData();
+            
             Application.Run(new Reservations.ReservationsListForm());
+        }
+
+
+        /// <summary>
+        /// Initializes sample data.
+        /// </summary>
+        private static void InitializeSampleData()
+        {
+            var dataInitializer = new DataInitializer();
+
+            dataInitializer.GenerateTestData(HotelGuestbook, true);
         }
     }
 }
