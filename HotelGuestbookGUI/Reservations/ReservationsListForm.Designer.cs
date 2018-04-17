@@ -383,7 +383,7 @@
             this.generateSampleDataToolStripMenuItem.Name = "generateSampleDataToolStripMenuItem";
             this.generateSampleDataToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.generateSampleDataToolStripMenuItem.Text = "Generate sample data";
-            this.generateSampleDataToolStripMenuItem.Click += new System.EventHandler(this.generateSampleDataToolStripMenuItem_Click);
+            this.generateSampleDataToolStripMenuItem.Click += new System.EventHandler(this.GenerateSampleDataToolStripMenuItem_Click);
             // 
             // ReservationsListForm
             // 

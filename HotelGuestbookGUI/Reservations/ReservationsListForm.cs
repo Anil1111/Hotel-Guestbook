@@ -44,14 +44,6 @@ namespace HotelGuestbookGUI.Reservations
         #region Events
 
 
-        private void ExportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var saveFileDialog = new SaveFileDialog();
-
-            saveFileDialog.ShowDialog();
-        }
-
-
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e) => ExitApplication();
 
 
@@ -207,7 +199,29 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void generateSampleDataToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog();
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            using (var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+            {
+                using (var streamWriter = new StreamWriter(fileStream))
+                {
+                    foreach (var reservation in ReservationProvider.GetAllReservations())
+                    {
+                        streamWriter.WriteLine(reservation.ToString());
+                    }
+                }
+            }
+        }
+
+
+        private void GenerateSampleDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dataInitializer = new DataInitializer();
 
