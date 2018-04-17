@@ -10,23 +10,22 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using HotelGuestbookGUI.Reservations.Add;
 
 namespace HotelGuestbookGUI.Reservations
 {
     public partial class ReservationsListForm : Form
     {
-        private IEnumerable<ReservationInfo> FilteredReservations;
+        private IEnumerable<ReservationInfo> _filteredReservations;
 
-        private bool editMode = false;
-        private bool deleteMode = false;
+        private bool _editMode;
+        private bool _deleteMode;
 
 
         public ReservationsListForm()
         {
             InitializeComponent();
-
             
-
             reservationsListView.MultiSelect = false;
             endEditOrDeleteModeButton.Visible = false;
 
@@ -36,9 +35,9 @@ namespace HotelGuestbookGUI.Reservations
 
             SetUpHeaders();
 
-            RefreshGUI();
+            RefreshGui();
 
-            FilteredReservations = ReservationProvider.GetAllReservations();
+            _filteredReservations = ReservationProvider.GetAllReservations();
         }
 
 
@@ -53,10 +52,7 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ExitApplication();
-        }
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e) => ExitApplication();
 
 
         private void RightToAccessToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,14 +95,7 @@ namespace HotelGuestbookGUI.Reservations
             ToCheckBox_CheckedChanged(sender, e);
             toCheckBox.Enabled = searchCheckBox.Checked;
 
-            if (searchCheckBox.Checked)
-            {
-                RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
-            }
-            else
-            {
-                RefreshGUI(null, pastReservationsCheckBox.Checked);
-            }
+            RefreshGui(searchCheckBox.Checked ? _filteredReservations : null, pastReservationsCheckBox.Checked);
         }
 
 
@@ -126,40 +115,23 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
-        private void SearchComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            UpdateSearch();
-        }
+        private void SearchComboBox_SelectedValueChanged(object sender, EventArgs e) => UpdateSearch();
 
 
-        private void SearchTextBox_TextChanged(object sender, EventArgs e)
-        {
-            UpdateSearch();
-        }
+        private void SearchTextBox_TextChanged(object sender, EventArgs e) => UpdateSearch();
 
 
-        private void FromDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateSearch();
-        }
+        private void FromDateTimePicker_ValueChanged(object sender, EventArgs e) => UpdateSearch();
 
 
-        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateSearch();
-        }
+        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e) => UpdateSearch();
 
 
-        private void RefreshButton_Click(object sender, EventArgs e)
-        {
-            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
-        }
+        private void RefreshButton_Click(object sender, EventArgs e) => RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
 
 
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            ExitApplication();
-        }
+        private void ExitButton_Click(object sender, EventArgs e) => ExitApplication();
+
 
         private void AddToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -171,62 +143,62 @@ namespace HotelGuestbookGUI.Reservations
 
         private void EditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            editMode = true;
-            deleteMode = false;
+            _editMode = true;
+            _deleteMode = false;
 
-            modeLabel.Text = "The application is in edit mode";
+            modeLabel.Text = @"The application is in edit mode";
 
-            endEditOrDeleteModeButton.Text = "Exit edit mode";
+            endEditOrDeleteModeButton.Text = @"Exit edit mode";
             endEditOrDeleteModeButton.Visible = true;
 
-            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
         private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            deleteMode = true;
-            editMode = false;
+            _deleteMode = true;
+            _editMode = false;
 
-            modeLabel.Text = "The application is in delete mode";
+            modeLabel.Text = @"The application is in delete mode";
 
-            endEditOrDeleteModeButton.Text = "Exit delete mode";
+            endEditOrDeleteModeButton.Text = @"Exit delete mode";
             endEditOrDeleteModeButton.Visible = true;
 
-            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
         private void EndEditOrDeleteModeButton_Click(object sender, EventArgs e)
         {
-            if (editMode)
+            if (_editMode)
             {
-                editMode = false;
+                _editMode = false;
                 endEditOrDeleteModeButton.Visible = false;
             }
 
-            if (deleteMode)
+            if (_deleteMode)
             {
-                deleteMode = false;
+                _deleteMode = false;
                 endEditOrDeleteModeButton.Visible = false;
             }
 
             modeLabel.Text = String.Empty;
 
-            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
         private void ReservationsListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (editMode && reservationsListView.SelectedItems.Count != 0)
+            if (_editMode && reservationsListView.SelectedItems.Count != 0)
             {
                 var editReservationForm = new EditReservationForm(reservationsListView.SelectedItems[0]);
 
                 editReservationForm.Show();
             }
 
-            if (deleteMode && reservationsListView.SelectedItems.Count != 0)
+            if (_deleteMode && reservationsListView.SelectedItems.Count != 0)
             {
                 var deleteReservationForm = new DeleteReservationForm(reservationsListView.SelectedItems[0]);
 
@@ -241,8 +213,9 @@ namespace HotelGuestbookGUI.Reservations
         /// <summary>
         /// Refreshes the list of reservations.
         /// </summary>
+        /// <param name="reservations">Reservations to show.</param>
         /// <param name="showPastReservations">If true, past reservations are shown in GUI.</param>
-        private void RefreshGUI(IEnumerable<ReservationInfo> reservations = null, bool showPastReservations = false)
+        private void RefreshGui(IEnumerable<ReservationInfo> reservations = null, bool showPastReservations = false)
         {
             reservationsListView.Items.Clear();
 
@@ -259,7 +232,7 @@ namespace HotelGuestbookGUI.Reservations
         /// </summary>
         private void AddIcons()
         {
-            if (editMode)
+            if (_editMode)
             {
                 foreach (ListViewItem item in reservationsListView.Items)
                 {
@@ -267,7 +240,7 @@ namespace HotelGuestbookGUI.Reservations
                 }
             }
 
-            if (deleteMode)
+            if (_deleteMode)
             {
                 foreach (ListViewItem item in reservationsListView.Items)
                 {
@@ -294,6 +267,7 @@ namespace HotelGuestbookGUI.Reservations
         /// <summary>
         /// Adds reservations to the list view.
         /// </summary>
+        /// <param name="reservations">Reservation to add to view.</param>
         /// <param name="showPastReservations">If true, past reservations are shown in GUI.</param>
         private void AddReservationsToListView(IEnumerable<ReservationInfo> reservations = null, bool showPastReservations = false)
         {
@@ -317,10 +291,7 @@ namespace HotelGuestbookGUI.Reservations
         /// <summary>
         /// Updates the count label.
         /// </summary>
-        private void UpdateCountLabel()
-        {
-            countLabel.Text = reservationsListView.Items.Count.ToString();
-        }
+        private void UpdateCountLabel() => countLabel.Text = reservationsListView.Items.Count.ToString();
 
 
         /// <summary>
@@ -347,7 +318,7 @@ namespace HotelGuestbookGUI.Reservations
         /// </summary>
         /// <param name="headerText">Header text.</param>
         /// <param name="width">Header width.</param>
-        private ColumnHeader CreateColumnHeader(string headerText, int width)
+        private static ColumnHeader CreateColumnHeader(string headerText, int width)
         {
             return new ColumnHeader
             {
@@ -376,7 +347,7 @@ namespace HotelGuestbookGUI.Reservations
         /// </summary>
         private void UpdateSearch()
         {
-            FilteredReservations = ReservationProvider.GetAllReservations();
+            _filteredReservations = ReservationProvider.GetAllReservations();
 
             if (searchCheckBox.Checked)
             {
@@ -385,7 +356,7 @@ namespace HotelGuestbookGUI.Reservations
                 FilterByDate();
             }
 
-            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
@@ -398,26 +369,26 @@ namespace HotelGuestbookGUI.Reservations
             {
                 case 0:
                     {
-                        FilteredReservations = ReservationProvider.GetReservationsByFirstName(searchTextBox.Text);
-                        RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+                        _filteredReservations = ReservationProvider.GetReservationsByFirstName(searchTextBox.Text);
+                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
                         break;
                     }
                 case 1:
                     {
-                        FilteredReservations = ReservationProvider.GetReservationsByLastName(searchTextBox.Text);
-                        RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+                        _filteredReservations = ReservationProvider.GetReservationsByLastName(searchTextBox.Text);
+                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
                         break;
                     }
                 case 2:
                     {
-                        FilteredReservations = ReservationProvider.GetReservationsByEmail(searchTextBox.Text);
-                        RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+                        _filteredReservations = ReservationProvider.GetReservationsByEmail(searchTextBox.Text);
+                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
                         break;
                     }
                 case 3:
                     {
-                        FilteredReservations = ReservationProvider.GetReservationsByRoomNumber(Int32.Parse(searchTextBox.Text));
-                        RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+                        _filteredReservations = ReservationProvider.GetReservationsByRoomNumber(Int32.Parse(searchTextBox.Text));
+                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
                         break;
                     }
             }
@@ -431,22 +402,22 @@ namespace HotelGuestbookGUI.Reservations
         {
             if (fromCheckBox.Checked)
             {
-                FilteredReservations = FilteredReservations.Where(reservation => (reservation.From.Date - fromDateTimePicker.Value.Date).TotalDays >= 0);
+                _filteredReservations = _filteredReservations.Where(reservation => (reservation.From.Date - fromDateTimePicker.Value.Date).TotalDays >= 0);
             }
 
             if (toCheckBox.Checked)
             {
-                FilteredReservations = FilteredReservations.Where(reservation => (reservation.To.Date - toDateTimePicker.Value.Date).TotalDays <= 0);
+                _filteredReservations = _filteredReservations.Where(reservation => (reservation.To.Date - toDateTimePicker.Value.Date).TotalDays <= 0);
             }
 
-            RefreshGUI(FilteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
         /// <summary>
         /// Disposes the context and exits the application.
         /// </summary>
-        private void ExitApplication()
+        private static void ExitApplication()
         {
             GuestBook.Context.Database.Connection.Close();
             GuestBook.Context.Dispose();

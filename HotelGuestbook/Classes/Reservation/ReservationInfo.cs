@@ -76,9 +76,6 @@ namespace HotelGuestbook.Classes.Reservation
         public DateTime To { get; set; }
 
 
-        public override string ToString()
-        {
-            return $"{ReservationId};{Person.ToString()};{Apartment.ToString()};{From.ToString("dd.MM.yyyy")};{To.ToString("dd.MM.yyyy")}";
-        }
+        public override string ToString() => $"{ReservationId};{Person};{Apartment};{From:dd.MM.yyyy};{To:dd.MM.yyyy}";
     }
 }

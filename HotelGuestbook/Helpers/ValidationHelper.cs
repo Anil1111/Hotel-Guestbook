@@ -28,7 +28,7 @@ namespace HotelGuestbook.Helpers
         {
             try
             {
-                new MailAddress(email);
+                var unused = new MailAddress(email);
             }
             catch (Exception e)
             {
@@ -50,7 +50,7 @@ namespace HotelGuestbook.Helpers
         /// <param name="name">Name to check.</param>
         public static bool IsValidName(string name)
         {
-            return !(String.IsNullOrEmpty(name));
+            return !(string.IsNullOrEmpty(name));
         }
 
 
@@ -60,8 +60,8 @@ namespace HotelGuestbook.Helpers
         /// <param name="birthDate">Persons date of birth.</param>
         private static int GetAge(DateTime birthDate)
         {
-            DateTime today = DateTime.Today;
-            int age = today.Year - birthDate.Year;
+            var today = DateTime.Today;
+            var age = today.Year - birthDate.Year;
 
             if (birthDate > today.AddYears(-age))
             {

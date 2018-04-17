@@ -1,4 +1,4 @@
-﻿namespace HotelGuestbookGUI.Reservations
+﻿namespace HotelGuestbookGUI.Reservations.Add
 {
     partial class AddReservationRoomDetailsForm
     {

@@ -11,6 +11,8 @@ namespace HotelGuestbook.Classes.Apartment
         /// <summary>
         /// Creates a new instance of ApartmentInfo.
         /// </summary>
+        /// <param name="number">Apartment number.</param>
+        /// <param name="price">Price of the apartment per night.</param>
         /// <param name="capacity">Capacity of the apartment.</param>
         /// <param name="doubleBeds">Number of double beds in an apartment.</param>
         public ApartmentInfo(int number, int price, int capacity, int doubleBeds)
@@ -66,17 +68,11 @@ namespace HotelGuestbook.Classes.Apartment
 
 
         /// <summary>
-        /// ToString() method for dropdown apartment selection.
+        /// ToString() method for drop-down apartment selection.
         /// </summary>
-        public string ToDropDownString()
-        {
-            return $"Number: {Number.ToString()}, Capacity: {Capacity.ToString()}, Double beds: {DoubleBeds.ToString()}, Price: {Price.ToString()} EUR";
-        }
+        public string ToDropDownString() => $"Number: {Number.ToString()}, Capacity: {Capacity.ToString()}, Double beds: {DoubleBeds.ToString()}, Price: {Price.ToString()} EUR";
 
 
-        public override string ToString()
-        {
-            return $"{Number.ToString()}";
-        }
+        public override string ToString() => $"{Number.ToString()}";
     }
 }

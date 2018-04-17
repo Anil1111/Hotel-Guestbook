@@ -55,8 +55,7 @@ namespace HotelGuestbook.Classes.Apartment
         public static IEnumerable<ApartmentInfo> GetAvailableApartments(int minimalCapacity, int doubleBeds, DateTime from, DateTime to)
         {
             var apartments = GetApartmentsWithCapacityAtLeast(minimalCapacity)
-                                .Where(apartment => apartment.DoubleBeds >= doubleBeds)
-                                .ToList();
+                                .Where(apartment => apartment.DoubleBeds >= doubleBeds).ToList();
             var reservations = ReservationProvider.GetAllReservationsFrom(from).Where(reservation => reservation.To <= to);
             var occupiedApartments = new List<ApartmentInfo>();
 

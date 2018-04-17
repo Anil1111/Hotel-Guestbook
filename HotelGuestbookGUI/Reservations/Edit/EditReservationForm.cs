@@ -10,9 +10,9 @@ namespace HotelGuestbookGUI.Reservations.Edit
 {
     public partial class EditReservationForm : Form
     {
-        private ApartmentInfo apartment;
-        private ReservationInfo reservation;
-        private List<ApartmentInfo> apartments = ApartmentProvider.GetAllApartments().ToList();
+        private ApartmentInfo _apartment;
+        private ReservationInfo _reservation;
+        private readonly List<ApartmentInfo> _apartments = ApartmentProvider.GetAllApartments().ToList();
 
 
         public EditReservationForm(ListViewItem listViewItem)
@@ -38,7 +38,7 @@ namespace HotelGuestbookGUI.Reservations.Edit
 
         private void ApartmentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            apartment = apartments[apartmentsComboBox.SelectedIndex];
+            _apartment = _apartments[apartmentsComboBox.SelectedIndex];
 
             CheckApartmentAvailability();
         }
@@ -68,13 +68,13 @@ namespace HotelGuestbookGUI.Reservations.Edit
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            reservation.Apartment = apartment;
-            reservation.ApartmentId = apartment.ApartmentId;
+            _reservation.Apartment = _apartment;
+            _reservation.ApartmentId = _apartment.ApartmentId;
 
-            reservation.From = fromDateTimePicker.Value;
-            reservation.To = toDateTimePicker.Value;
+            _reservation.From = fromDateTimePicker.Value;
+            _reservation.To = toDateTimePicker.Value;
 
-            ReservationProvider.SetReservation(reservation);
+            ReservationProvider.SetReservation(_reservation);
 
             Close();
         }
@@ -85,20 +85,20 @@ namespace HotelGuestbookGUI.Reservations.Edit
 
 
         /// <summary>
-        /// Initializes values for editation.
+        /// Initializes values for edit.
         /// </summary>
         private void InitializeValues()
         {
-            foreach (var apartment in apartments)
+            foreach (var apartment in _apartments)
             {
                 apartmentsComboBox.Items.Add(apartment.ToDropDownString());
             }
 
             infoLabel.Text = "";
-            originalRoomLabel.Text = "Original room number: " + reservation.Apartment.Number.ToString();
+            originalRoomLabel.Text = @"Original room number: " + _reservation.Apartment.Number;
 
-            fromDateTimePicker.Value = reservation.From;
-            toDateTimePicker.Value = reservation.To;
+            fromDateTimePicker.Value = _reservation.From;
+            toDateTimePicker.Value = _reservation.To;
         }
 
 
@@ -110,7 +110,7 @@ namespace HotelGuestbookGUI.Reservations.Edit
         {
             var reservationId = Convert.ToInt32(listViewItem.SubItems[0].Text);
 
-            reservation = ReservationProvider.GetReservationById(reservationId);
+            _reservation = ReservationProvider.GetReservationById(reservationId);
         }
 
 
@@ -119,7 +119,7 @@ namespace HotelGuestbookGUI.Reservations.Edit
         /// </summary>
         private void CheckApartmentAvailability()
         {
-            if (apartment == null)
+            if (_apartment == null)
             {
                 return;
             }
@@ -127,7 +127,7 @@ namespace HotelGuestbookGUI.Reservations.Edit
             var start = fromDateTimePicker.Value.Date;
             var end = toDateTimePicker.Value.Date;
 
-            var reservations = apartment.GetAllReservationsForApartment().ToList();
+            var reservations = _apartment.GetAllReservationsForApartment().ToList();
 
             foreach (var reservation in reservations)
             {
@@ -135,8 +135,8 @@ namespace HotelGuestbookGUI.Reservations.Edit
                     (reservation.From < end && reservation.To > end)     ||
                     (start <= reservation.From && end >= reservation.To))
                 {
-                    infoLabel.Text = $"Selected reservation dates for this room collide with another reservation.\r\n" 
-                                     + $"Reservation start: {reservation.From.Date.ToString("dd.MM.yyyy")}, reservation end: {reservation.To.Date.ToString("dd.MM.yyyy")}";
+                    infoLabel.Text = @"Selected reservation dates for this room collide with another reservation.\r\n" 
+                                     + $@"Reservation start: {reservation.From.Date:dd.MM.yyyy}, reservation end: {reservation.To.Date:dd.MM.yyyy}";
 
                     saveButton.Enabled = false;
 

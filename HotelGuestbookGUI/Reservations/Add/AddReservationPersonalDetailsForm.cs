@@ -1,15 +1,12 @@
-﻿using HotelGuestbook.Classes.Person;
-using HotelGuestbook.Helpers;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using HotelGuestbook.Classes.Person;
+using HotelGuestbook.Helpers;
 
-namespace HotelGuestbookGUI.Reservations
+namespace HotelGuestbookGUI.Reservations.Add
 {
     public partial class AddReservationPersonalDataForm : Form
     {
-        private PersonInfo Person;
-
-
         /// <summary>
         /// Creates a new instance of AddReservationPersonalDataForm.
         /// </summary>
@@ -18,25 +15,22 @@ namespace HotelGuestbookGUI.Reservations
         {
             InitializeComponent();
 
-            Person = person;
-
-            if (Person != null)
+            if (person == null)
             {
-                firstNameTextBox.Text = person.FirstName;
-                lastNameTextBox.Text = person.LastName;
-                emailTextBox.Text = person.Email;
-                dateOfBirthDateTimePicker.Value = person.DateOfBirth;
+                return;
             }
+
+            firstNameTextBox.Text = person.FirstName;
+            lastNameTextBox.Text = person.LastName;
+            emailTextBox.Text = person.Email;
+            dateOfBirthDateTimePicker.Value = person.DateOfBirth;
         }
 
 
         #region Events
 
 
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void BackButton_Click(object sender, EventArgs e) => Close();
 
 
         private void ProceedButton_Click(object sender, EventArgs e)
@@ -65,28 +59,28 @@ namespace HotelGuestbookGUI.Reservations
         {
             if (!ValidationHelper.IsValidName(firstNameTextBox.Text))
             {
-                MessageBox.Show("The first name must not be empty.");
+                MessageBox.Show(@"The first name must not be empty.");
 
                 return false;
             }
 
             if (!ValidationHelper.IsValidName(lastNameTextBox.Text))
             {
-                MessageBox.Show("The last name must not be empty.");
+                MessageBox.Show(@"The last name must not be empty.");
 
                 return false;
             }
 
             if (!ValidationHelper.IsValidEmail(emailTextBox.Text))
             {
-                MessageBox.Show("Email is either empty or is in incorrect format.");
+                MessageBox.Show(@"Email is either empty or is in incorrect format.");
 
                 return false;
             }
 
             if (!ValidationHelper.IsPersonAtLeastEighteen(ConversionHelper.ConvertStringToDateTime(dateOfBirthDateTimePicker.Value.ToString("dd.MM.yyy"))))
             {
-                MessageBox.Show("You must be at least 18 to make a reservation!");
+                MessageBox.Show(@"You must be at least 18 to make a reservation!");
 
                 return false;
             }

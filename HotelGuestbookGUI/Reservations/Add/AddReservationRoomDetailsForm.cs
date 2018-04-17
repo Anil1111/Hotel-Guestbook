@@ -1,18 +1,19 @@
-﻿using HotelGuestbook.Classes.Apartment;
-using HotelGuestbook.Classes.Person;
-using HotelGuestbook.Classes.Reservation;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using HotelGuestbook.Classes.Apartment;
+using HotelGuestbook.Classes.Person;
+using HotelGuestbook.Classes.Reservation;
 
-namespace HotelGuestbookGUI.Reservations
+namespace HotelGuestbookGUI.Reservations.Add
 {
     public partial class AddReservationRoomDetailsForm : Form
     {
-        private PersonInfo Person;
-        private ApartmentInfo SelectedApartment;
-        private ReservationInfo Reservation;
+        private PersonInfo _person;
+        private ApartmentInfo _selectedApartment;
+        private ReservationInfo _reservation;
         public IEnumerable<ApartmentInfo> AvailableApartments;
 
 
@@ -41,7 +42,7 @@ namespace HotelGuestbookGUI.Reservations
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            var addReservationPersonalDetailsForm = new AddReservationPersonalDataForm(Person);
+            var addReservationPersonalDetailsForm = new AddReservationPersonalDataForm(_person);
 
             addReservationPersonalDetailsForm.Show();
             Close();
@@ -50,11 +51,12 @@ namespace HotelGuestbookGUI.Reservations
 
         private void ProceedButton_Click(object sender, EventArgs e)
         {
-            var addReservationReviewForm = new AddReservationReviewForm(Person, SelectedApartment, Reservation);
+            var addReservationReviewForm = new AddReservationReviewForm(_person, _selectedApartment, _reservation);
 
             addReservationReviewForm.Show();
             Close();
         }
+
 
         private void FromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
@@ -63,28 +65,22 @@ namespace HotelGuestbookGUI.Reservations
             UpdateNumberOfAvailableApartments();
         }
 
-        private void MinimalCapacityNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateNumberOfAvailableApartments();
-        }
 
-        private void DoubleBedsNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateNumberOfAvailableApartments();
-        }
+        private void MinimalCapacityNumericUpDown_ValueChanged(object sender, EventArgs e) => UpdateNumberOfAvailableApartments();
 
-        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateNumberOfAvailableApartments();
-        }
 
-        
+        private void DoubleBedsNumericUpDown_ValueChanged(object sender, EventArgs e) => UpdateNumberOfAvailableApartments();
+
+
+        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e) => UpdateNumberOfAvailableApartments();
+
+
         private void AvailableApartmentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedApartment = AvailableApartments.ElementAt(availableApartmentsComboBox.SelectedIndex);
+            _selectedApartment = AvailableApartments.ElementAt(availableApartmentsComboBox.SelectedIndex);
 
-            actualRoomNumberLabel.Text = SelectedApartment.Number.ToString();
-            totalPriceLabel.Text = (SelectedApartment.Price * (toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays).ToString() + " EUR";
+            actualRoomNumberLabel.Text = _selectedApartment.Number.ToString();
+            totalPriceLabel.Text = (_selectedApartment.Price * (toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays) + @" EUR";
 
             proceedButton.Enabled = true;
 
@@ -92,13 +88,13 @@ namespace HotelGuestbookGUI.Reservations
             {
                 From = fromDateTimePicker.Value,
                 To = toDateTimePicker.Value,
-                Person = Person,
-                PersonId = Person.PersonId,
-                Apartment = SelectedApartment,
-                ApartmentId = SelectedApartment.ApartmentId
+                Person = _person,
+                PersonId = _person.PersonId,
+                Apartment = _selectedApartment,
+                ApartmentId = _selectedApartment.ApartmentId
             };
 
-            Reservation = reservation;
+            _reservation = reservation;
         }
 
 
@@ -115,9 +111,9 @@ namespace HotelGuestbookGUI.Reservations
         {
             if (person != null)
             {
-                Person = person;
+                _person = person;
 
-                nameLabel.Text = person.FirstName + " " + person.LastName;
+                nameLabel.Text = person.FirstName + @" " + person.LastName;
                 emailLabel.Text = person.Email;
                 dateOfBirthLabel.Text = person.DateOfBirth.ToShortDateString();
             }
@@ -141,8 +137,8 @@ namespace HotelGuestbookGUI.Reservations
         /// </summary>
         private void UpdateNumberOfAvailableApartments()
         {
-            var minimalCapacity = Int32.Parse(minimalCapacityNumericUpDown.Value.ToString());
-            var doubleBeds = Int32.Parse(doubleBedsNumericUpDown.Value.ToString());
+            var minimalCapacity = int.Parse(minimalCapacityNumericUpDown.Value.ToString(CultureInfo.InvariantCulture));
+            var doubleBeds = int.Parse(doubleBedsNumericUpDown.Value.ToString(CultureInfo.InvariantCulture));
             var from = fromDateTimePicker.Value;
             var to = toDateTimePicker.Value;
 
@@ -154,7 +150,7 @@ namespace HotelGuestbookGUI.Reservations
 
             CheckApartmentsComboBoxAvailability(availableApartmentsCount);
 
-            RefreshGUI();
+            RefreshGui();
         }
 
 
@@ -164,21 +160,14 @@ namespace HotelGuestbookGUI.Reservations
         /// <param name="availableApartmentsCount">Number of available apartments.</param>
         private void CheckApartmentsComboBoxAvailability(int availableApartmentsCount)
         {
-            if (availableApartmentsCount == 0)
-            {
-                availableApartmentsComboBox.Enabled = false;
-            }
-            else
-            {
-                availableApartmentsComboBox.Enabled = true;
-            }
+            availableApartmentsComboBox.Enabled = availableApartmentsCount != 0;
         }
 
 
         /// <summary>
         /// Refreshes the UI.
         /// </summary>
-        private void RefreshGUI()
+        private void RefreshGui()
         {
             availableApartmentsComboBox.Items.Clear();
             foreach (var apartment in AvailableApartments)

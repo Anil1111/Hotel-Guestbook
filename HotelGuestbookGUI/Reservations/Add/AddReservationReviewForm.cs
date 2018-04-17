@@ -1,10 +1,11 @@
-﻿using HotelGuestbook.Classes.Apartment;
+﻿using System;
+using System.Globalization;
+using System.Windows.Forms;
+using HotelGuestbook.Classes.Apartment;
 using HotelGuestbook.Classes.Person;
 using HotelGuestbook.Classes.Reservation;
-using System;
-using System.Windows.Forms;
 
-namespace HotelGuestbookGUI.Reservations
+namespace HotelGuestbookGUI.Reservations.Add
 {
     public partial class AddReservationReviewForm : Form
     {
@@ -49,7 +50,7 @@ namespace HotelGuestbookGUI.Reservations
             //ApartmentProvider.SetApartment(Apartment);
             ReservationProvider.SetReservation(Reservation);
 
-            MessageBox.Show("Reservation was successful!");
+            MessageBox.Show(@"Reservation was successful!");
             Close();
         }
 
@@ -70,7 +71,7 @@ namespace HotelGuestbookGUI.Reservations
             doubleBedsLabel.Text = Apartment.DoubleBeds.ToString();
             fromLabel.Text = Reservation.From.ToString("dd.MM.yyyy");
             toLabel.Text = Reservation.To.ToString("dd.MM.yyyy");
-            priceLabel.Text = (Apartment.Price * (Reservation.To - Reservation.From).TotalDays).ToString();
+            priceLabel.Text = (Apartment.Price * (Reservation.To - Reservation.From).TotalDays).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

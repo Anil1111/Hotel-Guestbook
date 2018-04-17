@@ -17,9 +17,9 @@ namespace HotelGuestbookGUI
         private const string SAMPLE_PERSONS_RELATIVE_PATH = @"../../../SampleData/SamplePersons.csv";
         private const string SAMPLE_RESERVATIONS_RELATIVE_PATH = @"../../../SampleData/SampleReservations.csv";
 
-        private readonly string sampleApartmentsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_APARTMENTS_RELATIVE_PATH);
-        private readonly string samplePersonsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_PERSONS_RELATIVE_PATH);
-        private readonly string sampleReservationsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_RESERVATIONS_RELATIVE_PATH);
+        private readonly string _sampleApartmentsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_APARTMENTS_RELATIVE_PATH);
+        private readonly string _samplePersonsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_PERSONS_RELATIVE_PATH);
+        private readonly string _sampleReservationsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_RESERVATIONS_RELATIVE_PATH);
 
         protected static List<ApartmentInfo> Apartments = new List<ApartmentInfo>();
         protected static List<PersonInfo> Persons = new List<PersonInfo>();
@@ -27,17 +27,17 @@ namespace HotelGuestbookGUI
 
 
         /// <summary>
-        /// Generates test data and optionally base on <paramref name="saveToDB"/>, saves them to database defined by <paramref name="context"/>.
+        /// Generates test data and optionally base on <paramref name="saveToDb"/>, saves them to database defined by <paramref name="context"/>.
         /// </summary>
         /// <param name="context">Context of test database.</param>
-        /// <param name="saveToDB">If true, the generated data is saved to the database based on <paramref name="context"/>.</param>
-        public void GenerateTestData(GuestBook context = null, bool saveToDB = false)
+        /// <param name="saveToDb">If true, the generated data is saved to the database based on <paramref name="context"/>.</param>
+        public void GenerateTestData(GuestBook context = null, bool saveToDb = false)
         {
-            GenerateData<ApartmentInfo>(sampleApartmentsLocation);
-            GenerateData<PersonInfo>(samplePersonsLocation);
-            GenerateData<ReservationInfo>(sampleReservationsLocation);
+            GenerateData<ApartmentInfo>(_sampleApartmentsLocation);
+            GenerateData<PersonInfo>(_samplePersonsLocation);
+            GenerateData<ReservationInfo>(_sampleReservationsLocation);
 
-            if (saveToDB)
+            if (saveToDb)
             {
                 Seed(context);
             }
@@ -54,7 +54,7 @@ namespace HotelGuestbookGUI
         {
             using (var reader = new StreamReader(sample))
             {
-                var header = reader.ReadLine();
+                reader.ReadLine();
 
                 while (!reader.EndOfStream)
                 {
@@ -63,20 +63,20 @@ namespace HotelGuestbookGUI
                     switch (typeof(T).Name)
                     {
                         case nameof(ApartmentInfo):
-                        {
-                            GenerateApartment(currentLine);
-                            break;
-                        }
+                            {
+                                GenerateApartment(currentLine);
+                                break;
+                            }
                         case nameof(PersonInfo):
-                        {
-                            GeneratePerson(currentLine);
-                            break;
-                        }
+                            {
+                                GeneratePerson(currentLine);
+                                break;
+                            }
                         case nameof(ReservationInfo):
-                        {
-                            GenerateReservation(currentLine);
-                            break;
-                        }
+                            {
+                                GenerateReservation(currentLine);
+                                break;
+                            }
                     }
                 }
             }
@@ -100,7 +100,7 @@ namespace HotelGuestbookGUI
         /// <summary>
         /// Saves apartments to DB from <see cref="SAMPLE_APARTMENTS_RELATIVE_PATH"/>.
         /// </summary>
-        /// <param name="context">DB context.</param>
+        /// <param name="currentLine">Current line being read.</param>
         private void GenerateApartment(string currentLine)
         {
             var segments = currentLine.Split(';');
@@ -110,7 +110,7 @@ namespace HotelGuestbookGUI
                 throw new InvalidDataException(nameof(segments));
             }
 
-            var apartment = new ApartmentInfo(Int32.Parse(segments[0]), Int32.Parse(segments[1]), Int32.Parse(segments[2]), Int32.Parse(segments[3]));
+            var apartment = new ApartmentInfo(int.Parse(segments[0]), int.Parse(segments[1]), int.Parse(segments[2]), int.Parse(segments[3]));
 
             Apartments.Add(apartment);
         }
@@ -119,7 +119,7 @@ namespace HotelGuestbookGUI
         /// <summary>
         /// Saves apartments to DB from <see cref="SAMPLE_PERSONS_RELATIVE_PATH"/>.
         /// </summary>
-        /// <param name="context">DB context.</param>
+        /// <param name="currentLine">Current line being read.</param>
         private void GeneratePerson(string currentLine)
         {
             var segments = currentLine.Split(';');
@@ -139,7 +139,7 @@ namespace HotelGuestbookGUI
         /// <summary>
         /// Saves apartments to DB from <see cref="SAMPLE_RESERVATIONS_RELATIVE_PATH"/>.
         /// </summary>
-        /// <param name="context">DB context.</param>
+        /// <param name="currentLine">Current line being read.</param>
         private void GenerateReservation(string currentLine)
         {
             var segments = currentLine.Split(';');

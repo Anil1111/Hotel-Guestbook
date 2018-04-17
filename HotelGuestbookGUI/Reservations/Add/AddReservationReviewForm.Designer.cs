@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HotelGuestbookGUI.Reservations
+﻿namespace HotelGuestbookGUI.Reservations.Add
 {
     partial class AddReservationReviewForm
     {

@@ -1,15 +1,14 @@
 ﻿using HotelGuestbook.Classes.Person;
 using HotelGuestbook.Classes.Reservation;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace HotelGuestbookGUI.Reservations.Delete
 {
     public partial class DeleteReservationForm : Form
     {
-        private PersonInfo person;
-        private ReservationInfo reservation;
+        private PersonInfo _person;
+        private ReservationInfo _reservation;
 
 
         public DeleteReservationForm(ListViewItem listViewItem)
@@ -25,23 +24,17 @@ namespace HotelGuestbookGUI.Reservations.Delete
         #region Events
 
 
-        private void DeleteCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            deleteButton.Enabled = deleteCheckBox.Checked;
-        }
+        private void DeleteCheckBox_CheckedChanged(object sender, EventArgs e) => deleteButton.Enabled = deleteCheckBox.Checked;
 
 
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void CancelButton_Click(object sender, EventArgs e) => Close();
 
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            ReservationProvider.DeleteReservation(reservation);
+            ReservationProvider.DeleteReservation(_reservation);
 
-            MessageBox.Show("The reservation was successfully deleted");
+            MessageBox.Show(@"The reservation was successfully deleted");
 
             Close();
         }
@@ -55,12 +48,12 @@ namespace HotelGuestbookGUI.Reservations.Delete
         /// </summary>
         private void SetUpLabels()
         {
-            nameTextLabel.Text = person.FirstName + " " + person.LastName;
-            emailTextLabel.Text = person.Email;
+            nameTextLabel.Text = _person.FirstName + @" " + _person.LastName;
+            emailTextLabel.Text = _person.Email;
 
-            roomNumberLabel.Text = reservation.Apartment.Number.ToString();
-            fromTextLabel.Text = reservation.From.Date.ToString("dd.MM.yyyy");
-            toTextLabel.Text = reservation.To.Date.ToString("dd.MM.yyyy");
+            roomNumberLabel.Text = _reservation.Apartment.Number.ToString();
+            fromTextLabel.Text = _reservation.From.Date.ToString("dd.MM.yyyy");
+            toTextLabel.Text = _reservation.To.Date.ToString("dd.MM.yyyy");
         }
 
 
@@ -73,8 +66,8 @@ namespace HotelGuestbookGUI.Reservations.Delete
             var email = listViewItem.SubItems[3].Text;
             var reservationId = Convert.ToInt32(listViewItem.SubItems[0].Text);
 
-            person = PersonProvider.GetPersonByEmail(email);
-            reservation = ReservationProvider.GetReservationById(reservationId);         
+            _person = PersonProvider.GetPersonByEmail(email);
+            _reservation = ReservationProvider.GetReservationById(reservationId);         
         }
     }
 }

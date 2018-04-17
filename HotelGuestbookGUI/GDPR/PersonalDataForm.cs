@@ -20,10 +20,7 @@ namespace HotelGuestbookGUI.GDPR
         #region Events
 
 
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void CloseButton_Click(object sender, EventArgs e) => Close();
 
 
         #endregion
