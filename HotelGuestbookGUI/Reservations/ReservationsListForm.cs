@@ -207,6 +207,16 @@ namespace HotelGuestbookGUI.Reservations
         }
 
 
+        private void generateSampleDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dataInitializer = new DataInitializer();
+
+            dataInitializer.GenerateTestData(Program.HotelGuestbook, true);
+
+            RefreshGui();
+        }
+
+
         #endregion
 
 

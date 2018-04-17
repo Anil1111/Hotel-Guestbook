@@ -19,20 +19,7 @@ namespace HotelGuestbookGUI
 
             HotelGuestbook = new GuestBook("HotelGuestbook");
 
-            //InitializeSampleData();
-            
             Application.Run(new Reservations.ReservationsListForm());
-        }
-
-
-        /// <summary>
-        /// Initializes sample data.
-        /// </summary>
-        private static void InitializeSampleData()
-        {
-            var dataInitializer = new DataInitializer();
-
-            dataInitializer.GenerateTestData(HotelGuestbook, true);
         }
     }
 }
