@@ -71,7 +71,7 @@ namespace HotelGuestbookGUI.Reservations.Add
             doubleBedsLabel.Text = Apartment.DoubleBeds.ToString();
             fromLabel.Text = Reservation.From.ToString("dd.MM.yyyy");
             toLabel.Text = Reservation.To.ToString("dd.MM.yyyy");
-            priceLabel.Text = (Apartment.Price * (Reservation.To - Reservation.From).TotalDays).ToString(CultureInfo.InvariantCulture);
+            priceLabel.Text = (Apartment.Price * Math.Round((Reservation.To - Reservation.From).TotalDays)).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

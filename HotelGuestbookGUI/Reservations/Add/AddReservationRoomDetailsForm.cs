@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using HotelGuestbook.Classes.Apartment;
 using HotelGuestbook.Classes.Person;
 using HotelGuestbook.Classes.Reservation;
+using HotelGuestbook.ExtensionMethods;
 
 namespace HotelGuestbookGUI.Reservations.Add
 {
@@ -34,6 +35,8 @@ namespace HotelGuestbookGUI.Reservations.Add
             UpdateNumberOfAvailableApartments();
 
             proceedButton.Enabled = false;
+
+            infoLabel.Text = string.Empty;
         }
 
 
@@ -60,9 +63,31 @@ namespace HotelGuestbookGUI.Reservations.Add
 
         private void FromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            toDateTimePicker.Value = fromDateTimePicker.Value.AddDays(1);
+            if (fromDateTimePicker.Value >= toDateTimePicker.Value)
+            {
+                toDateTimePicker.Value = fromDateTimePicker.Value.AddDays(1);
+            }
 
             UpdateNumberOfAvailableApartments();
+
+            CheckApartmentAvailability();
+
+            UpdatePriceLabel();
+        }
+
+
+        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (toDateTimePicker.Value <= fromDateTimePicker.Value)
+            {
+                fromDateTimePicker.Value = toDateTimePicker.Value.AddDays(-1);
+            }
+
+            UpdateNumberOfAvailableApartments();
+
+            CheckApartmentAvailability();
+
+            UpdatePriceLabel();
         }
 
 
@@ -70,17 +95,13 @@ namespace HotelGuestbookGUI.Reservations.Add
 
 
         private void DoubleBedsNumericUpDown_ValueChanged(object sender, EventArgs e) => UpdateNumberOfAvailableApartments();
-
-
-        private void ToDateTimePicker_ValueChanged(object sender, EventArgs e) => UpdateNumberOfAvailableApartments();
-
+        
 
         private void AvailableApartmentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _selectedApartment = AvailableApartments.ElementAt(availableApartmentsComboBox.SelectedIndex);
 
             actualRoomNumberLabel.Text = _selectedApartment.Number.ToString();
-            totalPriceLabel.Text = (_selectedApartment.Price * (toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays) + @" EUR";
 
             proceedButton.Enabled = true;
 
@@ -95,6 +116,8 @@ namespace HotelGuestbookGUI.Reservations.Add
             };
 
             _reservation = reservation;
+
+            CheckApartmentAvailability();
         }
 
 
@@ -161,6 +184,53 @@ namespace HotelGuestbookGUI.Reservations.Add
         private void CheckApartmentsComboBoxAvailability(int availableApartmentsCount)
         {
             availableApartmentsComboBox.Enabled = availableApartmentsCount != 0;
+        }
+
+
+        /// <summary>
+        /// Updates the final price label.
+        /// </summary>
+        private void UpdatePriceLabel()
+        {
+            if (_selectedApartment != null)
+            {
+                totalPriceLabel.Text = _selectedApartment.Price * Math.Round((toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays) + @" EUR";
+            }
+        }
+
+
+        /// <summary>
+        /// Checks if the selected apartment is available within the selected dates.
+        /// </summary>
+        private void CheckApartmentAvailability()
+        {
+            if (_selectedApartment == null)
+            {
+                return;
+            }
+
+            var start = fromDateTimePicker.Value.Date;
+            var end = toDateTimePicker.Value.Date;
+
+            var reservations = _selectedApartment.GetAllReservationsForApartment().ToList();
+
+            foreach (var reservation in reservations)
+            {
+                if (reservation.From < start && reservation.To > start ||
+                    reservation.From < end && reservation.To > end     ||
+                    start <= reservation.From && end >= reservation.To)
+                {
+                    infoLabel.Text = @"Selected reservation dates for this room collide with another reservation."
+                                     + $@"Reservation start: {reservation.From.Date:dd.MM.yyyy}, reservation end: {reservation.To.Date:dd.MM.yyyy}";
+
+                    proceedButton.Enabled = false;
+
+                    return;
+                }
+
+                infoLabel.Text = "";
+                proceedButton.Enabled = true;
+            }
         }
 
 

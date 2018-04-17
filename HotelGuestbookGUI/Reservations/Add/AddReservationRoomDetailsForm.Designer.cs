@@ -52,6 +52,7 @@
             this.availableApartmentsComboBox = new System.Windows.Forms.ComboBox();
             this.availableLabel = new System.Windows.Forms.Label();
             this.availableApartmentsLabel = new System.Windows.Forms.Label();
+            this.infoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minimalCapacityNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleBedsNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -163,7 +164,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(15, 383);
+            this.backButton.Location = new System.Drawing.Point(15, 464);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(75, 23);
             this.backButton.TabIndex = 12;
@@ -174,7 +175,7 @@
             // stepLabel
             // 
             this.stepLabel.AutoSize = true;
-            this.stepLabel.Location = new System.Drawing.Point(144, 383);
+            this.stepLabel.Location = new System.Drawing.Point(144, 469);
             this.stepLabel.Name = "stepLabel";
             this.stepLabel.Size = new System.Drawing.Size(49, 13);
             this.stepLabel.TabIndex = 14;
@@ -254,7 +255,7 @@
             // 
             // proceedButton
             // 
-            this.proceedButton.Location = new System.Drawing.Point(238, 383);
+            this.proceedButton.Location = new System.Drawing.Point(238, 464);
             this.proceedButton.Name = "proceedButton";
             this.proceedButton.Size = new System.Drawing.Size(75, 23);
             this.proceedButton.TabIndex = 23;
@@ -265,7 +266,7 @@
             // availableApartmentsComboBox
             // 
             this.availableApartmentsComboBox.FormattingEnabled = true;
-            this.availableApartmentsComboBox.Location = new System.Drawing.Point(12, 274);
+            this.availableApartmentsComboBox.Location = new System.Drawing.Point(15, 277);
             this.availableApartmentsComboBox.Name = "availableApartmentsComboBox";
             this.availableApartmentsComboBox.Size = new System.Drawing.Size(292, 21);
             this.availableApartmentsComboBox.TabIndex = 24;
@@ -289,11 +290,22 @@
             this.availableApartmentsLabel.TabIndex = 26;
             this.availableApartmentsLabel.Text = "0";
             // 
+            // infoLabel
+            // 
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.Location = new System.Drawing.Point(12, 377);
+            this.infoLabel.MaximumSize = new System.Drawing.Size(330, 0);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(290, 39);
+            this.infoLabel.TabIndex = 27;
+            this.infoLabel.Text = "Selected reservation dates for this room collide with another reservation.\r\n\r\n";
+            // 
             // AddReservationRoomDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 418);
+            this.ClientSize = new System.Drawing.Size(325, 499);
+            this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.availableApartmentsLabel);
             this.Controls.Add(this.availableLabel);
             this.Controls.Add(this.availableApartmentsComboBox);
@@ -353,5 +365,6 @@
         private System.Windows.Forms.ComboBox availableApartmentsComboBox;
         private System.Windows.Forms.Label availableLabel;
         private System.Windows.Forms.Label availableApartmentsLabel;
+        private System.Windows.Forms.Label infoLabel;
     }
 }
