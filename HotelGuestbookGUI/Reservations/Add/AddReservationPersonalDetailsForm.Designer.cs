@@ -39,12 +39,14 @@
             this.proceedButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.stepLabel = new System.Windows.Forms.Label();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.infoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // firstNameLabel
             // 
             this.firstNameLabel.AutoSize = true;
-            this.firstNameLabel.Location = new System.Drawing.Point(11, 23);
+            this.firstNameLabel.Location = new System.Drawing.Point(12, 60);
             this.firstNameLabel.Name = "firstNameLabel";
             this.firstNameLabel.Size = new System.Drawing.Size(58, 13);
             this.firstNameLabel.TabIndex = 0;
@@ -53,7 +55,7 @@
             // lastNameLabel
             // 
             this.lastNameLabel.AutoSize = true;
-            this.lastNameLabel.Location = new System.Drawing.Point(11, 60);
+            this.lastNameLabel.Location = new System.Drawing.Point(12, 102);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(59, 13);
             this.lastNameLabel.TabIndex = 1;
@@ -62,7 +64,7 @@
             // emailLabel
             // 
             this.emailLabel.AutoSize = true;
-            this.emailLabel.Location = new System.Drawing.Point(12, 97);
+            this.emailLabel.Location = new System.Drawing.Point(12, 23);
             this.emailLabel.Name = "emailLabel";
             this.emailLabel.Size = new System.Drawing.Size(35, 13);
             this.emailLabel.TabIndex = 2;
@@ -79,27 +81,30 @@
             // 
             // firstNameTextBox
             // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(99, 20);
+            this.firstNameTextBox.Enabled = false;
+            this.firstNameTextBox.Location = new System.Drawing.Point(99, 57);
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(211, 20);
             this.firstNameTextBox.TabIndex = 4;
             // 
             // lastNameTextBox
             // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(99, 57);
+            this.lastNameTextBox.Enabled = false;
+            this.lastNameTextBox.Location = new System.Drawing.Point(99, 99);
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(211, 20);
             this.lastNameTextBox.TabIndex = 5;
             // 
             // emailTextBox
             // 
-            this.emailTextBox.Location = new System.Drawing.Point(99, 94);
+            this.emailTextBox.Location = new System.Drawing.Point(99, 20);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(211, 20);
             this.emailTextBox.TabIndex = 6;
             // 
             // dateOfBirthDateTimePicker
             // 
+            this.dateOfBirthDateTimePicker.Enabled = false;
             this.dateOfBirthDateTimePicker.Location = new System.Drawing.Point(99, 132);
             this.dateOfBirthDateTimePicker.Name = "dateOfBirthDateTimePicker";
             this.dateOfBirthDateTimePicker.Size = new System.Drawing.Size(211, 20);
@@ -134,11 +139,32 @@
             this.stepLabel.TabIndex = 10;
             this.stepLabel.Text = "Step 1/3";
             // 
-            // addReservationPersonalDataForm
+            // submitButton
+            // 
+            this.submitButton.Location = new System.Drawing.Point(336, 18);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(75, 23);
+            this.submitButton.TabIndex = 11;
+            this.submitButton.Text = "Search";
+            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.SubmitButton_Click);
+            // 
+            // infoLabel
+            // 
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.Location = new System.Drawing.Point(333, 57);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(25, 13);
+            this.infoLabel.TabIndex = 12;
+            this.infoLabel.Text = "Info";
+            // 
+            // AddReservationPersonalDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 216);
+            this.ClientSize = new System.Drawing.Size(426, 216);
+            this.Controls.Add(this.infoLabel);
+            this.Controls.Add(this.submitButton);
             this.Controls.Add(this.stepLabel);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.proceedButton);
@@ -150,7 +176,7 @@
             this.Controls.Add(this.emailLabel);
             this.Controls.Add(this.lastNameLabel);
             this.Controls.Add(this.firstNameLabel);
-            this.Name = "addReservationPersonalDataForm";
+            this.Name = "AddReservationPersonalDataForm";
             this.Text = "Add reservation - Step 1/3";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -170,5 +196,7 @@
         private System.Windows.Forms.Button proceedButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label stepLabel;
+        private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.Label infoLabel;
     }
 }
