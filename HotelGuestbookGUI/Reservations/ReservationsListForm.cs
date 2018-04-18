@@ -227,6 +227,10 @@ namespace HotelGuestbookGUI.Reservations
 
             dataInitializer.GenerateTestData(Program.HotelGuestbook, true);
 
+            MessageBox.Show(@"Sample data generated successfully.
+
+WARNING: Sample data serves only for testing purposes. Data is saved directly to the database and recurring data generation does no duplicity or availability check.");
+
             RefreshGui();
         }
 
