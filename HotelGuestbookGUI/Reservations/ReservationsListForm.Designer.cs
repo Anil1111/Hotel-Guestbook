@@ -31,6 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.generateSampleDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,8 +65,6 @@
             this.refreshButton = new System.Windows.Forms.Button();
             this.endEditOrDeleteModeButton = new System.Windows.Forms.Button();
             this.modeLabel = new System.Windows.Forms.Label();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.generateSampleDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,6 +99,18 @@
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.ExportToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(185, 6);
+            // 
+            // generateSampleDataToolStripMenuItem
+            // 
+            this.generateSampleDataToolStripMenuItem.Name = "generateSampleDataToolStripMenuItem";
+            this.generateSampleDataToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.generateSampleDataToolStripMenuItem.Text = "Generate sample data";
+            this.generateSampleDataToolStripMenuItem.Click += new System.EventHandler(this.GenerateSampleDataToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -195,26 +207,29 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.apartmentToolStripMenuItem.Name = "apartmentToolStripMenuItem";
-            this.apartmentToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.apartmentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.apartmentToolStripMenuItem.Text = "Apartment";
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // reservationsLabel
             // 
@@ -372,18 +387,6 @@
             this.modeLabel.Name = "modeLabel";
             this.modeLabel.Size = new System.Drawing.Size(0, 13);
             this.modeLabel.TabIndex = 23;
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(185, 6);
-            // 
-            // generateSampleDataToolStripMenuItem
-            // 
-            this.generateSampleDataToolStripMenuItem.Name = "generateSampleDataToolStripMenuItem";
-            this.generateSampleDataToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.generateSampleDataToolStripMenuItem.Text = "Generate sample data";
-            this.generateSampleDataToolStripMenuItem.Click += new System.EventHandler(this.GenerateSampleDataToolStripMenuItem_Click);
             // 
             // ReservationsListForm
             // 

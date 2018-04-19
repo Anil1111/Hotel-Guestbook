@@ -127,7 +127,7 @@ namespace HotelGuestbookGUI.Reservations.Edit
             var start = fromDateTimePicker.Value.Date;
             var end = toDateTimePicker.Value.Date;
 
-            var reservations = _apartment.GetAllReservationsForApartment().ToList();
+            var reservations = _apartment.GetAllReservationsForApartment().Except(new List<ReservationInfo> { _reservation }).ToList();
 
             foreach (var reservation in reservations)
             {

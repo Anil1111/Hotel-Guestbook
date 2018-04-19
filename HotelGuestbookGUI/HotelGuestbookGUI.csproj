@@ -56,6 +56,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administration\Apartment\AddApartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administration\Apartment\AddApartmentForm.Designer.cs">
+      <DependentUpon>AddApartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Apartment\DeleteApartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administration\Apartment\DeleteApartmentForm.Designer.cs">
+      <DependentUpon>DeleteApartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\Apartment\EditApartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administration\Apartment\EditApartmentForm.Designer.cs">
+      <DependentUpon>EditApartmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataInitializer.cs" />
     <Compile Include="GDPR\HelpForm.cs">
       <SubType>Form</SubType>
@@ -107,6 +125,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Administration\Apartment\AddApartmentForm.resx">
+      <DependentUpon>AddApartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administration\Apartment\DeleteApartmentForm.resx">
+      <DependentUpon>DeleteApartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administration\Apartment\EditApartmentForm.resx">
+      <DependentUpon>EditApartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GDPR\HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,8 +191,6 @@
       <Name>HotelGuestbook</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Administration\Apartment\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

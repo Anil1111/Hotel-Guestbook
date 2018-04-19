@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using HotelGuestbookGUI.Administration.Apartment;
 using HotelGuestbookGUI.Reservations.Add;
 
 namespace HotelGuestbookGUI.Reservations
@@ -232,6 +233,30 @@ namespace HotelGuestbookGUI.Reservations
 WARNING: Sample data serves only for testing purposes. Data is saved directly to the database and recurring data generation does no duplicity or availability check.");
 
             RefreshGui();
+        }
+
+
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var addApartmentForm = new AddApartmentForm();
+
+            addApartmentForm.Show();
+        }
+
+
+        private void EditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var editApartmentForm = new EditApartmentForm();
+
+            editApartmentForm.Show();
+        }
+
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var deleteApartmentForm = new DeleteApartmentForm();
+
+            deleteApartmentForm.Show();
         }
 
 

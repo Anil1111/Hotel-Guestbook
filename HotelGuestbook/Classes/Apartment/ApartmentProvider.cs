@@ -105,6 +105,28 @@ namespace HotelGuestbook.Classes.Apartment
 
 
         /// <summary>
+        /// Updates the parameters of an existing apartment.
+        /// </summary>
+        /// <param name="apartment">Apartment to update.</param>
+        public static void UpdateApartment(ApartmentInfo apartment)
+        {
+            if (apartment is null)
+            {
+                return;
+            }
+
+            var updatedApartment = GetApartmentById(apartment.ApartmentId);
+
+            updatedApartment.Number = apartment.Number;
+            updatedApartment.Price = apartment.Price;
+            updatedApartment.Capacity = apartment.Capacity;
+            updatedApartment.DoubleBeds = apartment.DoubleBeds;
+
+            GuestBook.Context.SaveChanges();
+        }
+
+
+        /// <summary>
         /// Removes the <paramref name="apartment"/> from the database.
         /// </summary>
         /// <param name="apartment">Apartment to be removed.</param>
