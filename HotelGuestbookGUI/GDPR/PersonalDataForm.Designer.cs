@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PersonalDataForm));
             this.emailLabel = new System.Windows.Forms.Label();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
-            this.textRadioButton = new System.Windows.Forms.RadioButton();
-            this.xmlRadioButton = new System.Windows.Forms.RadioButton();
             this.deleteButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.dataTextBox = new System.Windows.Forms.TextBox();
@@ -63,38 +60,18 @@
             this.searchButton.TabIndex = 2;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
-            // 
-            // textRadioButton
-            // 
-            this.textRadioButton.AutoSize = true;
-            this.textRadioButton.Checked = true;
-            this.textRadioButton.Location = new System.Drawing.Point(53, 32);
-            this.textRadioButton.Name = "textRadioButton";
-            this.textRadioButton.Size = new System.Drawing.Size(46, 17);
-            this.textRadioButton.TabIndex = 4;
-            this.textRadioButton.TabStop = true;
-            this.textRadioButton.Text = "Text";
-            this.textRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // xmlRadioButton
-            // 
-            this.xmlRadioButton.AutoSize = true;
-            this.xmlRadioButton.Location = new System.Drawing.Point(106, 33);
-            this.xmlRadioButton.Name = "xmlRadioButton";
-            this.xmlRadioButton.Size = new System.Drawing.Size(47, 17);
-            this.xmlRadioButton.TabIndex = 5;
-            this.xmlRadioButton.Text = "XML";
-            this.xmlRadioButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // deleteButton
             // 
             this.deleteButton.Location = new System.Drawing.Point(12, 411);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.Size = new System.Drawing.Size(137, 23);
             this.deleteButton.TabIndex = 6;
-            this.deleteButton.Text = "Delete";
+            this.deleteButton.Text = "Delete personal data";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Visible = false;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // closeButton
             // 
@@ -116,7 +93,6 @@
             this.dataTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataTextBox.Size = new System.Drawing.Size(510, 350);
             this.dataTextBox.TabIndex = 4;
-            this.dataTextBox.Text = resources.GetString("dataTextBox.Text");
             // 
             // PersonalDataForm
             // 
@@ -126,8 +102,6 @@
             this.Controls.Add(this.dataTextBox);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.xmlRadioButton);
-            this.Controls.Add(this.textRadioButton);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.emailLabel);
@@ -143,8 +117,6 @@
         private System.Windows.Forms.Label emailLabel;
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.RadioButton textRadioButton;
-        private System.Windows.Forms.RadioButton xmlRadioButton;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.TextBox dataTextBox;

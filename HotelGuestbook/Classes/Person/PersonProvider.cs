@@ -7,6 +7,9 @@ namespace HotelGuestbook.Classes.Person
 {
     public static class PersonProvider
     {
+        public const string ANONYMIZED_STRING = @"**********";
+
+
         /// <summary>
         /// Returns all persons in the database.
         /// </summary>
@@ -110,6 +113,17 @@ namespace HotelGuestbook.Classes.Person
             }
 
             GuestBook.Context.Persons.Remove(person);
+            GuestBook.Context.SaveChanges();
+        }
+
+        public static void AnonymizePerson(PersonInfo person)
+        {
+            person.FirstName = ANONYMIZED_STRING;
+            person.LastName = ANONYMIZED_STRING;
+            person.Email = ANONYMIZED_STRING;
+            person.DateOfBirth = new DateTime(9999, 1, 1);
+            person.Anonymized = true;
+
             GuestBook.Context.SaveChanges();
         }
     }

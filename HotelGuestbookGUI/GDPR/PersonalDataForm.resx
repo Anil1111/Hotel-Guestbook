@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dataTextBox.Text" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a ex metus. Vestibulum pretium quam nibh, eget tristique nibh mattis ac. Nam commodo tristique laoreet. Duis sodales vehicula tortor, vitae dictum odio pulvinar vel. Nullam consequat massa vel mi hendrerit, in commodo felis placerat. Phasellus in neque facilisis, efficitur quam sed, fringilla sem. Vestibulum tellus neque, vulputate eget est quis, tincidunt sodales arcu. Fusce erat leo, mattis at hendrerit non, euismod sed tellus. Aenean nec feugiat diam, vel volutpat magna.
-
-Donec maximus aliquam augue id tempus. Etiam efficitur risus vitae leo ultrices, eu accumsan ex ultrices. Sed ut sapien sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a sapien a tellus porta semper sit amet id risus. Proin vel cursus lacus, eu aliquet felis. Vestibulum imperdiet hendrerit eleifend. Donec sit amet erat ipsum.
-
-Nulla cursus ex ut accumsan auctor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus vulputate nec diam id consectetur. Mauris rhoncus mi sit amet nisl fermentum finibus. Morbi ornare ante id ipsum tempus fermentum. Praesent dignissim erat at ultrices sollicitudin. Aliquam nec turpis vel nisi commodo suscipit sed laoreet odio. Sed vitae semper sapien. Praesent at aliquam risus. Vestibulum auctor mauris diam, vel aliquam nisl pulvinar eget. Nam pulvinar eleifend nisl, quis iaculis dolor gravida vitae. Nunc pulvinar quam sed tellus suscipit posuere.
-
-Pellentesque in eros ut nulla porta malesuada. Etiam vestibulum odio nec ligula blandit, et imperdiet nulla pretium. Praesent at leo sodales, tempor odio sed, egestas est. Fusce ornare hendrerit metus nec condimentum. Integer placerat eros erat, a semper justo bibendum ut. Quisque commodo sapien augue, condimentum dictum metus efficitur eget. Etiam id libero dui. Aliquam dapibus volutpat risus vitae varius. Proin id augue tellus. Nullam non sem facilisis, pulvinar purus sit amet, semper orci. Duis ultricies rutrum nulla at tincidunt. Fusce et velit leo. Mauris scelerisque ipsum sed nisi rutrum, at luctus nisl tristique. Mauris hendrerit nisl vitae eros molestie, ac tempor eros rhoncus.
-
-Nam ut auctor ligula, vel gravida tortor. Pellentesque eleifend dapibus mauris eu rhoncus. Aliquam laoreet nisl eget ante vehicula, in finibus purus iaculis. Duis quis nibh vitae diam elementum lobortis. Aliquam sodales magna sit amet tincidunt congue. Suspendisse potenti. Fusce ullamcorper et elit vel tempor. Duis libero nulla, ultricies vitae ipsum quis, accumsan congue urna. Integer sit amet justo sapien. Aliquam scelerisque, nunc sed ornare varius, nisi nisl tincidunt eros, nec tristique odio lectus in neque. In non odio felis. Proin scelerisque enim lectus, quis consequat augue posuere vitae. Donec at tincidunt mi, eu feugiat dui. Nam tortor lacus, tempor eget est faucibus, condimentum efficitur ante.
-</value>
-  </data>
 </root>

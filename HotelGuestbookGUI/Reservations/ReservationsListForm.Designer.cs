@@ -65,6 +65,8 @@
             this.refreshButton = new System.Windows.Forms.Button();
             this.endEditOrDeleteModeButton = new System.Windows.Forms.Button();
             this.modeLabel = new System.Windows.Forms.Label();
+            this.anonimizedUsersLabel = new System.Windows.Forms.Label();
+            this.anonimizedUsersCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -207,29 +209,29 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.apartmentToolStripMenuItem.Name = "apartmentToolStripMenuItem";
-            this.apartmentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.apartmentToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.apartmentToolStripMenuItem.Text = "Apartment";
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // reservationsLabel
             // 
@@ -285,9 +287,9 @@
             // 
             // reservationsListView
             // 
-            this.reservationsListView.Location = new System.Drawing.Point(15, 150);
+            this.reservationsListView.Location = new System.Drawing.Point(15, 191);
             this.reservationsListView.Name = "reservationsListView";
-            this.reservationsListView.Size = new System.Drawing.Size(775, 364);
+            this.reservationsListView.Size = new System.Drawing.Size(775, 323);
             this.reservationsListView.TabIndex = 11;
             this.reservationsListView.UseCompatibleStateImageBehavior = false;
             this.reservationsListView.SelectedIndexChanged += new System.EventHandler(this.ReservationsListView_SelectedIndexChanged);
@@ -388,11 +390,32 @@
             this.modeLabel.Size = new System.Drawing.Size(0, 13);
             this.modeLabel.TabIndex = 23;
             // 
+            // anonimizedUsersLabel
+            // 
+            this.anonimizedUsersLabel.AutoSize = true;
+            this.anonimizedUsersLabel.Location = new System.Drawing.Point(12, 157);
+            this.anonimizedUsersLabel.Name = "anonimizedUsersLabel";
+            this.anonimizedUsersLabel.Size = new System.Drawing.Size(183, 13);
+            this.anonimizedUsersLabel.TabIndex = 24;
+            this.anonimizedUsersLabel.Text = "Show anonymized users\' reservations";
+            // 
+            // anonimizedUsersCheckBox
+            // 
+            this.anonimizedUsersCheckBox.AutoSize = true;
+            this.anonimizedUsersCheckBox.Location = new System.Drawing.Point(198, 156);
+            this.anonimizedUsersCheckBox.Name = "anonimizedUsersCheckBox";
+            this.anonimizedUsersCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.anonimizedUsersCheckBox.TabIndex = 25;
+            this.anonimizedUsersCheckBox.UseVisualStyleBackColor = true;
+            this.anonimizedUsersCheckBox.CheckedChanged += new System.EventHandler(this.AnonimizedUsersCheckBox_CheckedChanged);
+            // 
             // ReservationsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 552);
+            this.Controls.Add(this.anonimizedUsersCheckBox);
+            this.Controls.Add(this.anonimizedUsersLabel);
             this.Controls.Add(this.modeLabel);
             this.Controls.Add(this.endEditOrDeleteModeButton);
             this.Controls.Add(this.refreshButton);
@@ -459,6 +482,8 @@
         private System.Windows.Forms.Label modeLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem generateSampleDataToolStripMenuItem;
+        private System.Windows.Forms.Label anonimizedUsersLabel;
+        private System.Windows.Forms.CheckBox anonimizedUsersCheckBox;
     }
 }
 

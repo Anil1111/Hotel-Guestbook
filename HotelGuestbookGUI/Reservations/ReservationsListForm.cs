@@ -252,11 +252,17 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
         }
 
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var deleteApartmentForm = new DeleteApartmentForm();
 
             deleteApartmentForm.Show();
+        }
+
+
+        private void AnonimizedUsersCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
         }
 
 
@@ -325,6 +331,11 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
         private void AddReservationsToListView(IEnumerable<ReservationInfo> reservations = null, bool showPastReservations = false)
         {
             var listOfReservations = reservations ?? Program.HotelGuestbook.Reservations;
+
+            if (!anonimizedUsersCheckBox.Checked)
+            {
+                listOfReservations = listOfReservations.Where(reservation => !reservation.Person.Anonymized);
+            }
 
             foreach (var reservation in listOfReservations)
             {

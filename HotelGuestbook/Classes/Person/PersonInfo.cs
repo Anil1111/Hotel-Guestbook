@@ -22,6 +22,7 @@ namespace HotelGuestbook.Classes.Person
             LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
             Email = email ?? throw new ArgumentNullException(nameof(email));
             DateOfBirth = dateOfBirth;
+            Anonymized = false;
         }
 
 
@@ -60,6 +61,12 @@ namespace HotelGuestbook.Classes.Person
         /// Date of birth.
         /// </summary>
         public DateTime DateOfBirth { get; set; }
+
+        
+        /// <summary>
+        /// If true, the user asked for deleting personal data.
+        /// </summary>
+        public bool Anonymized { get; set; }
 
 
         /// <summary>
