@@ -7,8 +7,8 @@ namespace HotelGuestbookGUI.Reservations.Delete
 {
     public partial class DeleteReservationForm : Form
     {
-        private PersonInfo _person;
-        private ReservationInfo _reservation;
+        private PersonInfo Person;
+        private ReservationInfo Reservation;
 
 
         public DeleteReservationForm(ListViewItem listViewItem)
@@ -32,7 +32,7 @@ namespace HotelGuestbookGUI.Reservations.Delete
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            ReservationProvider.DeleteReservation(_reservation);
+            ReservationProvider.DeleteReservation(Reservation);
 
             MessageBox.Show(@"The reservation was successfully deleted");
 
@@ -48,12 +48,12 @@ namespace HotelGuestbookGUI.Reservations.Delete
         /// </summary>
         private void SetUpLabels()
         {
-            nameTextLabel.Text = _person.FirstName + @" " + _person.LastName;
-            emailTextLabel.Text = _person.Email;
+            nameTextLabel.Text = Person.FirstName + @" " + Person.LastName;
+            emailTextLabel.Text = Person.Email;
 
-            roomNumberLabel.Text = _reservation.Apartment.Number.ToString();
-            fromTextLabel.Text = _reservation.From.Date.ToString("dd.MM.yyyy");
-            toTextLabel.Text = _reservation.To.Date.ToString("dd.MM.yyyy");
+            roomNumberLabel.Text = Reservation.Apartment.Number.ToString();
+            fromTextLabel.Text = Reservation.From.Date.ToString("dd.MM.yyyy");
+            toTextLabel.Text = Reservation.To.Date.ToString("dd.MM.yyyy");
         }
 
 
@@ -66,8 +66,8 @@ namespace HotelGuestbookGUI.Reservations.Delete
             var email = listViewItem.SubItems[3].Text;
             var reservationId = Convert.ToInt32(listViewItem.SubItems[0].Text);
 
-            _person = PersonProvider.GetPersonByEmail(email);
-            _reservation = ReservationProvider.GetReservationById(reservationId);         
+            Person = PersonProvider.GetPersonByEmail(email);
+            Reservation = ReservationProvider.GetReservationById(reservationId);         
         }
     }
 }

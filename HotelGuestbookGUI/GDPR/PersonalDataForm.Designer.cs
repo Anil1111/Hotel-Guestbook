@@ -68,7 +68,7 @@
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(137, 23);
             this.deleteButton.TabIndex = 6;
-            this.deleteButton.Text = "Delete personal data";
+            this.deleteButton.Text = "Anonymize personal data";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Visible = false;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);

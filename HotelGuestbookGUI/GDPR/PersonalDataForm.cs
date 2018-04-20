@@ -12,9 +12,9 @@ namespace HotelGuestbookGUI.GDPR
 {
     public partial class PersonalDataForm : Form
     {
-        private string _email;
-        private PersonInfo _person;
-        private List<ReservationInfo> _reservations;
+        private string Email;
+        private PersonInfo Person;
+        private List<ReservationInfo> Reservations;
 
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace HotelGuestbookGUI.GDPR
 
             if (showDeleteButton)
             {
-                deleteButton.Visible = showDeleteButton;
+                deleteButton.Visible = true;
                 deleteButton.Enabled = false;
             }
         }
@@ -46,16 +46,16 @@ namespace HotelGuestbookGUI.GDPR
                 return;
             }
 
-            _email = emailTextBox.Text;
-            _person = PersonProvider.GetPersonByEmail(_email);
+            Email = emailTextBox.Text;
+            Person = PersonProvider.GetPersonByEmail(Email);
 
-            if (_person == null)
+            if (Person == null)
             {
                 dataTextBox.Text = @"No data found";
             }
             else
             {
-                SearchAndWriteData(_person);
+                SearchAndWriteData(Person);
 
                 deleteButton.Enabled = true;
             }
@@ -64,7 +64,7 @@ namespace HotelGuestbookGUI.GDPR
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            PersonProvider.AnonymizePerson(_person);
+            PersonProvider.AnonymizePerson(Person);
 
             MessageBox.Show(@"Data deleted successfully");
         }
@@ -79,16 +79,16 @@ namespace HotelGuestbookGUI.GDPR
         /// <param name="person"></param>
         private void SearchAndWriteData(PersonInfo person)
         {
-            _reservations = _person.GetAllReservationsForPerson().ToList();
+            Reservations = Person.GetAllReservationsForPerson().ToList();
 
             var sb = new StringBuilder();
 
-            sb.AppendLine($"Email: {_person.Email}");
-            sb.AppendLine($"Name: {_person.FirstName} {person.LastName}");
-            sb.AppendLine($"Date of birth: {_person.DateOfBirth:dd.MM.yyyy}");
-            sb.AppendLine($"Reservations:");
+            sb.AppendLine($"Email: {Person.Email}");
+            sb.AppendLine($"Name: {Person.FirstName} {person.LastName}");
+            sb.AppendLine($"Date of birth: {Person.DateOfBirth:dd.MM.yyyy}");
+            sb.AppendLine("Reservations:");
 
-            _reservations.ForEach(reservation => AppendReservation(ref sb, reservation));
+            Reservations.ForEach(reservation => AppendReservation(ref sb, reservation));
 
             dataTextBox.Text = sb.ToString();
         }

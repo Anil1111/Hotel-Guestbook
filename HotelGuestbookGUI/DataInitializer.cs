@@ -13,13 +13,13 @@ namespace HotelGuestbookGUI
 {
     public class DataInitializer : DropCreateDatabaseAlways<GuestBook>
     {
-        private const string SAMPLE_APARTMENTS_RELATIVE_PATH = @"../../../SampleData/SampleApartments.csv";
-        private const string SAMPLE_PERSONS_RELATIVE_PATH = @"../../../SampleData/SamplePersons.csv";
-        private const string SAMPLE_RESERVATIONS_RELATIVE_PATH = @"../../../SampleData/SampleReservations.csv";
+        private const string SampleApartmentsRelativePath = @"../../../SampleData/SampleApartments.csv";
+        private const string SamplePersonsRelativePath = @"../../../SampleData/SamplePersons.csv";
+        private const string SampleReservationsRelativePath = @"../../../SampleData/SampleReservations.csv";
 
-        private readonly string _sampleApartmentsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_APARTMENTS_RELATIVE_PATH);
-        private readonly string _samplePersonsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_PERSONS_RELATIVE_PATH);
-        private readonly string _sampleReservationsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SAMPLE_RESERVATIONS_RELATIVE_PATH);
+        private readonly string SampleApartmentsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SampleApartmentsRelativePath);
+        private readonly string SamplePersonsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SamplePersonsRelativePath);
+        private readonly string SampleReservationsLocation = Path.Combine(Assembly.GetExecutingAssembly().Location, SampleReservationsRelativePath);
 
         protected static List<ApartmentInfo> Apartments = new List<ApartmentInfo>();
         protected static List<PersonInfo> Persons = new List<PersonInfo>();
@@ -33,9 +33,9 @@ namespace HotelGuestbookGUI
         /// <param name="saveToDb">If true, the generated data is saved to the database based on <paramref name="context"/>.</param>
         public void GenerateTestData(GuestBook context = null, bool saveToDb = false)
         {
-            GenerateData<ApartmentInfo>(_sampleApartmentsLocation);
-            GenerateData<PersonInfo>(_samplePersonsLocation);
-            GenerateData<ReservationInfo>(_sampleReservationsLocation);
+            GenerateData<ApartmentInfo>(SampleApartmentsLocation);
+            GenerateData<PersonInfo>(SamplePersonsLocation);
+            GenerateData<ReservationInfo>(SampleReservationsLocation);
 
             if (saveToDb)
             {
@@ -98,7 +98,7 @@ namespace HotelGuestbookGUI
 
 
         /// <summary>
-        /// Saves apartments to DB from <see cref="SAMPLE_APARTMENTS_RELATIVE_PATH"/>.
+        /// Saves apartments to DB from <see cref="SampleApartmentsRelativePath"/>.
         /// </summary>
         /// <param name="currentLine">Current line being read.</param>
         private void GenerateApartment(string currentLine)
@@ -117,7 +117,7 @@ namespace HotelGuestbookGUI
 
 
         /// <summary>
-        /// Saves apartments to DB from <see cref="SAMPLE_PERSONS_RELATIVE_PATH"/>.
+        /// Saves apartments to DB from <see cref="SamplePersonsRelativePath"/>.
         /// </summary>
         /// <param name="currentLine">Current line being read.</param>
         private void GeneratePerson(string currentLine)
@@ -137,7 +137,7 @@ namespace HotelGuestbookGUI
 
 
         /// <summary>
-        /// Saves apartments to DB from <see cref="SAMPLE_RESERVATIONS_RELATIVE_PATH"/>.
+        /// Saves apartments to DB from <see cref="SampleReservationsRelativePath"/>.
         /// </summary>
         /// <param name="currentLine">Current line being read.</param>
         private void GenerateReservation(string currentLine)

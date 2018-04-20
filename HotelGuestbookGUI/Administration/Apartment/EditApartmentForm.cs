@@ -8,16 +8,16 @@ namespace HotelGuestbookGUI.Administration.Apartment
 {
     public partial class EditApartmentForm : Form
     {
-        private ApartmentInfo _selectedApartment;
-        private readonly List<ApartmentInfo> _apartments;
+        private ApartmentInfo SelectedApartment;
+        private readonly List<ApartmentInfo> Apartments;
 
 
         public EditApartmentForm()
         {
             InitializeComponent();
 
-            _apartments = ApartmentProvider.GetAllApartments().ToList();
-            _apartments.ForEach(apartment => selectApartmentComboBox.Items.Add(apartment.ToDropDownString()));
+            Apartments = ApartmentProvider.GetAllApartments().ToList();
+            Apartments.ForEach(apartment => selectApartmentComboBox.Items.Add(apartment.ToDropDownString()));
         }
 
 
@@ -26,18 +26,18 @@ namespace HotelGuestbookGUI.Administration.Apartment
 
         private void SelectApartmentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedApartment = _apartments.ElementAt(selectApartmentComboBox.SelectedIndex);
+            SelectedApartment = Apartments.ElementAt(selectApartmentComboBox.SelectedIndex);
 
-            roomNumberTextBox.Text = _selectedApartment.Number.ToString();
+            roomNumberTextBox.Text = SelectedApartment.Number.ToString();
             roomNumberTextBox.Enabled = true;
 
-            priceTextBox.Text = _selectedApartment.Price.ToString();
+            priceTextBox.Text = SelectedApartment.Price.ToString();
             priceTextBox.Enabled = true;
 
-            capacityComboBox.SelectedIndex = _selectedApartment.Capacity - 1;
+            capacityComboBox.SelectedIndex = SelectedApartment.Capacity - 1;
             capacityComboBox.Enabled = true;
 
-            doubleBedsComboBox.SelectedIndex = _selectedApartment.DoubleBeds;
+            doubleBedsComboBox.SelectedIndex = SelectedApartment.DoubleBeds;
             doubleBedsComboBox.Enabled = true;
         }
 
@@ -53,16 +53,30 @@ namespace HotelGuestbookGUI.Administration.Apartment
 
         private void ValidateData()
         {
-            var apartments = ApartmentProvider.GetAllApartments().Except(new List<ApartmentInfo> { _selectedApartment }).ToList();
+            var apartments = ApartmentProvider.GetAllApartments().Except(new List<ApartmentInfo> { SelectedApartment }).ToList();
 
-            if (apartments.Any(apartment => apartment.Number.Equals(int.Parse(roomNumberTextBox.Text))))
+            if (!int.TryParse(roomNumberTextBox.Text, out var roomNumber))
+            {
+                MessageBox.Show(@"Please enter a valid room number");
+
+                return;
+            }
+
+            if (apartments.Any(apartment => apartment.Number.Equals(roomNumber)))
             {
                 MessageBox.Show(@"An apartment with this number already exists. Please enter a different number.");
 
                 return;
             }
 
-            if (int.Parse(priceTextBox.Text) <= 0)
+            if (!int.TryParse(priceTextBox.Text, out var price))
+            {
+                MessageBox.Show(@"Please enter a valid price");
+
+                return;
+            }
+
+            if (price <= 0)
             {
                 MessageBox.Show(@"Please enter a correct price.");
 
@@ -85,19 +99,19 @@ namespace HotelGuestbookGUI.Administration.Apartment
 
             if (int.Parse(doubleBedsComboBox.SelectedItem.ToString()) * 2 > int.Parse(capacityComboBox.SelectedItem.ToString()))
             {
-                MessageBox.Show(@"The capacity is not enough to accomodate this number of double beds.");
+                MessageBox.Show(@"The capacity is not enough to accommodate this number of double beds.");
 
                 return;
             }
 
-            _selectedApartment.Number = int.Parse(roomNumberTextBox.Text);
-            _selectedApartment.Price = int.Parse(priceTextBox.Text);
-            _selectedApartment.Capacity = capacityComboBox.SelectedIndex + 1;
-            _selectedApartment.DoubleBeds = doubleBedsComboBox.SelectedIndex;
+            SelectedApartment.Number = int.Parse(roomNumberTextBox.Text);
+            SelectedApartment.Price = int.Parse(priceTextBox.Text);
+            SelectedApartment.Capacity = capacityComboBox.SelectedIndex + 1;
+            SelectedApartment.DoubleBeds = doubleBedsComboBox.SelectedIndex;
 
-            ApartmentProvider.UpdateApartment(_selectedApartment);
+            ApartmentProvider.UpdateApartment(SelectedApartment);
 
-            MessageBox.Show(@"Changes succesfully saved.");
+            MessageBox.Show(@"Changes successfully saved.");
 
             Close();
         }

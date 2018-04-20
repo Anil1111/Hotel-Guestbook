@@ -7,7 +7,7 @@ namespace HotelGuestbook.Classes.Person
 {
     public static class PersonProvider
     {
-        public const string ANONYMIZED_STRING = @"**********";
+        public const string AnonymizedString = @"**********";
 
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace HotelGuestbook.Classes.Person
         /// <exception cref="ArgumentException">Thrown when <paramref name="firstName"/> is null or empty.</exception>
         public static IEnumerable<PersonInfo> GetPersonsByFirstName(string firstName)
         {
-            if (String.IsNullOrEmpty(firstName))
+            if (string.IsNullOrEmpty(firstName))
             {
                 throw new ArgumentException(nameof(firstName));
             }
@@ -55,7 +55,7 @@ namespace HotelGuestbook.Classes.Person
         /// /// <exception cref="ArgumentException">Thrown when <paramref name="lastName"/> is null or empty.</exception>
         public static IEnumerable<PersonInfo> GetPersonsByLastName(string lastName)
         {
-            if (String.IsNullOrEmpty(lastName))
+            if (string.IsNullOrEmpty(lastName))
             {
                 throw new ArgumentException(nameof(lastName));
             }
@@ -71,7 +71,7 @@ namespace HotelGuestbook.Classes.Person
         /// <exception cref="ArgumentException">Thrown when <paramref name="email"/> is null or empty.</exception>
         public static PersonInfo GetPersonByEmail(string email)
         {
-            if (String.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email))
             {
                 throw new ArgumentException(nameof(email));
             }
@@ -116,11 +116,16 @@ namespace HotelGuestbook.Classes.Person
             GuestBook.Context.SaveChanges();
         }
 
+
+        /// <summary>
+        /// Anonymizes a person's personal data.
+        /// </summary>
+        /// <param name="person"></param>
         public static void AnonymizePerson(PersonInfo person)
         {
-            person.FirstName = ANONYMIZED_STRING;
-            person.LastName = ANONYMIZED_STRING;
-            person.Email = ANONYMIZED_STRING;
+            person.FirstName = AnonymizedString;
+            person.LastName = AnonymizedString;
+            person.Email = AnonymizedString;
             person.DateOfBirth = new DateTime(9999, 1, 1);
             person.Anonymized = true;
 

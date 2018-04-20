@@ -17,10 +17,9 @@ namespace HotelGuestbookGUI.Reservations
 {
     public partial class ReservationsListForm : Form
     {
-        private IEnumerable<ReservationInfo> _filteredReservations;
-
-        private bool _editMode;
-        private bool _deleteMode;
+        private IEnumerable<ReservationInfo> FilteredReservations;
+        private bool EditMode;
+        private bool DeleteMode;
 
 
         public ReservationsListForm()
@@ -38,7 +37,7 @@ namespace HotelGuestbookGUI.Reservations
 
             RefreshGui();
 
-            _filteredReservations = ReservationProvider.GetAllReservations();
+            FilteredReservations = ReservationProvider.GetAllReservations();
         }
 
 
@@ -88,7 +87,7 @@ namespace HotelGuestbookGUI.Reservations
             ToCheckBox_CheckedChanged(sender, e);
             toCheckBox.Enabled = searchCheckBox.Checked;
 
-            RefreshGui(searchCheckBox.Checked ? _filteredReservations : null, pastReservationsCheckBox.Checked);
+            RefreshGui(searchCheckBox.Checked ? FilteredReservations : null);
         }
 
 
@@ -120,7 +119,7 @@ namespace HotelGuestbookGUI.Reservations
         private void ToDateTimePicker_ValueChanged(object sender, EventArgs e) => UpdateSearch();
 
 
-        private void RefreshButton_Click(object sender, EventArgs e) => RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+        private void RefreshButton_Click(object sender, EventArgs e) => RefreshGui(FilteredReservations);
 
 
         private void ExitButton_Click(object sender, EventArgs e) => ExitApplication();
@@ -136,62 +135,62 @@ namespace HotelGuestbookGUI.Reservations
 
         private void EditToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _editMode = true;
-            _deleteMode = false;
+            EditMode = true;
+            DeleteMode = false;
 
             modeLabel.Text = @"The application is in edit mode";
 
             endEditOrDeleteModeButton.Text = @"Exit edit mode";
             endEditOrDeleteModeButton.Visible = true;
 
-            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(FilteredReservations);
         }
 
 
         private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _deleteMode = true;
-            _editMode = false;
+            DeleteMode = true;
+            EditMode = false;
 
             modeLabel.Text = @"The application is in delete mode";
 
             endEditOrDeleteModeButton.Text = @"Exit delete mode";
             endEditOrDeleteModeButton.Visible = true;
 
-            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(FilteredReservations);
         }
 
 
         private void EndEditOrDeleteModeButton_Click(object sender, EventArgs e)
         {
-            if (_editMode)
+            if (EditMode)
             {
-                _editMode = false;
+                EditMode = false;
                 endEditOrDeleteModeButton.Visible = false;
             }
 
-            if (_deleteMode)
+            if (DeleteMode)
             {
-                _deleteMode = false;
+                DeleteMode = false;
                 endEditOrDeleteModeButton.Visible = false;
             }
 
-            modeLabel.Text = String.Empty;
+            modeLabel.Text = string.Empty;
 
-            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(FilteredReservations);
         }
 
 
         private void ReservationsListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_editMode && reservationsListView.SelectedItems.Count != 0)
+            if (EditMode && reservationsListView.SelectedItems.Count != 0)
             {
                 var editReservationForm = new EditReservationForm(reservationsListView.SelectedItems[0]);
 
                 editReservationForm.Show();
             }
 
-            if (_deleteMode && reservationsListView.SelectedItems.Count != 0)
+            if (DeleteMode && reservationsListView.SelectedItems.Count != 0)
             {
                 var deleteReservationForm = new DeleteReservationForm(reservationsListView.SelectedItems[0]);
 
@@ -262,7 +261,7 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
 
         private void AnonimizedUsersCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(FilteredReservations);
         }
 
 
@@ -273,12 +272,11 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
         /// Refreshes the list of reservations.
         /// </summary>
         /// <param name="reservations">Reservations to show.</param>
-        /// <param name="showPastReservations">If true, past reservations are shown in GUI.</param>
-        private void RefreshGui(IEnumerable<ReservationInfo> reservations = null, bool showPastReservations = false)
+        private void RefreshGui(IEnumerable<ReservationInfo> reservations = null)
         {
             reservationsListView.Items.Clear();
 
-            AddReservationsToListView(reservations, showPastReservations);
+            AddReservationsToListView(reservations, pastReservationsCheckBox.Checked);
 
             AddIcons();
 
@@ -291,7 +289,7 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
         /// </summary>
         private void AddIcons()
         {
-            if (_editMode)
+            if (EditMode)
             {
                 foreach (ListViewItem item in reservationsListView.Items)
                 {
@@ -299,7 +297,7 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
                 }
             }
 
-            if (_deleteMode)
+            if (DeleteMode)
             {
                 foreach (ListViewItem item in reservationsListView.Items)
                 {
@@ -411,7 +409,7 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
         /// </summary>
         private void UpdateSearch()
         {
-            _filteredReservations = ReservationProvider.GetAllReservations();
+            FilteredReservations = ReservationProvider.GetAllReservations();
 
             if (searchCheckBox.Checked)
             {
@@ -420,7 +418,7 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
                 FilterByDate();
             }
 
-            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(FilteredReservations);
         }
 
 
@@ -433,26 +431,30 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
             {
                 case 0:
                     {
-                        _filteredReservations = ReservationProvider.GetReservationsByFirstName(searchTextBox.Text);
-                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+                        FilteredReservations = ReservationProvider.GetReservationsByFirstName(searchTextBox.Text);
+                        RefreshGui(FilteredReservations);
                         break;
                     }
                 case 1:
                     {
-                        _filteredReservations = ReservationProvider.GetReservationsByLastName(searchTextBox.Text);
-                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+                        FilteredReservations = ReservationProvider.GetReservationsByLastName(searchTextBox.Text);
+                        RefreshGui(FilteredReservations);
                         break;
                     }
                 case 2:
                     {
-                        _filteredReservations = ReservationProvider.GetReservationsByEmail(searchTextBox.Text);
-                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+                        FilteredReservations = ReservationProvider.GetReservationsByEmail(searchTextBox.Text);
+                        RefreshGui(FilteredReservations);
                         break;
                     }
                 case 3:
                     {
-                        _filteredReservations = ReservationProvider.GetReservationsByRoomNumber(Int32.Parse(searchTextBox.Text));
-                        RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+                        if (int.TryParse(searchTextBox.Text, out var roomNumber))
+                        {
+                            FilteredReservations = ReservationProvider.GetReservationsByRoomNumber(roomNumber);
+                            RefreshGui(FilteredReservations);
+                        }
+
                         break;
                     }
             }
@@ -466,15 +468,15 @@ WARNING: Sample data serves only for testing purposes. Data is saved directly to
         {
             if (fromCheckBox.Checked)
             {
-                _filteredReservations = _filteredReservations.Where(reservation => (reservation.From.Date - fromDateTimePicker.Value.Date).TotalDays >= 0);
+                FilteredReservations = FilteredReservations.Where(reservation => (reservation.From.Date - fromDateTimePicker.Value.Date).TotalDays >= 0);
             }
 
             if (toCheckBox.Checked)
             {
-                _filteredReservations = _filteredReservations.Where(reservation => (reservation.To.Date - toDateTimePicker.Value.Date).TotalDays <= 0);
+                FilteredReservations = FilteredReservations.Where(reservation => (reservation.To.Date - toDateTimePicker.Value.Date).TotalDays <= 0);
             }
 
-            RefreshGui(_filteredReservations, pastReservationsCheckBox.Checked);
+            RefreshGui(FilteredReservations);
         }
 
 

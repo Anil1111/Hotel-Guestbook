@@ -7,7 +7,7 @@ namespace HotelGuestbookGUI.Reservations.Add
 {
     public partial class AddReservationPersonalDataForm : Form
     {
-        private PersonInfo _person;
+        private PersonInfo Person;
 
 
         /// <summary>
@@ -59,11 +59,11 @@ namespace HotelGuestbookGUI.Reservations.Add
                 return;
             }
 
-            _person = PersonProvider.GetPersonByEmail(emailTextBox.Text);
+            Person = PersonProvider.GetPersonByEmail(emailTextBox.Text);
 
-            if (_person != null)
+            if (Person != null)
             {
-                SetFields(_person);
+                SetFields(Person);
 
                 emailTextBox.Enabled = false;
 

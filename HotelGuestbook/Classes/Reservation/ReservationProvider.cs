@@ -49,7 +49,7 @@ namespace HotelGuestbook.Classes.Reservation
         /// Returns all reservations till a certain date.
         /// </summary>
         /// <param name="till">Ending day.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="till"/> is null.</exception
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="till"/> is null.</exception>
         public static IEnumerable<ReservationInfo> GetAllReservationsTill(DateTime till)
         {
             if (till == null)
@@ -125,7 +125,7 @@ namespace HotelGuestbook.Classes.Reservation
         /// Saves the <paramref name="reservation"/> to the database.
         /// </summary>
         /// <param name="reservation">Reservation to be saved.</param>
-        /// <remarks>The method does nothing if <paramref name="reservation"/> is null.</remarks
+        /// <remarks>The method does nothing if <paramref name="reservation"/> is null.</remarks>
         public static void SetReservation(ReservationInfo reservation)
         {
             if (reservation is null)
@@ -134,6 +134,28 @@ namespace HotelGuestbook.Classes.Reservation
             }
 
             GuestBook.Context.Reservations.Add(reservation);
+            GuestBook.Context.SaveChanges();
+        }
+
+
+        /// <summary>
+        /// Updates the parameters of <paramref name="reservation"/>.
+        /// </summary>
+        /// <param name="reservation">Reservation to update.</param>
+        public static void UpdateReservation(ReservationInfo reservation)
+        {
+            if (reservation is null)
+            {
+                return;
+            }
+
+            var updatedReservation = GetReservationById(reservation.ReservationId);
+
+            updatedReservation.Apartment = reservation.Apartment;
+            updatedReservation.ApartmentId = reservation.ApartmentId;
+            updatedReservation.From = reservation.From;
+            updatedReservation.To = reservation.To;
+
             GuestBook.Context.SaveChanges();
         }
 

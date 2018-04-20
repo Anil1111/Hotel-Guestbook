@@ -8,6 +8,7 @@ namespace HotelGuestbookGUI
     {
         public static GuestBook HotelGuestbook { get; set; }
 
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

@@ -12,9 +12,9 @@ namespace HotelGuestbookGUI.Reservations.Add
 {
     public partial class AddReservationRoomDetailsForm : Form
     {
-        private PersonInfo _person;
-        private ApartmentInfo _selectedApartment;
-        private ReservationInfo _reservation;
+        private PersonInfo Person;
+        private ApartmentInfo SelectedApartment;
+        private ReservationInfo Reservation;
         public IEnumerable<ApartmentInfo> AvailableApartments;
 
 
@@ -45,7 +45,7 @@ namespace HotelGuestbookGUI.Reservations.Add
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            var addReservationPersonalDetailsForm = new AddReservationPersonalDataForm(_person);
+            var addReservationPersonalDetailsForm = new AddReservationPersonalDataForm(Person);
 
             addReservationPersonalDetailsForm.Show();
             Close();
@@ -54,7 +54,7 @@ namespace HotelGuestbookGUI.Reservations.Add
 
         private void ProceedButton_Click(object sender, EventArgs e)
         {
-            var addReservationReviewForm = new AddReservationReviewForm(_person, _selectedApartment, _reservation);
+            var addReservationReviewForm = new AddReservationReviewForm(Person, SelectedApartment, Reservation);
 
             addReservationReviewForm.Show();
             Close();
@@ -99,9 +99,9 @@ namespace HotelGuestbookGUI.Reservations.Add
 
         private void AvailableApartmentsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _selectedApartment = AvailableApartments.ElementAt(availableApartmentsComboBox.SelectedIndex);
+            SelectedApartment = AvailableApartments.ElementAt(availableApartmentsComboBox.SelectedIndex);
 
-            actualRoomNumberLabel.Text = _selectedApartment.Number.ToString();
+            actualRoomNumberLabel.Text = SelectedApartment.Number.ToString();
 
             proceedButton.Enabled = true;
 
@@ -109,13 +109,13 @@ namespace HotelGuestbookGUI.Reservations.Add
             {
                 From = fromDateTimePicker.Value,
                 To = toDateTimePicker.Value,
-                Person = _person,
-                PersonId = _person.PersonId,
-                Apartment = _selectedApartment,
-                ApartmentId = _selectedApartment.ApartmentId
+                Person = Person,
+                PersonId = Person.PersonId,
+                Apartment = SelectedApartment,
+                ApartmentId = SelectedApartment.ApartmentId
             };
 
-            _reservation = reservation;
+            Reservation = reservation;
 
             CheckApartmentAvailability();
         }
@@ -134,7 +134,7 @@ namespace HotelGuestbookGUI.Reservations.Add
         {
             if (person != null)
             {
-                _person = person;
+                Person = person;
 
                 nameLabel.Text = person.FirstName + @" " + person.LastName;
                 emailLabel.Text = person.Email;
@@ -192,9 +192,9 @@ namespace HotelGuestbookGUI.Reservations.Add
         /// </summary>
         private void UpdatePriceLabel()
         {
-            if (_selectedApartment != null)
+            if (SelectedApartment != null)
             {
-                totalPriceLabel.Text = _selectedApartment.Price * Math.Round((toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays) + @" EUR";
+                totalPriceLabel.Text = SelectedApartment.Price * Math.Round((toDateTimePicker.Value - fromDateTimePicker.Value).TotalDays) + @" EUR";
             }
         }
 
@@ -204,7 +204,7 @@ namespace HotelGuestbookGUI.Reservations.Add
         /// </summary>
         private void CheckApartmentAvailability()
         {
-            if (_selectedApartment == null)
+            if (SelectedApartment == null)
             {
                 return;
             }
@@ -212,7 +212,7 @@ namespace HotelGuestbookGUI.Reservations.Add
             var start = fromDateTimePicker.Value.Date;
             var end = toDateTimePicker.Value.Date;
 
-            var reservations = _selectedApartment.GetAllReservationsForApartment().ToList();
+            var reservations = SelectedApartment.GetAllReservationsForApartment().ToList();
 
             foreach (var reservation in reservations)
             {

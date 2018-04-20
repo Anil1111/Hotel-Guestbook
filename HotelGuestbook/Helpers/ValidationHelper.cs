@@ -21,6 +21,24 @@ namespace HotelGuestbook.Helpers
 
 
         /// <summary>
+        /// Returns the age of the person from a specified birth date.
+        /// </summary>
+        /// <param name="birthDate">Person's date of birth.</param>
+        private static int GetAge(DateTime birthDate)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - birthDate.Year;
+
+            if (birthDate > today.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
+        }
+
+
+        /// <summary>
         /// Returns true if the email is in valid format.
         /// </summary>
         /// <param name="email">Email to check.</param>
@@ -51,24 +69,6 @@ namespace HotelGuestbook.Helpers
         public static bool IsValidName(string name)
         {
             return !(string.IsNullOrEmpty(name));
-        }
-
-
-        /// <summary>
-        /// Returns the age of the person from a specified birth date.
-        /// </summary>
-        /// <param name="birthDate">Persons date of birth.</param>
-        private static int GetAge(DateTime birthDate)
-        {
-            var today = DateTime.Today;
-            var age = today.Year - birthDate.Year;
-
-            if (birthDate > today.AddYears(-age))
-            {
-                age--;
-            }
-
-            return age;
         }
     }
 }
